@@ -14,7 +14,18 @@ export default defineNuxtConfig({
 				{ name: "format-detection", content: "telephone=no" },
 				{ charset: "utf-8" },
 			],
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous', },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900&display=swap' }
+      ]
 		},
+	},
+
+  ssr: false,
+
+	devServer: {
+		port: 3001,
 	},
   
   runtimeConfig: {
@@ -29,11 +40,13 @@ export default defineNuxtConfig({
 
   modules: [
     '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt'
+    '@pinia-plugin-persistedstate/nuxt',
+    '@nuxt/ui'
   ],
 
   imports: {
     presets: [
+      { from: '@/utils/stores/app', imports: ['useAppStore'] },
       { from: '@/utils/stores/auth', imports: ['useAuthStore'] }
     ]
   },
@@ -45,6 +58,14 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+
+  ui: {
+    global: true
+  },
+
+  colorMode: {
+    preference: 'light'
   },
 
   vite: {
