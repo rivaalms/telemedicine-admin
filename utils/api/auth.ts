@@ -1,8 +1,8 @@
 const ID_USER_PARSE = 'yuydgwcfe2783y8732djbhfcehj'
 const DEVICE_ID = 'yuydgwcfe2783y8732djbhfcehj'
 
-export async function login (payload: any) : Promise <any> {
-   const response = await $fetch <any> (`/auth/login`, {
+export async function login (payload: API.Payload.Login) : Promise <Model.User> {
+   const response = await $fetch <API.Response<Model.User>> (`/auth/login`, {
       method: 'POST',
       body: payload,
       headers: {

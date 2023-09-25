@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import * as Auth from '@/utils/api/auth'
 
-export const useAuthStore : any = defineStore('auth', {
+export const useAuthStore = defineStore('auth', {
    persist: true,
 
-   state: () : any => ({
+   state: () : AuthState => ({
       user: null,
    }),
 
@@ -12,20 +12,18 @@ export const useAuthStore : any = defineStore('auth', {
       getUser: (state) : any => state.user,
       isLoggedIn: (state) : boolean => !!state.user,
       getRole: (state) : string => {
-         if (state.user?.ref_type === "App\\Model\\MedicalFacility" && state.user?.role) return state.user!.role.name
+         if (state.user?.ref_type === "App\\Model\\MedicalFacility" && state.user?.role) return state.user.role.name!
          return 'superAdmin'
       }
    },
 
    actions: {
-      async login(payload: any) {
+      async login(payload: API.Payload.Login) {
          if (this.isLoggedIn) return
 
          return await Auth.login(payload)
-            .then((resp: any) => {
-               const user = resp.data
-
-               if (!user.ref_type || user.ref_type === "App\\Model\\MedicalFacility") this.user = user
+            .then((resp: Model.User) => {
+               if (!resp.ref_type || resp.ref_type === "App\\Model\\MedicalFacility") this.user = resp
                else return alert('akun tidak terdaftar')
             })
       },
@@ -45,3 +43,7 @@ export const useAuthStore : any = defineStore('auth', {
       }
    },
 })
+
+interface AuthState {
+   user: Model.User | null
+}
