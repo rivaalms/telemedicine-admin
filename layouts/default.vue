@@ -9,6 +9,7 @@
 
       <div class="relative flex-1 overflow-y-auto bg-gray-100 flex flex-col">
          <main class="flex-grow p-2">
+            <app-title/>
             <slot/>
          </main>
          <app-footer />
