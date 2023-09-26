@@ -26,15 +26,15 @@ const store = useAppStore()
 store.title = 'Emergency'
 useHead({ title: store.getTitle })
 
-const data : Ref<any> = ref([])
+const data : Ref<Model.Emergency[] | []> = ref([])
 const filter = ref({
    status: 'All'
 })
 
 onBeforeMount(async () => {
    await GetEmergency()
-      .then((resp: any) => {
-         data.value = resp.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .then((resp) => {
+         data.value = resp.sort((a, b) => new Date(b.created_at!).getTime() - new Date(a.created_at!).getTime())
       })
 })
 </script>

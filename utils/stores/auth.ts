@@ -22,7 +22,7 @@ export const useAuthStore = defineStore('auth', {
          if (this.isLoggedIn) return
 
          return await Auth.login(payload)
-            .then((resp: Model.User) => {
+            .then((resp: Model.Auth) => {
                if (!resp.ref_type || resp.ref_type === "App\\Model\\MedicalFacility") this.user = resp
                else return alert('akun tidak terdaftar')
             })
@@ -45,5 +45,5 @@ export const useAuthStore = defineStore('auth', {
 })
 
 interface AuthState {
-   user: Model.User | null
+   user: Model.Auth | null
 }

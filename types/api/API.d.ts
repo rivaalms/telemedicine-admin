@@ -1,5 +1,5 @@
 declare namespace API {
-   interface Response <T> {
+   type Response <T> = {
       code?: number | string
       success?: boolean
       messages?: string | null
@@ -7,12 +7,12 @@ declare namespace API {
    }
    
    module Payload {
-      interface Login {
+      type Login = {
          email: string
          password: string
       }
       
-      interface ForgotPasswordByPhoneNumber {
+      type ForgotPasswordByPhoneNumber = {
          phone_number?: number | string
          password?: string
          password_confirmation?: string
