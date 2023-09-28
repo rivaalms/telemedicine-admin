@@ -16,6 +16,10 @@ export const useRoutes = [
          {
             label: 'Dokter',
             to: '/users/doctors/list',
+         },
+         {
+            label: 'Pasien',
+            to: '/users/patient'
          }
       ]
    }
