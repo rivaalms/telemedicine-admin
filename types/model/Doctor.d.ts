@@ -1,6 +1,7 @@
 declare namespace Model {
    type Doctor = {
       uuid?: string
+      name?: string
       full_name?: string
       email?: string | null
       phone_number?: number | string
@@ -32,6 +33,7 @@ declare namespace Model {
       tags?: any,
       doctor_specialists?: Model.DoctorSpecialist[] | null
       doctor_schedules?: Model.DoctorSchedule[] | null
+      created_at?: string | null
    }
 
    type DoctorEducation = {

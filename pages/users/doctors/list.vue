@@ -38,7 +38,7 @@ const fetchDoctorList = async () => {
          if (search.value && search.value.length > 0) {
             response = response.filter(value => {
                const match =
-                  (value.full_name?.toLowerCase().includes(search.value!.toLowerCase())) ||
+                  (value.name?.toLowerCase().includes(search.value!.toLowerCase())) ||
                   (value.no_str?.toLowerCase().includes(search.value!.toLowerCase()))
                return match
             })
