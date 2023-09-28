@@ -17,6 +17,17 @@
       <template #created_at-data="{ row }">
          {{ formatDate(row.created_at) }}
       </template>
+
+      <template #actions-data="{ row }">
+         <u-tooltip text="Detail">
+            <u-button
+               variant="ghost"
+               icon="i-heroicons-eye-solid"
+               @click.stop="$emit('fetch-data', row)"
+            ></u-button>
+         </u-tooltip>
+      </template>
+      
    </u-table>
 
    <div class="flex justify-between mt-4">
@@ -52,6 +63,8 @@ const prop = defineProps([
    'filter'
 ])
 
+const emit = defineEmits(['fetch-data'])
+
 const page = ref(1)
 const perPageOptions : ComputedRef<any> = computed(() => [
    { label: '10', value: 10 },
@@ -64,14 +77,16 @@ const search : Ref <string | undefined> = ref('')
 
 const data = computed(() => {
    let rows = prop.rows
-   if (prop.filter.status !== 'All') rows = rows.filter((value: any) => value.status === prop.filter.status)
+   if (prop.filter && prop.filter.status !== 'All') rows = rows.filter((value: any) => value.status === prop.filter.status)
    if (search.value!.length > 0) {
       rows = rows.filter((value: any) => {
          const match =
             (value.request_by && value.request_by.full_name?.toLowerCase().includes(search.value?.toLowerCase())) ||
             (value.request_by && value.request_by.phone_number?.toLowerCase().includes(search.value?.toLowerCase())) ||
             (value.patient && value.patient.patient_name?.toLowerCase().includes(search.value?.toLowerCase())) ||
-            (value.patient && value.patient.patient_nik?.toLowerCase().includes(search.value?.toLowerCase()))
+            (value.patient && value.patient.patient_nik?.toLowerCase().includes(search.value?.toLowerCase())) ||
+            (value.no_str?.toLowerCase().includes(search.value?.toLowerCase())) ||
+            (value.name?.toLowerCase().includes(search.value?.toLowerCase()))
          return match
       })
    }
