@@ -27,11 +27,4 @@ declare namespace Model {
       mobile_id?: string | null
       nik?: string | null
    }
-
-   type Patient = {
-      patient_nik?: string | number
-      patient_name?: string | null
-      patient_gender?: string | null
-      patient_telp?: string | number | null
-   }
 }
