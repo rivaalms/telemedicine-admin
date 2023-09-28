@@ -4,6 +4,7 @@
          <u-input
             v-model="search"
             placeholder="Cari..."
+            @keyup.enter="emitData"
          ></u-input>
       </div>
 
@@ -13,6 +14,7 @@
    <u-table
       :columns="prop.columns"
       :rows="data"
+      :loading="prop.loading"
    >
       <template #created_at-data="{ row }">
          {{ formatDate(row.created_at) }}
@@ -23,7 +25,7 @@
             <u-button
                variant="ghost"
                icon="i-heroicons-eye-solid"
-               @click.stop="$emit('fetch-data', row)"
+               @click.stop="$emit('emit-row', row)"
             ></u-button>
          </u-tooltip>
       </template>
@@ -38,6 +40,7 @@
             :options="perPageOptions"
             value-attribute="value"
             option-attribute="label"
+            @update:model-value="emitData"
          >
             <template #label>
                {{ perPage.toString() }}
@@ -49,7 +52,8 @@
       <u-pagination
          v-model="page"
          :page-count="perPage"
-         :total="dataLength"
+         :total="prop.dataLength"
+         @update:model-value="emitData"
       ></u-pagination>
    </div>
 </template>
@@ -60,10 +64,12 @@ import moment from 'moment'
 const prop = defineProps([
    'columns',
    'rows',
-   'filter'
+   'filter',
+   'dataLength',
+   'loading'
 ])
 
-const emit = defineEmits(['fetch-data'])
+const emit = defineEmits(['fetch-data', 'emit-row'])
 
 const page = ref(1)
 const perPageOptions : ComputedRef<any> = computed(() => [
@@ -75,26 +81,9 @@ const perPageOptions : ComputedRef<any> = computed(() => [
 const perPage = ref(perPageOptions.value[0].value)
 const search : Ref <string | undefined> = ref('')
 
-const data = computed(() => {
-   let rows = prop.rows
-   if (prop.filter && prop.filter.status !== 'All') rows = rows.filter((value: any) => value.status === prop.filter.status)
-   if (search.value!.length > 0) {
-      rows = rows.filter((value: any) => {
-         const match =
-            (value.request_by && value.request_by.full_name?.toLowerCase().includes(search.value?.toLowerCase())) ||
-            (value.request_by && value.request_by.phone_number?.toLowerCase().includes(search.value?.toLowerCase())) ||
-            (value.patient && value.patient.patient_name?.toLowerCase().includes(search.value?.toLowerCase())) ||
-            (value.patient && value.patient.patient_nik?.toLowerCase().includes(search.value?.toLowerCase())) ||
-            (value.no_str?.toLowerCase().includes(search.value?.toLowerCase())) ||
-            (value.name?.toLowerCase().includes(search.value?.toLowerCase()))
-         return match
-      })
-   }
-   dataLength.value = rows.length
-   return rows.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
-})
-
-const dataLength = ref(prop.rows.length)
+const data = computed(() => prop.rows)
 
 const formatDate = (date: string) => moment(date).format('DD/MM/YYYY HH:mm')
+
+const emitData = () => emit('fetch-data', search.value, page.value, perPage.value)
 </script>

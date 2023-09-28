@@ -6,6 +6,7 @@ export const useEmergencyTableHeader = [
    { key: 'patient.patient_gender', label: 'Jenis Kelamin Pasien' },
    { key: 'created_at', label: 'Tanggal' },
    { key: 'status', label: 'Status' },
+   { key: 'actions', label: '' }
 ]
 
 export const useFilterStatusOptions = [
