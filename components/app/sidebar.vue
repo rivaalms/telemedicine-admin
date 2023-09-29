@@ -5,9 +5,7 @@
    >
       <template #default="{ link }">
          <div class="relative text-left w-full">
-            <div class="mb-2">
-               {{ link.label }}
-            </div>
+            {{ link.label }}
             <u-vertical-navigation
                v-if="link.children"
                :links="link.children"
