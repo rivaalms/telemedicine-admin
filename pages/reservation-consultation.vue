@@ -1,5 +1,5 @@
 <template>
-<u-card>
+<u-card class="overflow-visible">
    <app-data-table
       :columns="useReservationTableHeader"
       :rows="data"
@@ -25,6 +25,7 @@
             <vue-date-picker
                v-model="filters.start_date"
                auto-apply
+               :max-date="new Date(filters.end_date)"
                @update:model-value="fetchReservation()"
             >
                <template #trigger>
@@ -43,6 +44,7 @@
             <vue-date-picker
                v-model="filters.end_date"
                auto-apply
+               :min-date="new Date(filters.start_date)"
                @update:model-value="fetchReservation()"
             >
                <template #trigger>
