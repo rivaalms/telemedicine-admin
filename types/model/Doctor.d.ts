@@ -12,6 +12,8 @@ declare namespace Model {
       banned_at?: string | null
       banned_reason?: string | null
       status?: string | null
+      device_id?: string | null
+      mobile_id?: string | null
       no_str?: string
       str_date?: string | null
       sip_date?: string | null

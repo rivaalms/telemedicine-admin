@@ -1,6 +1,7 @@
 declare namespace Model {
    type Patient = {
       uuid?: string | null
+      name?: string | null
       full_name?: string | null
       email?: string | null
       phone_number?: string | number | null
@@ -18,6 +19,7 @@ declare namespace Model {
       map_lat?: string | null
       map_lng?: string | null
       device_id?: string | null
+      mobile_id?: string | null
       GL_AccountNo?: string | number | null
       last_activity?: string | number | null
       created_at?: string | null

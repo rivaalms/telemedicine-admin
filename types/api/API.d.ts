@@ -17,5 +17,11 @@ declare namespace API {
          password?: string
          password_confirmation?: string
       }
+
+      type ReservationConsultationPayload = {
+         status?: string | null
+         start_date?: string | null
+         end_date?: string | null
+      }
    }
 }

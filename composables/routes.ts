@@ -12,6 +12,10 @@ export const useRoutes : Router[] = [
       // icon: 'i-heroicons-exclamation-triangle'
    },
    {
+      label: 'Reservasi Konsultasi',
+      to: '/reservation-consultation',
+   },
+   {
       label: 'Users',
       // icon: 'i-heroicons-users',
       children: [
