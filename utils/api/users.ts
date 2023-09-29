@@ -11,3 +11,10 @@ export async function getOfficers () : Promise <Model.Officer[]> {
    })
    return response.data!
 }
+
+export async function getNurses () : Promise <Model.Nurse[]> {
+   const response = await $fetch <API.Response <Model.Nurse[]>> (`/nurses`, {
+      method: 'GET'
+   })
+   return response.data!
+}

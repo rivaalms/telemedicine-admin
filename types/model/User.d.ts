@@ -58,4 +58,6 @@ declare namespace Model {
       employee_no?: string | number | null
       position?: string | null
    }
+
+   type Nurse = Pick <User, 'uuid' | 'full_name' | 'email' | 'phone_number' | 'status' | 'gender' | 'created_at' | 'updated_at'>
 }

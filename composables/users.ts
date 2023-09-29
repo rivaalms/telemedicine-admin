@@ -13,3 +13,11 @@ export const useOfficerTableHeader = [
    { key: 'position', label: 'Posisi' },
    { key: 'created_at', label: 'Tgl. Registrasi' }
 ]
+
+export const useNurseTableHeader = [
+   { key: 'full_name', label: 'Nama' },
+   { key: 'gender', label: 'Jenis Kelamin' },
+   { key: 'email', label: 'Email' },
+   { key: 'phone_number', label: 'No. Telepon' },
+   { key: 'status', label: 'Status' },
+]

@@ -24,6 +24,10 @@ export const useRoutes : Router[] = [
             to: '/users/patient'
          },
          {
+            label: 'Perawat',
+            to: '/users/nurse'
+         },
+         {
             label: 'Officer',
             to: '/users/officers'
          },
