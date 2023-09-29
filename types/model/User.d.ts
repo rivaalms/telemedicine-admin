@@ -53,4 +53,9 @@ declare namespace Model {
       last_token?: string | null
       role_id?: number | null
    }
+
+   type Officer = Pick <User, 'uuid' | 'full_name' | 'email' | 'phone_number' | 'created_at'> & {
+      employee_no?: string | number | null
+      position?: string | null
+   }
 }
