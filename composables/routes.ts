@@ -32,6 +32,10 @@ export const useRoutes : Router[] = [
             to: '/users/admin'
          }
       ]
+   },
+   {
+      label: 'Ambulance',
+      to: '/ambulance'
    }
 ]
 
