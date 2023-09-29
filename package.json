@@ -14,6 +14,7 @@
     "nuxt": "^3.7.3"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.79",
     "@nuxt/ui": "^2.8.1",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
     "@pinia/nuxt": "^0.4.11",

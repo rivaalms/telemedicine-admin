@@ -27,6 +27,10 @@ export default defineNuxtConfig({
 	devServer: {
 		port: 3001,
 	},
+
+  build: {
+    transpile: ['@fawmi/vue-google-maps']
+  },
   
   runtimeConfig: {
     public: {
@@ -34,7 +38,9 @@ export default defineNuxtConfig({
       apiDokterUrl: '',
       parseUrl: '',
       faskesId: '',
-      clientDomain: ''
+      clientDomain: '',
+      parseKey: '',
+      gmapKey: ''
     }
   },
 
