@@ -17,6 +17,42 @@
                @update:model-value="fetchReservation()"
             ></u-select-menu>
          </u-form-group>
+
+         <u-form-group
+            label="Start date"
+            class="col-span-2"
+         >
+            <vue-date-picker
+               v-model="filters.start_date"
+               auto-apply
+               @update:model-value="fetchReservation()"
+            >
+               <template #trigger>
+                  <u-input
+                     :model-value="moment(filters.start_date).format('YYYY-MM-DD')"
+                     readonly="readonly"
+                  ></u-input>
+               </template>
+            </vue-date-picker>
+         </u-form-group>
+
+         <u-form-group
+            label="End date"
+            class="col-span-2"
+         >
+            <vue-date-picker
+               v-model="filters.end_date"
+               auto-apply
+               @update:model-value="fetchReservation()"
+            >
+               <template #trigger>
+                  <u-input
+                     :model-value="moment(filters.end_date).format('YYYY-MM-DD')"
+                     readonly="readonly"
+                  ></u-input>
+               </template>
+            </vue-date-picker>
+         </u-form-group>
       </template>
    </app-data-table>
 </u-card>
@@ -24,6 +60,8 @@
 
 <script setup lang="ts">
 import { get as GetReservation } from '@/utils/api/reservation-consultation'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 import moment from 'moment'
 
 const store = useAppStore()
@@ -80,3 +118,9 @@ const emitHandler = async (emitSearch: string, emitPage: number, emitPerPage: nu
    await fetchReservation()
 }
 </script>
+
+<style>
+.dp__theme_dark, .dp__theme_light {
+   --dp-primary-color: #e44f4f;
+}
+</style>
