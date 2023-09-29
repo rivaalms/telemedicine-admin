@@ -1,12 +1,14 @@
-export const useRoutes = [
+export const useRoutes : Router[] = [
    {
       label: 'Beranda',
       to: '/',
+      children: null
       // icon: 'i-heroicons-home',
    },
    {
       label: 'Emergency',
       to: '/emergency',
+      children: null
       // icon: 'i-heroicons-exclamation-triangle'
    },
    {
@@ -24,3 +26,10 @@ export const useRoutes = [
       ]
    }
 ]
+
+type Router = {
+   label: string
+   to?: string
+   children?: Router[] | null
+   icon?: string
+}
