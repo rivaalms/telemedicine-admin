@@ -44,6 +44,23 @@ export const useRoutes : Router[] = [
    {
       label: 'Ambulance',
       to: '/ambulance'
+   },
+   {
+      label: 'Data Master',
+      children: [
+         {
+            label: 'Spesialis Dokter',
+            to: '/masters/doctors-specialists'
+         },
+         {
+            label: 'Data Iklan',
+            to: '/masters/advertisements'
+         },
+         {
+            label: 'Voucher',
+            to: '/masters/vouchers'
+         }
+      ]
    }
 ]
 
