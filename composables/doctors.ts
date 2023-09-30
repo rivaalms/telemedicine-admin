@@ -7,10 +7,23 @@ export const useDoctorsTableHeader = [
    { key: 'actions' }
 ]
 
+// NOTE: Used for doctor's schedule table on Doctor Profile page
 export const useDoctorSchedulesTableHeader = [
    { key: 'day', label: 'Hari' },
    { key: 'start_time', label: 'Jam Mulai' },
    { key: 'end_time', label: 'Jam Berakhir' }
+]
+
+// NOTE: Used for doctor's schedules on Doctor Schedules page
+export const usePageDoctorSchedulesTableHeader = [
+   { key: 'full_name', label: 'Nama' },
+   { key: 'sun', label: 'Minggu' },
+   { key: 'mon', label: 'Senin' },
+   { key: 'tue', label: 'Selasa' },
+   { key: 'wed', label: 'Rabu' },
+   { key: 'thu', label: 'Kamis' },
+   { key: 'fri', label: 'Jumat' },
+   { key: 'sat', label: 'Sabtu' },
 ]
 
 export const useParseDay = (day: number | string) => {

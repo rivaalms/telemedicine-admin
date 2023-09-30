@@ -11,3 +11,10 @@ export async function getByStr (noStr: string | number) : Promise <Model.Doctor>
    })
    return response.data!
 }
+
+export async function getDoctorSchedules () : Promise <Model.PageDoctorSchedule[]> {
+   const response = await $fetch <API.Response <Model.PageDoctorSchedule[]>> (`/doctor-schedules`, {
+      method: 'GET'
+   })
+   return response.data!
+}

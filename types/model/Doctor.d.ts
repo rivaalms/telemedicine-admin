@@ -76,4 +76,8 @@ declare namespace Model {
       end_time?: string | null
       kuota?: string | number | null
    }
+
+   type PageDoctorSchedule = Pick <Model.Doctor, 'uuid' | 'full_name'> & {
+      schedules?: DoctorSchedule[]
+   }
 }
