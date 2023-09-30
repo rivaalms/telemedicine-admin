@@ -43,6 +43,9 @@
 
 <script setup lang="ts">
 import moment from 'moment'
+const store = useAppStore()
+store.title = 'Logs Report: Konsultasi'
+useHead({ title: store.getTitle })
 
 const consultations = useParse.Object.extend('Consultation_logs')
 const parseQuerySubs : Ref <any> = ref(await (new useParse.Query(consultations)).subscribe())

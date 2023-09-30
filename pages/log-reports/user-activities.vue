@@ -41,6 +41,9 @@
 
 <script setup lang="ts">
 import moment from 'moment'
+const store = useAppStore()
+store.title = 'Logs Report: Aktivitas User'
+useHead({ title: store.getTitle })
 
 const userActivity = useParse.Object.extend('User_activity_logs')
 const parseQuerySubs : Ref <any> = ref(await (new useParse.Query(userActivity)).subscribe())
