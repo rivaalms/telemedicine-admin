@@ -80,6 +80,10 @@ export const useRoutes : Router[] = [
          {
             label: 'Aktivitas User',
             to: '/log-reports/user-activities'
+         },
+         {
+            label: 'Konsultasi',
+            to: '/log-reports/consultations'
          }
       ]
    }
