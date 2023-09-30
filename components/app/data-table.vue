@@ -1,6 +1,9 @@
 <template>
    <div class="grid grid-cols-12 gap-4 mb-4">
-      <div class="col-span-3 flex flex-col justify-end">
+      <div
+         v-if="!prop.hideSearchInput"
+         class="col-span-3 flex flex-col justify-end"
+      >
          <u-input
             v-model="search"
             placeholder="Cari..."
@@ -61,13 +64,14 @@
 <script setup lang="ts">
 import moment from 'moment'
 
-const prop = defineProps([
-   'columns',
-   'rows',
-   'filter',
-   'dataLength',
-   'loading'
-])
+const prop = defineProps<{
+   columns: any
+   rows: any
+   filter?: any
+   dataLength: number
+   loading: boolean
+   hideSearchInput?: boolean
+}>()
 
 const emit = defineEmits(['fetch-data', 'emit-row'])
 
