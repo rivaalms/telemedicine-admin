@@ -3,7 +3,7 @@
    <app-header class=" left-0 top-0"/>
 
    <div class="flex h-[calc(100dvh-56px)] overflow-hidden">
-      <aside class="absolute left-0 top-0 z-50 h-[calc(100dvh-56px)] lg:static lg:translate-x-0 w-60 px-2 py-2 border-r-[1px]">
+      <aside class="absolute left-0 top-0 z-50 h-[calc(100dvh-56px)] lg:static lg:translate-x-0 w-60 px-2 py-2 border-r-[1px] overflow-y-auto">
          <app-sidebar/>
       </aside>
 
