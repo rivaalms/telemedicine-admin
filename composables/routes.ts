@@ -69,6 +69,10 @@ export const useRoutes : Router[] = [
    {
       label: 'Settings',
       to: '/settings'
+   },
+   {
+      label: 'Template Chat',
+      to: '/template-chats'
    }
 ]
 
