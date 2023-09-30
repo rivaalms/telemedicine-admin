@@ -23,7 +23,10 @@ export const useAuthStore = defineStore('auth', {
 
          return await Auth.login(payload)
             .then((resp: Model.Auth) => {
-               if (!resp.ref_type || resp.ref_type === "App\\Model\\MedicalFacility") this.user = resp
+               if (!resp.ref_type || resp.ref_type === "App\\Model\\MedicalFacility") {
+                  this.user = resp
+                  localStorage.setItem('user', JSON.stringify(this.user))
+               }
                else return alert('akun tidak terdaftar')
             })
       },
@@ -31,6 +34,7 @@ export const useAuthStore = defineStore('auth', {
       async logout() {
          if (this.isLoggedIn) await Auth.logout()
          this.user = null
+         if (localStorage.getItem('user')) localStorage.removeItem('user')
          return Promise.resolve(null)
       },
 
