@@ -73,6 +73,15 @@ export const useRoutes : Router[] = [
    {
       label: 'Template Chat',
       to: '/template-chats'
+   },
+   {
+      label: 'Logs Report',
+      children: [
+         {
+            label: 'Aktivitas User',
+            to: '/log-reports/user-activities'
+         }
+      ]
    }
 ]
 

@@ -5,6 +5,11 @@ declare namespace API {
       messages?: string | null
       data?: T
    }
+
+   type LogResponse <T> = {
+      results?: T
+      count?: number
+   }
    
    module Payload {
       type Login = {
