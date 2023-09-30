@@ -25,6 +25,15 @@ declare namespace Model {
          updatedAt?: string | null
       }
 
+      type Emergency = {
+         objectId?: string | null
+         patient_email?: string | null
+         emergency_type?: string | null
+         status?: string | null
+         createdAt?: string | null
+         updatedAt?: string | null
+      }
+
       type UpdatedAt = {
          __type?: string | null
          iso?: string | null

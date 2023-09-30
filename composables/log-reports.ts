@@ -10,3 +10,10 @@ export const useConsultationTableHeaders = [
    { key: 'status', label: 'Status' },
    { key: 'updatedAt', label: 'Update Terakhir' }
 ]
+
+export const useEmergencyLogTableHeaders = [
+   { key: 'patient_email', label: 'Email Pasien' },
+   { key: 'emergency_type', label: 'Tipe Emergency' },
+   { key: 'status', label: 'Status' },
+   { key: 'updatedAt', label: 'Update Terakhir' }
+]
