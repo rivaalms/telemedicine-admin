@@ -7,12 +7,14 @@ export default defineNuxtPlugin((nuxtApp) => {
    globalThis.$fetch = ofetch.create({
       baseURL: `${config.public.apiBaseUrl}`,
 
-      async onRequest({ options, error }: any) {
+      async onRequest({ options, error }) {
          if (authStore.isLoggedIn) {
-            options.headers = {
+            const headers = {
+               ...options.headers,
                'Authorization': `Bearer ${authStore.getUser['AUTH-TOKEN']}`,
                'Accept': 'application/json'
             }
+            options.headers = headers
          }
 
          if (error) throw error
@@ -28,8 +30,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
 
       async onResponseError({ response }: any) {
-         // const errorMessageFromApi = response._data.data.message || response._data.data.messages || null
-         console.log('ofetchOnResponseError', response)
          if (response.status == 401) {
             authStore.$reset()
             if (localStorage.getItem('user')) localStorage.removeItem('user')
