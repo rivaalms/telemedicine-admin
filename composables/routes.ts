@@ -61,6 +61,14 @@ export const useRoutes : Router[] = [
             to: '/masters/vouchers'
          }
       ]
+   },
+   {
+      label: 'Jadwal Dokter',
+      to: '/doctors-schedules'
+   },
+   {
+      label: 'Settings',
+      to: '/settings'
    }
 ]
 
