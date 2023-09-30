@@ -14,7 +14,7 @@
 const userActivity = useParse.Object.extend('User_activity_logs')
 const parseQuerySubs : Ref <any> = ref(await (new useParse.Query(userActivity)).subscribe())
 
-const data : Ref <Model.Master.Voucher[]> = ref([])
+const data : Ref <Model.LogsReport.UserActivity[]> = ref([])
 const dataLength : Ref <number> = ref(0)
 const loading : Ref <boolean> = ref(false)
 const search : Ref <string | null> = ref(null)
@@ -42,11 +42,11 @@ const fetchUserActivity = async () => {
    query.withCount()
 
    await query.find()
-      .then((resp: any) => {
+      .then((resp: API.ParseResponse <Model.LogsReport.UserActivity[]>) => {
          const { count, results } = resp
          const resultMap = results.map((item: any) => item.toJSON())
          data.value = resultMap
-         dataLength.value = count
+         dataLength.value = count!
       })
       .finally(() => {
          loading.value = false

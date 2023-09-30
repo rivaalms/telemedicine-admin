@@ -6,8 +6,8 @@ declare namespace API {
       data?: T
    }
 
-   type LogResponse <T> = {
-      results?: T
+   type ParseResponse <T> = {
+      results: T
       count?: number
    }
    
