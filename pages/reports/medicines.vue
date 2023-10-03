@@ -51,7 +51,7 @@
    </div>
 
    <div class="relative overflow-x-auto">
-      <table class="min-w-full table-fixed divide-y divide-gray-300 dark:divide-gray-700">
+      <table class="min-w-full table-fixed divide-y divide-gray-300 dark:divide-gray-700" id="dataTable">
          <thead>
             <tr>
                <th
