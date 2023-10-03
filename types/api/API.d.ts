@@ -48,5 +48,10 @@ declare namespace API {
          start_date: string
          end_date: string
       }
+
+      type DateRangePayload = {
+         start_date: string
+         end_date: string
+      }
    }
 }

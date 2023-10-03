@@ -12,6 +12,22 @@ export const useConsultationReportsTableHeader = [
    { key: 'total', label: 'Biaya' }
 ]
 
+export const useMedicinePurchasesTableHeader = [
+   { key: 'transaction.transaction_number', label: 'No. Transaksi' },
+   { key: 'order_date', label: 'Tanggal' },
+   { key: 'customer.full_name', label: 'Nama Pasien' },
+   { key: 'order_detail.medicine_name', label: 'Nama Obat' },
+   { key: 'order_detail.qty', label: 'Jumlah' },
+   { key: 'order_detail.unit', label: 'Satuan' },
+   { key: 'order_detail.price', label: 'Harga' },
+   { key: '', label: 'Total Harga' },
+   { key: 'medicine_amount', label: 'Subtotal' },
+   { key: 'delivery_amount', label: 'Ongkir' },
+   { key: 'voucher_amount', label: 'Voucher' },
+   { key: 'total', label: 'Total' }
+
+]
+
 export function useExportExcel (title: string, filter: API.Payload.DateRangePayload) {
    const refTable = document.getElementById('dataTable')
    const workbook = XLSX.utils.table_to_book(refTable)
