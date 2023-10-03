@@ -105,6 +105,10 @@ export const useRoutes : Router[] = [
          {
             label: 'Laporan Emergency',
             to: '/reports/emergency'
+         },
+         {
+            label: 'Laporan Driver Emergency',
+            to: '/reports/emergency-officers'
          }
       ]
    }

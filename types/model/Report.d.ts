@@ -41,5 +41,12 @@ declare namespace Model {
          ambulance?: Model.Ambulance
          transaction?: Model.Transaction
       }
+
+      type Officer = {
+         employee_no?: string | null
+         name?: string | null
+         gender?: "L" | "P" | null
+         trans_summary?: number | null
+      }
    }
 }

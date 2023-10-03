@@ -33,3 +33,11 @@ export async function getEmergencies (payload: API.Payload.DateRangePayload) : P
    })
    return response.data!.data
 }
+
+export async function getEmergencyOfficers (payload: API.Payload.DateRangePayload) : Promise <Model.Report.Officer[]> {
+   const response = await $fetch <API.Response <Model.Report.Officer[]>> (`/emergency-summary-officers`, {
+      method: 'GET',
+      query: payload
+   })
+   return response.data!
+}
