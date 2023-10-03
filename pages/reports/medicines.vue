@@ -43,6 +43,7 @@
          <u-button
             color="emerald"
             icon="i-heroicons-document-arrow-down"
+            :disabled="data.length < 1"
             @click.stop="useExportExcel('MedicinePurchases', filter)"
          >
             Export Excel
@@ -63,84 +64,97 @@
             </tr>
          </thead>
          <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
-            <tr v-for="item in data">
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.transaction?.transaction_number }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.order_date }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.order_date }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.customer?.full_name }}
-               </td>
-
-               <template v-if="item.order_detail!.length > 1">
-                  <tr v-for="detail in item.order_detail">
-                     <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                        {{ detail.medicine_name }}
-                     </td>
-                     <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                        {{ detail.qty }}
-                     </td>
-                     <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                        {{ detail.unit }}
-                     </td>
-                     <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                        {{ parseCurrency(detail.price!) }}
-                     </td>
-                  </tr>
-               </template>
-
-               <template v-else>
-                  <template v-for="detail in item.order_detail">
-                     <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                        {{ detail.medicine_name }}
-                     </td>
-                     <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                        {{ detail.qty }}
-                     </td>
-                     <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                        {{ detail.unit }}
-                     </td>
-                     <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                        {{ parseCurrency(detail.price!) }}
-                     </td>
+            <template v-if="data.length > 0">
+               <tr v-for="item in data">
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.transaction?.transaction_number }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.order_date }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.order_date }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.customer?.full_name }}
+                  </td>
+   
+                  <template v-if="item.order_detail!.length > 1">
+                     <tr v-for="detail in item.order_detail">
+                        <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                           {{ detail.medicine_name }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                           {{ detail.qty }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                           {{ detail.unit }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                           {{ parseCurrency(detail.price!) }}
+                        </td>
+                     </tr>
                   </template>
-               </template>
+   
+                  <template v-else>
+                     <template v-for="detail in item.order_detail">
+                        <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                           {{ detail.medicine_name }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                           {{ detail.qty }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                           {{ detail.unit }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                           {{ parseCurrency(detail.price!) }}
+                        </td>
+                     </template>
+                  </template>
+   
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ parseCurrency(item.medicine_amount!) }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ parseCurrency(item.delivery_amount!) }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ parseCurrency(item.voucher_amount!) }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ parseCurrency(item.total!) }}
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="8" class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
+                     Total
+                  </td>
+                  <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
+                     {{ parseCurrency(subTotal!) }}
+                  </td>
+                  <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
+                     {{ parseCurrency(deliveries!) }}
+                  </td>
+                  <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
+                     {{ parseCurrency(vouchers!) }}
+                  </td>
+                  <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
+                     {{ parseCurrency(total!) }}
+                  </td>
+               </tr>
+            </template>
 
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ parseCurrency(item.medicine_amount!) }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ parseCurrency(item.delivery_amount!) }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ parseCurrency(item.voucher_amount!) }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ parseCurrency(item.total!) }}
-               </td>
-            </tr>
-            <tr>
-               <td colspan="8" class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                  Total
-               </td>
-               <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                  {{ parseCurrency(subTotal!) }}
-               </td>
-               <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                  {{ parseCurrency(deliveries!) }}
-               </td>
-               <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                  {{ parseCurrency(vouchers!) }}
-               </td>
-               <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                  {{ parseCurrency(total!) }}
-               </td>
-            </tr>
+            <template v-else>
+               <tr>
+                  <td colspan="12">
+                     <div class="flex flex-col items-center justify-center flex-1 px-6 py-14 sm:px-14">
+                        <u-icon name="i-heroicons-circle-stack-20-solid" class="w-6 h-6 mx-auto text-gray-400 dark:text-gray-500 mb-4"></u-icon>
+                        <p class="text-sm text-center text-gray-900 dark:text-white">No items.</p>
+                     </div>
+                  </td>
+               </tr>
+            </template>
          </tbody>
       </table>
    </div>

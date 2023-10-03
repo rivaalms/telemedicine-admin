@@ -43,7 +43,8 @@
          <u-button
             color="emerald"
             icon="i-heroicons-document-arrow-down"
-            @click.stop="useExportExcel('ConsultationReport', filter)"
+            :disabled="data.length < 1"
+            @click.stop="useExportExcel('EmergencyDoctors', filter)"
          >
             Export Excel
          </u-button>
@@ -63,14 +64,27 @@
             </tr>
          </thead>
          <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
-            <tr v-for="item in data">
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.name }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.trans_summary }}
-               </td>
-            </tr>
+            <template v-if="data.length > 0">
+               <tr v-for="item in data">
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.name }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.trans_summary }}
+                  </td>
+               </tr>
+            </template>
+
+            <template v-else>
+               <tr>
+                  <td colspan="12">
+                     <div class="flex flex-col items-center justify-center flex-1 px-6 py-14 sm:px-14">
+                        <u-icon name="i-heroicons-circle-stack-20-solid" class="w-6 h-6 mx-auto text-gray-400 dark:text-gray-500 mb-4"></u-icon>
+                        <p class="text-sm text-center text-gray-900 dark:text-white">No items.</p>
+                     </div>
+                  </td>
+               </tr>
+            </template>
          </tbody>
       </table>
    </div>

@@ -43,6 +43,7 @@
          <u-button
             color="emerald"
             icon="i-heroicons-document-arrow-down"
+            :disabled="data.length < 1"
             @click.stop="useExportExcel('EmergencyReport', filter)"
          >
             Export Excel
@@ -63,32 +64,45 @@
             </tr>
          </thead>
          <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
-            <tr v-for="item in data">
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.transaction?.transaction_number }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.request_by?.full_name }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.request_by?.phone_number }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.patient?.patient_name }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.pickup_location }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.doctor?.full_name }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.ambulance?.officer?.full_name }}
-               </td>
-               <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                  {{ item.status }}
-               </td>
-            </tr>
+            <template v-if="data.length > 0">
+               <tr v-for="item in data">
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.transaction?.transaction_number }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.request_by?.full_name }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.request_by?.phone_number }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.patient?.patient_name }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.pickup_location }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.doctor?.full_name }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.ambulance?.officer?.full_name }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
+                     {{ item.status }}
+                  </td>
+               </tr>
+            </template>
+
+            <template v-else>
+               <tr>
+                  <td colspan="12">
+                     <div class="flex flex-col items-center justify-center flex-1 px-6 py-14 sm:px-14">
+                        <u-icon name="i-heroicons-circle-stack-20-solid" class="w-6 h-6 mx-auto text-gray-400 dark:text-gray-500 mb-4"></u-icon>
+                        <p class="text-sm text-center text-gray-900 dark:text-white">No items.</p>
+                     </div>
+                  </td>
+               </tr>
+            </template>
          </tbody>
       </table>
    </div>
