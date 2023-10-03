@@ -6,6 +6,10 @@ export const useRoutes : Router[] = [
       // icon: 'i-heroicons-home',
    },
    {
+      label: 'Dashboard',
+      to: '/dashboard',
+   },
+   {
       label: 'Emergency',
       to: '/emergency',
       children: null
