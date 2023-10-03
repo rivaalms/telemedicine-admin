@@ -48,5 +48,9 @@ declare namespace Model {
          gender?: "L" | "P" | null
          trans_summary?: number | null
       }
+
+      type Doctor = Pick <Model.Doctor, 'no_str' | 'name' | 'gender'> & {
+         trans_summary?: number | null
+      }
    }
 }

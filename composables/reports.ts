@@ -44,6 +44,11 @@ export const useEmergencyOfficerReportsTableHeader = [
    { key: 'trans_summary', label: 'Jumlah Transaksi' },
 ]
 
+export const useEmergencyDoctorReportsTableHeader = [
+   { key: 'name', label: 'Nama' },
+   { key: 'trans_summary', label: 'Jumlah Transaksi' },
+]
+
 export function useExportExcel (title: string, filter: API.Payload.DateRangePayload) {
    const refTable = document.getElementById('dataTable')
    const workbook = XLSX.utils.table_to_book(refTable)
