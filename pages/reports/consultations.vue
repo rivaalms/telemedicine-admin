@@ -43,7 +43,7 @@
          <u-button
             color="emerald"
             icon="i-heroicons-document-arrow-down"
-            @click.stop="exportExcel()"
+            @click.stop="useExportExcel(filter)"
          >
             Export Excel
          </u-button>
@@ -151,12 +151,5 @@ const parseCurrency = (value: string | number) => {
       currency: 'IDR',
       maximumFractionDigits: 0,
    })
-}
-
-const exportExcel = () => {
-   const refTable = document.getElementById('dataTable')
-   const workbook = XLSX.utils.table_to_book(refTable)
-   const fileName = `ConsultationReport_${moment(filter.value.start_date).format('YYYY-MM-DD')}-${moment(filter.value.end_date).format('YYYY-MM-DD')}.xlsx`
-   XLSX.writeFile(workbook, fileName)
 }
 </script>
