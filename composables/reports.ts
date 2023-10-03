@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as XLSX from 'xlsx/xlsx.mjs'
 import moment from 'moment'
 
@@ -11,9 +12,9 @@ export const useConsultationReportsTableHeader = [
    { key: 'total', label: 'Biaya' }
 ]
 
-export function useExportExcel (filter: API.Payload.DateRangePayload) {
+export function useExportExcel (title: string, filter: API.Payload.DateRangePayload) {
    const refTable = document.getElementById('dataTable')
    const workbook = XLSX.utils.table_to_book(refTable)
-   const fileName = `ConsultationReport_${moment(filter.start_date).format('YYYY-MM-DD')}-${moment(filter.end_date).format('YYYY-MM-DD')}.xlsx`
+   const fileName = `${title}_${moment(filter.start_date).format('YYYY-MM-DD')}-${moment(filter.end_date).format('YYYY-MM-DD')}.xlsx`
    XLSX.writeFile(workbook, fileName)
 }

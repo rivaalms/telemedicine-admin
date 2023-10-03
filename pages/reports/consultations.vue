@@ -43,7 +43,7 @@
          <u-button
             color="emerald"
             icon="i-heroicons-document-arrow-down"
-            @click.stop="useExportExcel(filter)"
+            @click.stop="useExportExcel('ConsultationReport', filter)"
          >
             Export Excel
          </u-button>
@@ -104,8 +104,6 @@
 import { getConsultations } from '@/utils/api/reports'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-// @ts-ignore
-import * as XLSX from 'xlsx/xlsx.mjs'
 import moment from 'moment'
 
 const store = useAppStore()
