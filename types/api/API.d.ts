@@ -10,6 +10,20 @@ declare namespace API {
       results: T
       count?: number
    }
+
+   type LaravelPaginationResponse <T> = {
+      current_page: number
+      data: T
+      first_page_url: string | null
+      from: number
+      last_page: number
+      last_page_url: string | null
+      next_page_url: string | null
+      path: string | null
+      per_page: number
+      to: number
+      total: number
+   }
    
    module Payload {
       type Login = {
@@ -27,6 +41,12 @@ declare namespace API {
          status?: string | null
          start_date?: string | null
          end_date?: string | null
+      }
+
+      type ConsultationReportPayload = {
+         status: string
+         start_date: string
+         end_date: string
       }
    }
 }

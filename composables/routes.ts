@@ -90,6 +90,15 @@ export const useRoutes : Router[] = [
             to: '/log-reports/emergency'
          }
       ]
+   },
+   {
+      label: 'Laporan',
+      children: [
+         {
+            label: 'Laporan Konsultasi',
+            to: '/reports/consultations'
+         }
+      ]
    }
 ]
 
