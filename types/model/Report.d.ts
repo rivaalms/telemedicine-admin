@@ -26,11 +26,20 @@ declare namespace Model {
             }
          ] | null
          customer?: Pick <Model.Patient, 'full_name' | 'email' | 'phone_number'> | null
-         transaction?: {
-            transaction_number?: string | null
-            transaction_date?: string | null
-            payment_status?: string | null
+         transaction?: Model.Transaction
+      }
+
+      type Emergency = Pick <Model.Emergency, 'id' | 'map_lat' | 'map_lng' | 'created_at' | 'status' | 'pickup_location' | 'soap' | 'ambulance'> & {
+         patient?: {
+            patient_nik?: string | null
+            patient_name?: string | null
+            patient_gender?: "P" | "L" | null
+            patient_telp?: string | null
          }
+         request_by?: Pick <Model.User, 'uuid' | 'full_name' | 'gender' | 'email' | 'phone_number' | 'device_id' | 'mobile_id' | 'nik'>
+         doctor?: Pick <Model.Doctor, 'uuid' | 'full_name' | 'email' | 'phone_number' | 'device_id' | 'mobile_id'>
+         ambulance?: Model.Ambulance
+         transaction?: Model.Transaction
       }
    }
 }

@@ -25,7 +25,17 @@ export const useMedicinePurchasesTableHeader = [
    { key: 'delivery_amount', label: 'Ongkir' },
    { key: 'voucher_amount', label: 'Voucher' },
    { key: 'total', label: 'Total' }
+]
 
+export const useEmergencyReportsTableHeader = [
+   { key: 'transaction.transaction_number', label: 'No. Transaksi' },
+   { key: 'request_by.full_name', label: 'Pelapor' },
+   { key: 'request_by.phone_number', label: 'No. Telp Pelapor' },
+   { key: 'patient.patient_name', label: 'Pasien' },
+   { key: 'pickup_location', label: 'Alamat' },
+   { key: 'doctor.full_name', label: 'Dokter' },
+   { key: 'ambulance.full_name', label: 'Driver' },
+   { key: 'status', label: 'Status' }
 ]
 
 export function useExportExcel (title: string, filter: API.Payload.DateRangePayload) {

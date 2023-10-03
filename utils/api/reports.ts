@@ -21,3 +21,15 @@ export async function getMedicinePurchases (payload: API.Payload.DateRangePayloa
    })
    return response.data!.data
 }
+
+export async function getEmergencies (payload: API.Payload.DateRangePayload) : Promise <Model.Report.Emergency[]> {
+   const response = await $fetch <API.Response <API.LaravelPaginationResponse <Model.Report.Emergency[]>>> (`emergency-reports`, {
+      method: 'GET',
+      query: {
+         ...payload,
+         status: 'FINISHED',
+         per_page: 'ALL'
+      }
+   })
+   return response.data!.data
+}
