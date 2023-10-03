@@ -116,7 +116,7 @@ const total : ComputedRef<any> = computed(() => {
 })
 const dataLength : Ref <number> = ref(0)
 const loading : Ref <boolean> = ref(false)
-const filter : Ref <any> = ref({
+const filter : Ref <API.Payload.DateRangePayload> = ref({
    start_date: moment().startOf('month').format('YYYY-MM-DD'),
    end_date: moment().endOf('month').format('YYYY-MM-DD')
 })
@@ -127,8 +127,7 @@ onBeforeMount(async () => {
 
 const fetchConsultationReports = async () => {
    loading.value = true
-   const payload: API.Payload.ConsultationReportPayload = {
-      status: 'FINISHED',
+   const payload: API.Payload.DateRangePayload = {
       start_date: moment(filter.value.start_date).format('YYYY-MM-DD'),
       end_date: moment(filter.value.end_date).format('YYYY-MM-DD')
    }

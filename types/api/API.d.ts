@@ -43,12 +43,6 @@ declare namespace API {
          end_date?: string | null
       }
 
-      type ConsultationReportPayload = {
-         status: string
-         start_date: string
-         end_date: string
-      }
-
       type DateRangePayload = {
          start_date: string
          end_date: string

@@ -1,8 +1,9 @@
-export async function getConsultations (payload: API.Payload.ConsultationReportPayload) : Promise <Model.Report.Consultation[]> {
+export async function getConsultations (payload: API.Payload.DateRangePayload) : Promise <Model.Report.Consultation[]> {
    const response = await $fetch <API.Response <API.LaravelPaginationResponse<Model.Report.Consultation[]>>> (`/consultation`, {
       method: 'GET',
       query: {
          ...payload,
+         status: 'FINISHED',
          per_page: 'ALL'
       }
    })
