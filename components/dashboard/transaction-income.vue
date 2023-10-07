@@ -18,19 +18,19 @@
    <u-card>
       <p class="text-sm text-gray-500 dark:text-gray-400">Trend Transaksi</p>
       <div class="pt-2 relative overflow-x-auto min-h-[350px]">
-         <line-chart
-            :data="summaryChartData"
-            :options="summaryChartOptions"
-         ></line-chart>
+         <apexchart
+            :options="amountChartOptions"
+            :series="amountChartData"
+         ></apexchart>
       </div>
    </u-card>
    <u-card>
       <p class="text-sm text-gray-500 dark:text-gray-400">Trend Pendapatan</p>
       <div class="pt-2 relative overflow-x-auto min-h-[350px]">
-         <line-chart 
-            :data="amountChartData"
-            :options="amountChartOptions"
-         ></line-chart>
+         <apexchart
+            :options="summaryChartOptions"
+            :series="summaryChartData"
+         ></apexchart>
       </div>
    </u-card>
 </div>
@@ -38,20 +38,6 @@
 
 <script setup lang="ts">
 import { getTransactionIncome } from '@/utils/api/dashboard'
-import {
-	Chart as ChartJS,
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend,
-} from 'chart.js'
-import { Line as LineChart } from 'vue-chartjs'
-import ChartDataLabels from 'chartjs-plugin-datalabels'
-
-ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale, ChartDataLabels)
 
 const amount : Ref <number> = ref(0)
 const summary : Ref <number> = ref(0)
@@ -59,105 +45,108 @@ const amountMonthly : Ref <any> = ref([])
 const summaryMonthly : Ref <any> = ref([])
 
 const amountChartData = computed(() => {
-   const months: any = []
    const value: any = []
    
    amountMonthly.value.forEach((item: any, index: any) => {
-      months[index] = item.month 
-      value[index] = item.total
+      value[index] = {
+         x: item.month,
+         y: item.total
+      }
    })
 
-   return {
-      labels: months,
-      datasets: [
-         {
-            label: 'Jumlah Pendapatan (Rp)',
-            data: value,
-            backgroundColor: '#f08080',
-            borderColor: '#f08080'
-         }
-      ]
-   }
+   return [{
+      name: 'Jumlah Pendapatan',
+      data: value,
+      xaxis: {
+         type: 'category'
+      }
+   }]
 })
 
 const amountChartOptions = computed(() => {
    return {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-         legend: {
-            position: 'bottom'
+      chart: {
+         id: 'amountChart',
+         type: 'area',
+      },
+      colors: ['#f08080'],
+      dataLabels: {
+         enabled: true,
+         offsetY: -8,
+         style: {
+            fontSize: '10px',
+            fontWeight: 500,
+            fontFamily: 'Nunito Sans'
          },
-         datalabels: {
-            font: {
-               size: '11px',
-               weight: 'normal'
-            },
-            backgroundColor: '#ffffffdf',
-            borderRadius: 5,
-            borderWidth: 1,
-            borderColor: '#0000002f',
-            clamp: true,
-            anchor: 'end',
-            align: 'top',
-            formatter: (value: any) => value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")
+         formatter: (val: any) => parseCurrency(val)
+      },
+      markers: {
+         size: 4,
+         hover: {
+            sizeOffset: 2
          }
       },
-      scales: {
+      tooltip: {
+         enabled: true,
          y: {
-            beginAtZero: true
+            formatter: (val: any) => parseCurrency(val)
          }
+      },
+      yaxis: {
+         labels: {
+            formatter: (val: any) => parseCurrency(val)
+         }
+      },
+      stroke: {
+         width: 1.5
       }
    }
 })
 
 const summaryChartData = computed(() => {
-   const months: string[] = []
-   const value: number[] = []
+   const value: any = []
 
    summaryMonthly.value.forEach((item: any, index: any) => {
-      months[index] = item.month
-      value[index] = item.total
+      value[index] = {
+         x: item.month,
+         y: item.total
+      }
    })
 
-   return {
-      labels: months,
-      datasets: [{
-         label: 'Jumlah Transaksi',
-         data: value,
-         backgroundColor: '#f08080',
-         borderColor: '#f08080',
-      }]
-   }
+   return [{
+      name: 'Jumlah Transaksi',
+      data: value,
+      xaxis: {
+         type: 'category'
+      }
+   }]
 })
 
 const summaryChartOptions = computed(() => {
    return {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-         legend: {
-            position: 'bottom'
-         },
-         datalabels: {
-            font: {
-               size: '12px',
-               weight: 'bold',
-            },
-            backgroundColor: '#ffffffdf',
-            borderRadius: 5,
-            borderWidth: 1,
-            borderColor: '#0000002f',
-            clamp: true,
-            anchor: 'end',
-            align: 'top',
+      chart: {
+         id: 'summaryChart',
+         type: 'area',
+      },
+      colors: ['#f08080'],
+      dataLabels: {
+         enabled: true,
+         offsetY: -8,
+         style: {
+            fontSize: '10px',
+            fontWeight: 500,
+            fontFamily: 'Nunito Sans'
          },
       },
-      scales: {
-         y: {
-            beginAtZero: true,
+      markers: {
+         size: 4,
+         hover: {
+            sizeOffset: 2
          }
       },
+      stroke: {
+         width: 1.5
+      }
    }
 })
 

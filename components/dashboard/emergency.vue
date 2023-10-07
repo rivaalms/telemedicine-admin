@@ -22,10 +22,11 @@
          Trend Emergency
       </p>
       <div class="pt-2 relative overflow-x-auto min-h-[350px]">
-         <bar-chart 
-            :data="emergencyChartData"
+         <apexchart
+            height="350"
             :options="emergencyChartOptions"
-         ></bar-chart>
+            :series="emergencyChartData"
+         ></apexchart>
       </div>
    </u-card>
 </div>
@@ -33,12 +34,7 @@
 
 <script setup lang="ts">
 import { getSummaryEmergency, getEmergencyTrends } from '@/utils/api/dashboard'
-import { Bar as BarChart } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
-import ChartDataLabels from 'chartjs-plugin-datalabels'
 import moment from 'moment'
-
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ChartDataLabels)
 
 const finished : Ref <number> = ref(0)
 const notAnswered : Ref <number> = ref(0)
@@ -49,9 +45,9 @@ const filter : Ref <any> = ref({
    year: moment().year()
 })
 const trendData : Ref <any> = ref([])
+const months: Ref <string[]> = ref([])
 
 const emergencyChartData : ComputedRef <any> = computed(() => {
-   const months : any = []
    const value : any = []
    const finished : any = []
    const notAnswered : any = []
@@ -62,60 +58,42 @@ const emergencyChartData : ComputedRef <any> = computed(() => {
       else if (!e.finished && e.notAnswered) value[i] = e.notAnswered
       else if (!e.finished && !e.notAnswered) value[i] = 0
 
-      months[i] = e.month
+      months.value[i] = e.month
       finished[i] = e.finished || 0
       notAnswered[i] = e.notAnswered || 0
    })
 
-   return {
-      labels: months,
-      datasets: [
-         {
-            label: 'Jumlah',
-            data: value,
-            backgroundColor: '#251a28',
-         },
-         {
-            label: 'Emergency Finished',
-            data: finished,
-            backgroundColor: '#7ea05e',
-         },
-         {
-            label: 'Emergency Not Answered',
-            data: notAnswered,
-            backgroundColor: '#fb9126',
-         },
-      ]
-   }
+   return [
+      {
+         name: 'Finished',
+         data: finished,
+      },
+      {
+         name: 'Not Answered',
+         data: notAnswered
+      }
+   ]
 })
 
 const emergencyChartOptions : ComputedRef <any> = computed(() => {
    return {
-      responsive: true,
-      maintainAspectRatio: false,
-		plugins: {
-			legend: {
-				position: 'bottom'
-			},
-			datalabels: {
-				font: {
-					size: '11px',
-					weight: 'normal',
-				},
-				backgroundColor: '#ffffffdf',
-				borderRadius: 5,
-				borderWidth: 1,
-				borderColor: '#0000002f',
-				clamp: true,
-				anchor: 'end',
-				align: 'top',
-			},
-		},
-		scales: {
-			y: {
-				beginAtZero: true,
-			}
-		},
+      chart: {
+         id: 'emergencyChart',
+         type: 'bar',
+         stacked: true
+      },
+      xaxis: {
+         categories: months.value
+      },
+      colors: [/* '#251a28',  */'#7ea05e', '#fb9126'],
+      dataLabels: {
+         enabled: true,
+         style: {
+            fontSize: '10px',
+            fontWeight: 500,
+            fontFamily: 'Nunito Sans'
+         }
+      },
    }
 })
 
