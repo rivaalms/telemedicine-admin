@@ -33,3 +33,10 @@ export async function getSummaryPatients (payload: API.Payload.DateRangePayload)
    })
    return response.data!
 }
+
+export async function getSummaryAmbulance () : Promise <Dashboard.Ambulance[]> {
+   const response = await $fetch <API.Response <Dashboard.Ambulance[]>> (`/summary-ambulance-type`, {
+      method: 'GET'
+   })
+   return response.data!
+}

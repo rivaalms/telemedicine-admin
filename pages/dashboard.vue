@@ -5,6 +5,8 @@
 
       <lazy-dashboard-emergency class="col-span-2 mb-4"></lazy-dashboard-emergency>
 
+      <lazy-dashboard-ambulances class="mb-4"></lazy-dashboard-ambulances>
+      
       <lazy-dashboard-patients class="mb-4"></lazy-dashboard-patients>
    </div>
 </u-card>
