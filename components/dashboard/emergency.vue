@@ -1,49 +1,43 @@
 <template>
-<div class="grid grid-cols-3 gap-2">
-   <div class="col-span-3 flex justify-between">
-      <p class="font-semibold text-lg">Emergency</p>
+<u-card class="col-span-3">
+   <div class="flex justify-between items-center pb-4">
+      <p class="font-semibold">Emergency</p>
+
+      <div>
+         <vue-date-picker
+            v-model="year"
+            year-picker
+            auto-apply
+            @update:model-value="fetchEmergencyTrends"
+         >
+            <template #trigger>
+               <u-input
+                  :model-value="year"
+                  readonly="readonly"
+                  icon="i-heroicons-calendar-solid"
+               ></u-input>
+            </template>
+         </vue-date-picker>
+      </div>
    </div>
 
-   <u-card>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Jumlah Emergency</p>
-      <p class="text-xl">{{ total }}</p>
-   </u-card>
-   <u-card class="bg-[#7ea05e]">
-      <p class="text-sm text-gray-50 dark:text-gray-400">Finished</p>
-      <p class="text-xl text-white">{{ finished }}</p>
-   </u-card>
-   <u-card class="bg-[#fb9126]">
-      <p class="text-sm text-gray-50 dark:text-gray-400">Not Answered</p>
-      <p class="text-xl text-white">{{ notAnswered }}</p>
-   </u-card>
-
-   <u-card class="col-span-3">
-      <p class="text-sm text-gray-500 dark:text-gray-400">
-         Trend Emergency
-      </p>
-      <div class="pt-2 relative overflow-x-auto min-h-[350px]">
-         <apexchart
-            height="350"
-            :options="emergencyChartOptions"
-            :series="emergencyChartData"
-         ></apexchart>
-      </div>
-   </u-card>
-</div>
+   <div class="pt-2 relative overflow-x-auto min-h-[350px]">
+      <apexchart
+         height="350"
+         :options="emergencyChartOptions"
+         :series="emergencyChartData"
+      ></apexchart>
+   </div>
+</u-card>
 </template>
 
 <script setup lang="ts">
-import { getSummaryEmergency, getEmergencyTrends } from '@/utils/api/dashboard'
+import { getEmergencyTrends } from '@/utils/api/dashboard'
 import moment from 'moment'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
-const finished : Ref <number> = ref(0)
-const notAnswered : Ref <number> = ref(0)
-const total : ComputedRef <number> = computed(() => finished.value + notAnswered.value)
-const filter : Ref <any> = ref({
-   start_date: moment().startOf('month'),
-   end_date: moment().endOf('month'),
-   year: moment().year()
-})
+const year : Ref <string> = ref(moment().format('YYYY'))
 const trendData : Ref <any> = ref([])
 const months: Ref <string[]> = ref([])
 
@@ -98,27 +92,14 @@ const emergencyChartOptions : ComputedRef <any> = computed(() => {
 })
 
 onBeforeMount(async () => {
-   await fetchSummaryEmergency()
    await fetchEmergencyTrends()
 })
 
-const fetchSummaryEmergency = async () => {
-   const payload = {
-      start_date: moment(filter.value.start_date).format('YYYY-MM-DD'),
-      end_date: moment(filter.value.end_date).format('YYYY-MM-DD')
-   }
-
-   await getSummaryEmergency(payload)
-      .then((resp) => {
-         finished.value = resp.find(item => item.status === 'Finished')?.total! || 0
-         notAnswered.value = resp.find(item => item.status === 'Not Answered')?.total! || 0
-      })
-}
-
 const fetchEmergencyTrends = async () => {
-   await getEmergencyTrends(filter.value.year)
+   await getEmergencyTrends(year.value)
       .then((resp) => {
          const data = resp.summaryMonthly
+         trendData.value = []
          let number = 1
          let i: string
 
@@ -127,7 +108,7 @@ const fetchEmergencyTrends = async () => {
                minimumIntegerDigits: 2,
                useGrouping: false
             })
-
+            
             trendData.value.push(data[i])
             number++
          }
