@@ -1,9 +1,11 @@
 <template>
 <u-card class="overflow-visible bg-transparent dark:bg-transparent ring-0 shadow-none">
-   <div class="grid grid-cols-1 gap-2">
-      <lazy-dashboard-transaction-income class="mb-4"></lazy-dashboard-transaction-income>
+   <div class="grid grid-cols-2 gap-2">
+      <lazy-dashboard-transaction-income class="col-span-2 mb-4"></lazy-dashboard-transaction-income>
 
-      <lazy-dashboard-emergency></lazy-dashboard-emergency>
+      <lazy-dashboard-emergency class="col-span-2 mb-4"></lazy-dashboard-emergency>
+
+      <lazy-dashboard-patients class="mb-4"></lazy-dashboard-patients>
    </div>
 </u-card>
 </template>

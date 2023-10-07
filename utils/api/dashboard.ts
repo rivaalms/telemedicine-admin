@@ -25,3 +25,11 @@ export async function getEmergencyTrends (year: string) : Promise <Dashboard.Eme
    })
    return response.data!
 }
+
+export async function getSummaryPatients (payload: API.Payload.DateRangePayload) : Promise <Dashboard.PatientGender> {
+   const response = await $fetch <API.Response <Dashboard.PatientGender>> (`/summary-patients/daily`, {
+      method: 'GET',
+      query: payload
+   })
+   return response.data!
+}
