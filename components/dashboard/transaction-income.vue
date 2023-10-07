@@ -1,36 +1,49 @@
 <template>
 <div class="grid grid-cols-2 gap-2">
-   <div class="col-span-2 flex justify-between">
-      <p class="font-semibold text-lg">Transaksi & Pendapatan</p>
-   </div>
-   <u-card>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Total Transaksi</p>
-      <p class="text-xl">
-         {{ summary }}
-      </p>
-   </u-card>
-   <u-card>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Total Pendapatan</p>
-      <p class="text-xl">
-         {{ parseCurrency(amount) }}
-      </p>
-   </u-card>
-   <u-card>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Trend Transaksi</p>
-      <div class="pt-2 relative overflow-x-auto min-h-[350px]">
-         <apexchart
-            :options="amountChartOptions"
-            :series="amountChartData"
-         ></apexchart>
-      </div>
-   </u-card>
-   <u-card>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Trend Pendapatan</p>
-      <div class="pt-2 relative overflow-x-auto min-h-[350px]">
-         <apexchart
-            :options="summaryChartOptions"
-            :series="summaryChartData"
-         ></apexchart>
+   <u-card class="col-span-2">
+         <div class="flex justify-between items-center pb-4">
+            <p class="font-semibold">Transaksi & Pendapatan</p>
+            
+            <div>
+               <vue-date-picker
+                  v-model="year"
+                  year-picker
+                  auto-apply
+                  @update:model-value="fetchTransactionIncome"
+               >
+                  <template #trigger>
+                     <u-input
+                        :model-value="year"
+                        readonly="readonly"
+                        icon="i-heroicons-calendar-solid"
+                     ></u-input>
+                  </template>
+               </vue-date-picker>
+            </div>
+         </div>
+      
+      <div class="grid grid-cols-2 gap-2">
+         <div class="text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Total Transaksi</p>
+            <p class="text-xl">{{ summary }}</p>
+            <div class="pt-2 min-h-[350px]">
+               <apexchart
+                  :options="summaryChartOptions"
+                  :series="summaryChartData"
+               ></apexchart>
+            </div>
+         </div>
+
+         <div class="text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Total Pendapatan</p>
+            <p class="text-xl">{{ parseCurrency(amount) }}</p>
+            <div class="pt-2 min-h-[350px]">
+               <apexchart
+                  :options="amountChartOptions"
+                  :series="amountChartData"
+               ></apexchart>
+            </div>
+         </div>
       </div>
    </u-card>
 </div>
@@ -38,11 +51,15 @@
 
 <script setup lang="ts">
 import { getTransactionIncome } from '@/utils/api/dashboard'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
+import moment from 'moment'
 
 const amount : Ref <number> = ref(0)
 const summary : Ref <number> = ref(0)
 const amountMonthly : Ref <any> = ref([])
 const summaryMonthly : Ref <any> = ref([])
+const year : Ref <any> = ref(moment().format('YYYY'))
 
 const amountChartData = computed(() => {
    const value: any = []
@@ -151,7 +168,11 @@ const summaryChartOptions = computed(() => {
 })
 
 onBeforeMount(async () => {
-   await getTransactionIncome('2023')
+   await fetchTransactionIncome()
+})
+
+const fetchTransactionIncome = async () => {
+   await getTransactionIncome(year.value)
       .then((resp) => {
          let number = 1
          let i: string
@@ -172,7 +193,7 @@ onBeforeMount(async () => {
             number++
          }
       })
-})
+}
 
 const parseCurrency = (value: string | number) => {
    const number = Number(value)
