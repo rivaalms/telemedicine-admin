@@ -5,17 +5,20 @@
 
       <lazy-dashboard-emergency class="col-span-2 mb-4"></lazy-dashboard-emergency>
 
-      <lazy-dashboard-ambulances class="mb-4"></lazy-dashboard-ambulances>
-      
-      <lazy-dashboard-patients class="mb-4"></lazy-dashboard-patients>
+      <lazy-dashboard-doctor-online-status class="mb-4"></lazy-dashboard-doctor-online-status>
+
+      <div class="grid grid-rows-2 gap-2">
+         <lazy-dashboard-ambulances class="mb-4"></lazy-dashboard-ambulances>
+         
+         <lazy-dashboard-patients class="mb-4"></lazy-dashboard-patients>
+      </div>
+      <lazy-dashboard-consultations class="col-span-2"></lazy-dashboard-consultations>
    </div>
 </u-card>
 </template>
 
 <script setup lang="ts">
-import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-import moment from 'moment'
 
 const store = useAppStore()
 store.title = 'Dashboard'

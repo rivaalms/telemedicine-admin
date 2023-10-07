@@ -29,8 +29,8 @@ declare namespace Dashboard {
    }
 
    type ConsultationSummary = {
-      summaryByDoctor: ConsultationSummaryByDoctor
-      summaryBySpecialist: ConsultationSummaryBySpecialist
+      summaryByDoctor: ConsultationSummaryByDoctor[]
+      summaryBySpecialist: ConsultationSummaryBySpecialist[]
    }
 
    type DoctorOnlineStatus = {

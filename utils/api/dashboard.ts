@@ -40,3 +40,21 @@ export async function getSummaryAmbulance () : Promise <Dashboard.Ambulance[]> {
    })
    return response.data!
 }
+
+export async function getDoctorOnlineStatus () : Promise <Dashboard.DoctorOnlineStatus[]> {
+   const response = await $fetch <API.Response <Dashboard.DoctorOnlineStatus[]>> (`/doctor-status-user`, {
+      method: 'GET',
+      query: {
+         status: 'active'
+      }
+   })
+   return response.data!
+}
+
+export async function getSummaryConsultations (payload: API.Payload.DateRangePayload) : Promise <Dashboard.ConsultationSummary> {
+   const response = await $fetch <API.Response <Dashboard.ConsultationSummary>> (`/summary-consultations/daily`, {
+      method: 'GET',
+      query: payload
+   })
+   return response.data!
+}
