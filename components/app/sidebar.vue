@@ -1,25 +1,43 @@
 <template>
-   <u-vertical-navigation
-      :links="routes"
-      :ui="ui"
-   >
-      <template #default="{ link }">
-         <div class="relative text-left w-full">
-            {{ link.label }}
-            <u-vertical-navigation
-               v-if="link.children"
-               :links="link.children"
-               :ui="ui"
-            ></u-vertical-navigation>
-         </div>
+<div class="grid gap-1">
+   <template v-for="item in routes" :key="item.to">
+      <template v-if="item.children">
+         <u-accordion
+            :items="[item]"
+            :variant="useRoute().path === item.to ? 'soft' : 'ghost'"
+            :color="useRoute().path === item.to ? 'primary' : 'gray'"
+            :icon="item.icon"
+         >
+            <template #item="{ item }">
+               <div class="ms-6 grid gap-1">
+                  <u-button
+                     v-for="child in item.children"
+                     :key="child.to"
+                     :variant="useRoute().path === child.to ? 'soft' : 'ghost'"
+                     :color="useRoute().path === child.to ? 'primary' : 'gray'"
+                     :to="child.to"
+                  >
+                     {{ child.label }}
+                  </u-button>
+               </div>
+            </template>
+         </u-accordion>
       </template>
-   </u-vertical-navigation>
+
+      <template v-else>
+         <u-button
+            :variant="useRoute().path === item.to ? 'soft' : 'ghost'"
+            :color="useRoute().path === item.to ? 'primary' : 'gray'"
+            :to="item.to"
+            :icon="item.icon"
+         >
+            {{ item.label }}
+         </u-button>
+      </template>
+   </template>
+</div>
 </template>
 
 <script setup lang="ts">
 const routes = computed(() => useRoutes)
-
-const ui = {
-   active: 'text-primary-700 dark:text-white before:bg-primary-100 dark:before:bg-primary-500/50',
-}
 </script>

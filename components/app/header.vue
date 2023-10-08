@@ -1,6 +1,6 @@
 <template>
-   <header class="bg-froly-400">
-      <div class="mx-4 py-2 flex justify-between items-center text-white">
+   <header class="border-b-[1px]">
+      <div class="mx-4 py-2 flex justify-between items-center">
          <nuxt-link to="/" class="py-2">
             {{ store.getAppName }}
          </nuxt-link>
@@ -10,12 +10,11 @@
          >
             <u-button
                variant="ghost"
-               color="froly"
-               class="text-semibold"
+               color="gray"
             >
                <template #leading>
                   <u-avatar
-                     alt="Avatar"
+                     :alt="authStore.getUser.name"
                      size="xs"
                   />
                </template>
@@ -23,10 +22,7 @@
                {{ authStore.getUser.name }}
 
                <template #trailing>
-                  <u-icon
-                     name="i-heroicons-chevron-down"
-                     class="text-white"
-                  />
+                  <u-icon name="i-heroicons-chevron-down"/>
                </template>
             </u-button>
 

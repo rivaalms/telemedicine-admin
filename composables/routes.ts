@@ -2,26 +2,28 @@ export const useRoutes : Router[] = [
    {
       label: 'Beranda',
       to: '/',
-      children: null
-      // icon: 'i-heroicons-home',
+      children: null,
+      icon: 'i-heroicons-home',
    },
    {
       label: 'Dashboard',
       to: '/dashboard',
+      icon: 'i-heroicons-rectangle-group'
    },
    {
       label: 'Emergency',
       to: '/emergency',
-      children: null
-      // icon: 'i-heroicons-exclamation-triangle'
+      children: null,
+      icon: 'i-heroicons-exclamation-triangle'
    },
    {
       label: 'Reservasi Konsultasi',
       to: '/reservation-consultation',
+      icon: 'i-heroicons-calendar',
    },
    {
       label: 'Users',
-      // icon: 'i-heroicons-users',
+      icon: 'i-heroicons-users',
       children: [
          {
             label: 'Dokter',
@@ -47,10 +49,12 @@ export const useRoutes : Router[] = [
    },
    {
       label: 'Ambulance',
-      to: '/ambulance'
+      to: '/ambulance',
+      icon: 'i-heroicons-truck'
    },
    {
       label: 'Data Master',
+      icon: 'i-heroicons-adjustments-horizontal',
       children: [
          {
             label: 'Spesialis Dokter',
@@ -68,18 +72,22 @@ export const useRoutes : Router[] = [
    },
    {
       label: 'Jadwal Dokter',
-      to: '/doctors-schedules'
+      to: '/doctors-schedules',
+      icon: 'i-heroicons-calendar-days'
    },
    {
       label: 'Settings',
-      to: '/settings'
+      to: '/settings',
+      icon: 'i-heroicons-cog-6-tooth'
    },
    {
       label: 'Template Chat',
-      to: '/template-chats'
+      to: '/template-chats',
+      icon: 'i-heroicons-chat-bubble-left-ellipsis'
    },
    {
       label: 'Logs Report',
+      icon: 'i-heroicons-clipboard-document-list',
       children: [
          {
             label: 'Aktivitas User',
@@ -97,6 +105,7 @@ export const useRoutes : Router[] = [
    },
    {
       label: 'Laporan',
+      icon: 'i-heroicons-clipboard',
       children: [
          {
             label: 'Laporan Konsultasi',
