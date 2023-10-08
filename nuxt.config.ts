@@ -30,7 +30,6 @@ export default defineNuxtConfig({
 
   build: {
     transpile: [
-      '@fawmi/vue-google-maps',
       '@vuepic/vue-datepicker'
     ]
   },
