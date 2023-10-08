@@ -81,6 +81,7 @@
                color="amber"
                icon="i-heroicons-pencil-square"
                size="xs"
+               @click.stop="store.showDialog('edit-personal-data-doctor', 'Sunting Data Pribadi', profile)"
             ></u-button>
          </u-tooltip>
       </div>

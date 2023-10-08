@@ -1,9 +1,9 @@
 <template>
 <u-modal
    v-model="store.dialog.show"
-   :ui="{ width: dialogWidth }"
+   :ui="dialogUI"
 >
-   <u-card>
+   <u-card class="overflow-visible">
       <template #header>
          <div class="flex justify-between">
             <p class="text-semibold">{{ store.dialog.title }}</p>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { DialogEmergency, DialogDoctorBan, DialogDoctorActivate } from '#components'
+import { DialogEmergency, DialogDoctorBan, DialogDoctorActivate, DialogDoctorEditPersonalData } from '#components'
 
 const store = useAppStore()
 
@@ -43,11 +43,22 @@ watch(() => store.dialog.show, () => {
          case 'activate-doctor':
             dialogComponent.value = DialogDoctorActivate
             break
+         case 'edit-personal-data-doctor':
+            dialogComponent.value = DialogDoctorEditPersonalData
+            dialogWidth.value = 'sm:max-w-5xl'
+            break
          default:
             dialogComponent.value = 'div'
             dialogWidth.value = 'sm:max-w-lg'
             break
       }
+   }
+})
+
+const dialogUI : ComputedRef <any> = computed(() => {
+   return {
+      base: "relative text-left rtl:text-right overflow-visible flex flex-col",
+      width: dialogWidth.value
    }
 })
 </script>

@@ -18,3 +18,11 @@ export async function getDoctorSchedules () : Promise <Model.PageDoctorSchedule[
    })
    return response.data!
 }
+
+export async function updateDoctor (payload: Model.Doctor) : Promise <Model.Doctor> {
+   const response = await $fetch <API.Response <Model.Doctor>> (`/doctors`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}
