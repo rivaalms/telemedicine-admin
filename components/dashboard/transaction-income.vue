@@ -1,52 +1,61 @@
 <template>
-<div class="grid grid-cols-2 gap-2">
-   <u-card class="col-span-2">
-         <div class="flex justify-between items-center pb-4">
-            <p class="font-semibold">Transaksi & Pendapatan</p>
-            
-            <div>
-               <vue-date-picker
-                  v-model="year"
-                  year-picker
-                  auto-apply
-                  @update:model-value="fetchTransactionIncome"
-               >
-                  <template #trigger>
-                     <u-input
-                        :model-value="year"
-                        readonly="readonly"
-                        icon="i-heroicons-calendar-solid"
-                     ></u-input>
-                  </template>
-               </vue-date-picker>
-            </div>
-         </div>
-      
-      <div class="grid grid-cols-2 gap-2">
-         <div class="text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Total Transaksi</p>
-            <p class="text-xl">{{ summary }}</p>
-            <div class="pt-2 min-h-[350px]">
-               <apexchart
-                  :options="summaryChartOptions"
-                  :series="summaryChartData"
-               ></apexchart>
-            </div>
-         </div>
+<u-card class="overflow-visible">
+   <template #header>
+      <div class="flex justify-between items-center">
+         <p class="font-semibold">Transaksi & Pendapatan</p>
 
-         <div class="text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Total Pendapatan</p>
-            <p class="text-xl">{{ parseCurrency(amount) }}</p>
-            <div class="pt-2 min-h-[350px]">
-               <apexchart
-                  :options="amountChartOptions"
-                  :series="amountChartData"
-               ></apexchart>
-            </div>
+         <div>
+            <vue-date-picker
+               v-model="year"
+               year-picker
+               auto-apply
+               @update:model-value="fetchTransactionIncome"
+            >
+               <template #trigger>
+                  <u-input
+                     :model-value="year"
+                     readonly="readonly"
+                     icon="i-heroicons-calendar-solid"
+                     size="2xs"
+                  ></u-input>
+               </template>
+            </vue-date-picker>
          </div>
       </div>
-   </u-card>
-</div>
+   </template>
+
+   <div class="grid grid-cols-2 gap-2">
+      <u-card class="shadow-none ring-0 text-center">
+         <p class="text-sm text-gray-500 dark:text-gray-400">Total Transaksi</p>
+         <p class="text-xl">{{ summary }}</p>
+      </u-card>
+
+      <u-card class="shadow-none ring-0 text-center">
+         <p class="text-sm text-gray-500 dark:text-gray-400">Total Pendapatan</p>
+         <p class="text-xl">{{ parseCurrency(amount) }}</p>
+      </u-card>
+
+      <u-card
+         class="shadow-none ring-0 py-0"
+         :ui="{ body: { padding: 'py-0 sm:p-0 sm:px-6 sm:py-0' } }"
+      >
+         <apexchart
+            :options="summaryChartOptions"
+            :series="summaryChartData"
+         ></apexchart>
+      </u-card>
+
+      <u-card
+         class="shadow-none ring-0 py-0"
+         :ui="{ body: { padding: 'py-0 sm:p-0 sm:px-6 sm:py-0' } }"
+      >
+         <apexchart
+            :options="amountChartOptions"
+            :series="amountChartData"
+         ></apexchart>
+      </u-card>
+   </div>
+</u-card>
 </template>
 
 <script setup lang="ts">

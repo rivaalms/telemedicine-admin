@@ -1,19 +1,17 @@
 <template>
-<div class="grid grid-cols-3 gap-2">
-   <div class="col-span-3 flex justify-between">
-      <p class="font-semibold text-lg">Ambulance</p>
-   </div>
+<u-card>
+   <template #header>
+      <p class="font-semibold">Ambulance</p>
+   </template>
 
-   <u-card class="col-span-3">
-      <p class="text-sm text-gray-500 dark:text-gray-400">Jumlah Ambulance</p>
-      <p class="text-xl">{{ total }}</p>
+   <u-card class="shadow-none ring-0">
+      <apexchart
+         height="350"
+         :options="ambulanceChartOptions"
+         :series="ambulanceChartData"
+      ></apexchart>
    </u-card>
-
-   <u-card v-for="item in data">
-      <p class="text-sm text-gray-500 dark:text-gray-400">{{ item.ambulance_type }}</p>
-      <p class="text-xl">{{ item.total }}</p>
-   </u-card>
-</div>
+</u-card>
 </template>
 
 <script setup lang="ts">
@@ -21,6 +19,18 @@ import { getSummaryAmbulance } from '@/utils/api/dashboard'
 
 const data : Ref <Dashboard.Ambulance[]> = ref([])
 const total : Ref <number> = ref(0)
+
+const ambulanceChartOptions = computed(() => {
+   return {
+      chart: {
+         id: 'ambulanceChart',
+         type: 'donut'
+      },
+      labels: data.value.map(item => item.ambulance_type)
+   }
+})
+
+const ambulanceChartData = computed(() => data.value.map(item => item.total))
 
 onBeforeMount(async () => {
    await fetchSummaryAmbulance()

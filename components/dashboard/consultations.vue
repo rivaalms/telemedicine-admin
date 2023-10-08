@@ -1,43 +1,79 @@
 <template>
-<div class="grid grid-cols-2 gap-2">
-   <div class="col-span-2 flex justify-between">
-      <p class="font-semibold text-lg">Konsultasi</p>
+<u-card class="overflow-visible">
+   <template #header>
+      <div class="flex justify-between">
+         <p class="font-semibold">Konsultasi</p>
+
+         <div class="flex justify-around gap-2">
+            <div>
+               <vue-date-picker
+                  v-model="filter.start_date"
+                  auto-apply
+                  @update:model-value="fetchSummaryConsultations"
+               >
+                  <template #trigger>
+                     <u-input
+                        :model-value="moment(filter.start_date).format('DD/MM/YYYY')"
+                        readonly="readonly"
+                        icon="i-heroicons-calendar-solid"
+                        size="2xs"
+                     ></u-input>
+                  </template>
+               </vue-date-picker>
+            </div>
+   
+            <div>
+               <vue-date-picker
+                  v-model="filter.end_date"
+                  auto-apply
+                  @update:model-value="fetchSummaryConsultations"
+               >
+                  <template #trigger>
+                     <u-input
+                        :model-value="moment(filter.end_date).format('DD/MM/YYYY')"
+                        readonly="readonly"
+                        icon="i-heroicons-calendar-solid"
+                        size="2xs"
+                     ></u-input>
+                  </template>
+               </vue-date-picker>
+            </div>
+         </div>
+      </div>
+   </template>
+
+   <div class="grid grid-cols-2 gap-4">
+      <u-card class="shadow-none ring-0 border-0 col-span-2 text-center">
+         <p class="text-sm text-gray-500 dark:text-gray-400">Jumlah Konsultasi</p>
+         <p class="text-xl">{{ total }}</p>
+      </u-card>
+      
+      <u-card class="shadow-none ring-0">
+         <p class="text-sm text-gray-500 dark:text-gray-400">Konsultasi Berdasarkan Dokter</p>
+
+      <apexchart
+            :options="doctorChartOptions"
+            :series="doctorChartData"
+      ></apexchart>
+      </u-card>
+
+      <u-card class="shadow-none ring-0">
+         <p class="text-sm text-gray-500 dark:text-gray-400">Konsultasi Berdasarkan Spesialis</p>
+
+         <apexchart
+            :options="specialistChartOptions"
+            :series="specialistChartData"
+         ></apexchart>
+      </u-card>
    </div>
-
-   <u-card class="col-span-2">
-      <p class="text-sm text-gray-500 dark:text-gray-400">Jumlah Pasien</p>
-      <p class="text-xl">{{ total }}</p>
-   </u-card>
-
-   <u-card>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Konsultasi Berdasarkan Dokter</p>
-      <app-data-table
-         :columns="doctorsTableHeader"
-         :rows="doctorsPaginated"
-         :data-length="doctors.length"
-         :loading="false"
-         hide-search-input
-         @fetch-data="(search, page, perPage) => doctorEmitHandler(page, perPage)"
-      ></app-data-table>
-   </u-card>
-
-   <u-card>
-      <p class="text-sm text-gray-500 dark:text-gray-400">Konsultasi Berdasarkan Spesialis</p>
-      <app-data-table
-         :columns="specialistTableHeader"
-         :rows="specialistPaginated"
-         :data-length="specialist.length"
-         :loading="false"
-         hide-search-input
-         @fetch-data="(search, page, perPage) => specialistEmitHandler(page, perPage)"
-      ></app-data-table>
-   </u-card>
-</div>
+</u-card>
 </template>
 
 <script setup lang="ts">
 import { getSummaryConsultations } from '@/utils/api/dashboard'
 import moment from 'moment'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const doctors : Ref <Dashboard.ConsultationSummaryByDoctor[]> = ref([])
 const specialist : Ref <Dashboard.ConsultationSummaryBySpecialist[]> = ref([])
@@ -45,29 +81,31 @@ const total : Ref <number> = ref(0)
 const filter : Ref <any> = ref({
    start_date: moment().startOf('month'),
    end_date: moment().endOf('month'),
-   year: moment().year()
 })
 
-const doctorsPaginated : Ref <Dashboard.ConsultationSummaryByDoctor[]> = ref([])
-const specialistPaginated : Ref <Dashboard.ConsultationSummaryBySpecialist[]> = ref([])
-
-const doctorsTableHeader : ComputedRef <any> = computed(() => {
-   return [
-      { key: 'full_name', label: 'Nama Dokter' },
-      { key: 'total', label: 'Jumlah Konsultasi' }
-   ]
+const doctorChartOptions = computed(() => {
+   return {
+      chart: {
+         id: 'consultaionDoctorChart',
+         type: 'pie'
+      },
+      labels: doctors.value.map(item => item.full_name)
+   }
 })
-const doctorPage : Ref <number> = ref(1)
-const doctorPerPage : Ref <number> = ref(10)
 
-const specialistTableHeader : ComputedRef <any> = computed(() => {
-   return [
-      { key: 'specialist', label: 'Spesialis' },
-      { key: 'total', label: 'Jumlah Konsultasi' }
-   ]
+const doctorChartData = computed(() => doctors.value.map(item => item.total))
+
+const specialistChartOptions = computed(() => {
+   return {
+      chart: {
+         id: 'consultationSpecialistChart',
+         type: 'pie'
+      },
+      labels: specialist.value.map(item => item.specialist)
+   }
 })
-const specialistPage : Ref <number> = ref(1)
-const specialistPerPage : Ref <number> = ref(10)
+
+const specialistChartData = computed(() => specialist.value.map(item => item.total))
 
 onBeforeMount(async () => {
    await fetchSummaryConsultations()
@@ -87,24 +125,6 @@ const fetchSummaryConsultations = async () => {
          resp.summaryBySpecialist.forEach(item => {
             total.value += item.total!
          })
-
-         doctorsPaginated.value = doctors.value.slice((doctorPage.value - 1) * doctorPerPage.value, doctorPage.value * doctorPerPage.value)
-
-         specialistPaginated.value = specialist.value.slice((specialistPage.value - 1) * specialistPerPage.value, specialistPage.value * specialistPerPage.value)
       })
-}
-
-const doctorEmitHandler = (emitPage: number, emitPerPage: number) => {
-   doctorPage.value = emitPage
-   doctorPerPage.value = emitPerPage
-
-   doctorsPaginated.value = doctors.value.slice((doctorPage.value - 1) * doctorPerPage.value, doctorPage.value * doctorPerPage.value)
-}
-
-const specialistEmitHandler = (emitPage: number, emitPerPage: number) => {
-   specialistPage.value = emitPage
-   specialistPerPage.value = emitPerPage
-
-   specialistPaginated.value = specialist.value.slice((specialistPage.value - 1) * specialistPerPage.value, specialistPage.value * specialistPerPage.value)
 }
 </script>

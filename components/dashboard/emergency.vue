@@ -1,25 +1,28 @@
 <template>
-<u-card class="col-span-3">
-   <div class="flex justify-between items-center pb-4">
-      <p class="font-semibold">Emergency</p>
-
-      <div>
-         <vue-date-picker
-            v-model="year"
-            year-picker
-            auto-apply
-            @update:model-value="fetchEmergencyTrends"
-         >
-            <template #trigger>
-               <u-input
-                  :model-value="year"
-                  readonly="readonly"
-                  icon="i-heroicons-calendar-solid"
-               ></u-input>
-            </template>
-         </vue-date-picker>
+<u-card class="overflow-visible">
+   <template #header>
+      <div class="flex justify-between items-center">
+         <p class="font-semibold">Emergency</p>
+   
+         <div>
+            <vue-date-picker
+               v-model="year"
+               year-picker
+               auto-apply
+               @update:model-value="fetchEmergencyTrends"
+            >
+               <template #trigger>
+                  <u-input
+                     :model-value="year"
+                     readonly="readonly"
+                     icon="i-heroicons-calendar-solid"
+                     size="2xs"
+                  ></u-input>
+               </template>
+            </vue-date-picker>
+         </div>
       </div>
-   </div>
+   </template>
 
    <div class="pt-2 relative overflow-x-auto min-h-[350px]">
       <apexchart
