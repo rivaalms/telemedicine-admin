@@ -7,6 +7,7 @@
          :data-length="dataLength"
          :loading="loading"
          @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
+         @emit-row="(row: Model.Emergency) => store.showDialog('emergency', 'Detail Emergency', row)"
       >
          <template #filters>
             <u-form-group
