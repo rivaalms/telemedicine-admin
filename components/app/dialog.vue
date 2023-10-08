@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { DialogEmergency } from '#components'
+import { DialogEmergency, DialogDoctorBan, DialogDoctorActivate } from '#components'
 
 const store = useAppStore()
 
@@ -36,6 +36,12 @@ watch(() => store.dialog.show, () => {
          case 'emergency':
             dialogComponent.value = DialogEmergency
             dialogWidth.value = 'sm:max-w-5xl'
+            break
+         case 'ban-doctor':
+            dialogComponent.value = DialogDoctorBan
+            break
+         case 'activate-doctor':
+            dialogComponent.value = DialogDoctorActivate
             break
          default:
             dialogComponent.value = 'div'
