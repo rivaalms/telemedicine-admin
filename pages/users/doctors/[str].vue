@@ -17,25 +17,26 @@
          <p class="font-semibold">Status</p>
          <p class="col-span-3">{{ profile?.status! }}</p>
 
-         <template v-if="profile?.banned_at">
+         <template v-if="profile?.status === 'banned'">
             <p class="font-semibold">Banned at</p>
             <p class="col-span-3">{{ profile?.banned_at! }}</p>
             <p class="font-semibold">Alasan</p>
             <p class="col-span-3">{{ profile?.banned_reason! }}</p>
          </template>
 
-         <template v-if="profile?.blocked_at">
+         <template v-if="profile?.status === 'blocked'">
             <p class="font-semibold">Blocked at</p>
             <p class="col-span-3">{{ profile?.blocked_at! }}</p>
             <p class="font-semibold">Alasan</p>
             <p class="col-span-3">{{ profile?.blocked_reason! }}</p>
          </template>
 
-         <template v-if="!profile?.banned_at && !profile?.blocked_at">
+         <template v-if="isAccountActive">
             <u-button
                class="col-span-4 self-center mt-4"
                variant="outline"
                icon="i-heroicons-no-symbol"
+               color="red"
                block
             >
                Ban
@@ -43,9 +44,21 @@
             <u-button
                class="col-span-4 self-center"
                icon="i-heroicons-no-symbol"
+               color="red"
                block
             >
                Block
+            </u-button>
+         </template>
+
+         <template v-else>
+            <u-button
+               class="col-span-4 self-center mt-4"
+               icon="i-heroicons-check"
+               color="emerald"
+               block
+            >
+               Aktifkan
             </u-button>
          </template>
       </div>
@@ -54,31 +67,43 @@
    <u-card
       class="col-span-2 h-[calc(537px)] overflow-y-auto"
    >
-      <p class="text-xl font-semibold border-b-[1px] pb-4">
-         Data Pribadi
-      </p>
-      <div class="py-4 grid grid-cols-2 gap-4 text-sm">
+      <div class="flex justify-between items-center border-b-[1px] pb-2">
+         <p class="font-semibold flex items-center gap-2">
+            <u-icon name="i-heroicons-user"></u-icon>
+            Data Pribadi
+         </p>
+
+         <u-tooltip text="Sunting data pribadi">
+            <u-button
+               variant="ghost"
+               color="amber"
+               icon="i-heroicons-pencil-square"
+               size="xs"
+            ></u-button>
+         </u-tooltip>
+      </div>
+      <div class="py-2 grid grid-cols-2 gap-4 text-sm">
          <div class="">
-            <p class="text-base font-semibold mb-1">
+            <p class="text-gray-500">
                No. STR
             </p>
-            <p class="text-gray-500 tracking-wide">
+            <p class="tracking-wide">
                {{ profile?.no_str }}
             </p>
          </div>
          <div class="">
-            <p class="text-base font-semibold mb-1">
+            <p class="text-gray-500">
                Tanggal Jangka Waktu STR
             </p>
-            <p class="text-gray-500 tracking-wide">
+            <p class="tracking-wide">
                {{ profile?.str_date }}
             </p>
          </div>
          <div class="">
-            <p class="text-base font-semibold mb-1">
+            <p class="text-gray-500">
                Jenis Kelamin
             </p>
-            <p class="text-gray-500 tracking-wide">
+            <p class="tracking-wide">
                {{ profile?.gender === 'L' ? 'Laki-laki' :
                   profile?.gender === 'P' ? 'Perempuan' :
                   ''
@@ -86,34 +111,34 @@
             </p>
          </div>
          <div class="">
-            <p class="text-base font-semibold mb-1">
+            <p class="text-gray-500">
                Tanggal Jangka Waktu SIP
             </p>
-            <p class="text-gray-500 tracking-wide">
+            <p class="tracking-wide">
                {{ profile?.sip_date }}
             </p>
          </div>
          <div class="">
-            <p class="text-base font-semibold mb-1">
+            <p class="text-gray-500">
                Provinsi
             </p>
-            <p class="text-gray-500 tracking-wide">
+            <p class="tracking-wide">
                {{ profile?.province_name }}
             </p>
          </div>
          <div class="">
-            <p class="text-base font-semibold mb-1">
+            <p class="text-gray-500">
                Kabupaten/Kota
             </p>
-            <p class="text-gray-500 tracking-wide">
+            <p class="tracking-wide">
                {{ profile?.regency_name }}
             </p>
          </div>
          <div class="">
-            <p class="text-base font-semibold mb-1">
+            <p class="text-gray-500">
                Start Experience
             </p>
-            <p class="text-gray-500 tracking-wide">
+            <p class="tracking-wide">
                {{ profile?.start_experience }}
             </p>
          </div>
@@ -121,15 +146,27 @@
 
       <div class="grid grid-cols-2 gap-4 py-4">
          <div>
-            <p class="text-xl font-semibold border-b-[1px] pb-4">
-               Spesialis
-            </p>
+            <div class="flex justify-between items-center border-b-[1px] pb-2">
+               <p class="font-semibold flex items-center gap-2">
+                  <u-icon name="i-heroicons-clipboard"></u-icon>
+                  Spesialis
+               </p>
+
+               <u-tooltip text="Sunting spesialis">
+                  <u-button
+                     variant="ghost"
+                     color="amber"
+                     icon="i-heroicons-pencil-square"
+                     size="xs"
+                  ></u-button>
+               </u-tooltip>
+            </div>
             <div
                v-for="item in specialist"
                :key="item.slug!"
                class="text-sm pt-4"
             >
-               <p class="text-base font-semibold">
+               <p class="font-semibold">
                   {{ item.specialist }}
                </p>
                <p class="text-gray-500">Rate: {{ parseCurrency(item.rate!) }}</p>
@@ -137,15 +174,27 @@
          </div>
 
          <div>
-            <p class="text-xl font-semibold border-b-[1px] pb-4">
-               Riwayat Pendidikan
-            </p>
+            <div class="flex justify-between items-center border-b-[1px] pb-2">
+               <p class="font-semibold flex items-center gap-2">
+                  <u-icon name="i-heroicons-academic-cap"></u-icon>
+                  Riwayat Pendidikan
+               </p>
+
+               <u-tooltip text="Sunting riwayat pendidikan">
+                  <u-button
+                     variant="ghost"
+                     color="amber"
+                     icon="i-heroicons-pencil-square"
+                     size="xs"
+                  ></u-button>
+               </u-tooltip>
+            </div>
             <div
                v-for="item in educations"
                :key="item.id!"
                class="text-sm pt-4"
             >
-               <p class="text-base font-semibold">
+               <p class="font-semibold">
                   {{ item.education }}
                </p>
                <p class="text-gray-500">
@@ -155,15 +204,27 @@
          </div>
       </div>
 
-      <p class="text-xl font-semibold border-b-[1px] py-4">
-         Tempat Praktek
-      </p>
+      <div class="flex justify-between items-center border-b-[1px] py-2">
+         <p class="font-semibold flex items-center gap-2">
+            <u-icon name="i-heroicons-building-office"></u-icon>
+            Tempat Praktek
+         </p>
+
+         <u-tooltip text="Sunting tempat praktek">
+            <u-button
+               variant="ghost"
+               color="amber"
+               icon="i-heroicons-pencil-square"
+               size="xs"
+            ></u-button>
+         </u-tooltip>
+      </div>
       <div
          v-for="item in medicalFacility"
          :key="item.id!"
-         class="pt-4 text-sm"
+         class="pt-2 text-sm"
       >
-         <p class="text-base font-semibold">
+         <p class="font-semibold">
             {{ item.name }}
          </p>
          <p class="text-gray-500">
@@ -175,14 +236,17 @@
    <u-card
       class="col-span-3"
    >
-      <p class="text-xl font-semibold border-b-[1px] pb-4">
-         Jadwal Praktek
-      </p>
+      <div class="flex justify-between items-center border-b-[1px] pb-2">
+         <p class="font-semibold flex items-center gap-2">
+            <u-icon name="i-heroicons-calendar"></u-icon>
+            Jadwal Praktek
+         </p>
+      </div>
 
       <u-table
          :columns="useDoctorSchedulesTableHeader"
          :rows="schedule ? schedule : []"
-         class="pt-4"
+         class="pt-2"
       >
          <template #day-data="{ row }">
             {{ useParseDay(row.day) }}
@@ -203,6 +267,8 @@ const specialist : Ref <Model.DoctorSpecialist[] | null> = ref(null)
 const educations : Ref <Model.DoctorEducation[] | null> = ref(null)
 const medicalFacility : Ref <Model.MedicalFacility[] | null> = ref(null)
 const schedule : Ref <Model.DoctorSchedule[] | null> = ref(null)
+
+const isAccountActive : ComputedRef <boolean> = computed(() => (profile.value?.status === 'banned' || profile.value?.status === 'blocked') ? false : true)
 
 onBeforeMount(async () => {
    await getByStr(useRoute().params.str!.toString())
