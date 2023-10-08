@@ -16,4 +16,6 @@
       </div>
    </div>
 </div>
+
+<app-dialog></app-dialog>
 </template>
