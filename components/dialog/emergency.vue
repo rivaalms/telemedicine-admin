@@ -1,12 +1,12 @@
 <template>
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-2 gap-5">
    <GoogleMap
       :api-key="gmapKey"
       :center="center"
       :zoom="15"
       disable-default-ui
       zoom-control
-      class="col-span-2 h-[500px]"
+      class="h-[500px]"
    >
       <Marker
          :options="{ position: center }"

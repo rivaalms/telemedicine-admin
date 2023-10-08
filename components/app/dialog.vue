@@ -1,7 +1,7 @@
 <template>
 <u-modal
    v-model="store.dialog.show"
-   :ui="{ width: 'sm:max-w-7xl sm:min-w-lg' }"
+   :ui="{ width: dialogWidth }"
 >
    <u-card>
       <template #header>
@@ -26,16 +26,22 @@ import { DialogEmergency } from '#components'
 
 const store = useAppStore()
 
-const dialogComponent = computed(() => {
-   switch (store.dialog.type) {
-      case 'emergency':
-         return DialogEmergency
-      default:
-         return 'div'
-   }
-})
+const dialogComponent : Ref <any> = ref('div')
+const dialogWidth : Ref <string> = ref('sm:max-w-lg')
 
 watch(() => store.dialog.show, () => {
    if (!store.dialog.show) store.clearDialog()
+   else {
+      switch (store.dialog.type) {
+         case 'emergency':
+            dialogComponent.value = DialogEmergency
+            dialogWidth.value = 'sm:max-w-5xl'
+            break
+         default:
+            dialogComponent.value = 'div'
+            dialogWidth.value = 'sm:max-w-lg'
+            break
+      }
+   }
 })
 </script>
