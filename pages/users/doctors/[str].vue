@@ -247,21 +247,40 @@
             ></u-button>
          </u-tooltip>
       </div>
-      <div
-         v-for="item in medicalFacility"
-         :key="item.id!"
-         class="pt-2 text-sm"
-      >
-         <p class="font-semibold">
-            {{ item.name }}
-         </p>
-         <p class="text-gray-500">
-            {{ item.province_name }}, {{ item.regency_name }}
+      <div class="pb-2">
+         <div
+            v-for="item in medicalFacility"
+            :key="item.id!"
+            class="py-2 text-sm"
+         >
+            <p class="font-semibold">
+               {{ item.name }}
+            </p>
+            <p class="text-gray-500">
+               {{ item.province_name }}, {{ item.regency_name }}
+            </p>
+         </div>
+      </div>
+
+      <div class="flex justify-between items-center border-b-[1px] py-2">
+         <p class="font-semibold flex items-center gap-2">
+            <u-icon name="i-heroicons-calendar"></u-icon>
+            Jadwal Praktek
          </p>
       </div>
+
+      <u-table
+         :columns="useDoctorSchedulesTableHeader"
+         :rows="schedule ? schedule : []"
+         class="pt-2"
+      >
+         <template #day-data="{ row }">
+            {{ useParseDay(row.day) }}
+         </template>
+      </u-table>
    </u-card>
 
-   <u-card
+   <!-- <u-card
       class="col-span-3"
    >
       <div class="flex justify-between items-center border-b-[1px] pb-2">
@@ -280,7 +299,7 @@
             {{ useParseDay(row.day) }}
          </template>
       </u-table>
-   </u-card>
+   </u-card> -->
 </div>
 </template>
 
