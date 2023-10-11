@@ -31,6 +31,14 @@ declare namespace Model {
       body_weight?: string | number | null
       blood_type?: string | number | null
       allergy?: string | number | null
-      addresses?: any
+      addresses?: Model.Address[] | null
+   }
+
+   type Address = {
+      address_type?: string
+      address?: string
+      map_lat?: string | null
+      map_lng?: string | null
+      note?: string | null
    }
 }

@@ -43,14 +43,14 @@
             <p class="font-semibold">Status</p>
             <p class="col-span-3">{{ data?.status! }}</p>
 
-            <template v-if="data?.banned_at">
+            <template v-if="data?.status === 'banned'">
                <p class="font-semibold">Banned at</p>
                <p class="col-span-3">{{ data?.banned_at! }}</p>
                <p class="font-semibold">Alasan</p>
                <p class="col-span-3">{{ data?.banned_reason! }}</p>
             </template>
 
-            <template v-if="data?.blocked_at">
+            <template v-if="data?.status === 'blocked'">
                <p class="font-semibold">Blocked at</p>
                <p class="col-span-3">{{ data?.blocked_at! }}</p>
                <p class="font-semibold">Alasan</p>
@@ -66,12 +66,13 @@
                Top Up Saldo
             </u-button>
             
-            <template v-if="!data?.banned_at && !data?.blocked_at">
+            <template v-if="isAccountActive">
                <u-button
                   class="col-span-4 self-center mt-4"
                   variant="outline"
                   icon="i-heroicons-no-symbol"
                   block
+                  @click.stop="store.showDialog('ban-doctor', `Ban ${data?.full_name}`, data)"
                >
                   Ban
                </u-button>
@@ -83,70 +84,98 @@
                   Block
                </u-button>
             </template>
+
+            <template v-else>
+               <u-button
+                  class="col-span-4 self-center mt-4"
+                  icon="i-heroicons-check"
+                  color="emerald"
+                  block
+                  @click.stop="store.showDialog('activate-doctor', `Aktifkan ${data?.full_name}`, data)"
+               >
+                  Aktifkan
+               </u-button>
+            </template>
          </div>
       </u-card>
 
       <u-card class="col-span-2 h-[537px] overflow-y-auto">
-         <p class="text-xl font-semibold border-b-[1px] pb-4">
+         <p class="font-semibold flex items-center gap-2 border-b-[1px] pb-2">
+            <u-icon name="i-heroicons-user"></u-icon>
             Data Pasien
          </p>
          <div class="py-4 grid grid-cols-2 gap-4 text-sm">
             <div class="">
-               <p class="text-base font-semibold mb-1">
+               <p class="text-gray-500">
                   NIK
                </p>
-               <p class="text-gray-500 tracking-wide">
-                  {{ data?.nik }}
+               <p class="tracking-wide">
+                  {{ data?.nik || '-' }}
                </p>
             </div>
             <div class="">
-               <p class="text-base font-semibold mb-1">
+               <p class="text-gray-500">
                   No. Kartu Keluarga
                </p>
-               <p class="text-gray-500 tracking-wide">
-                  {{ data?.no_kk }}
+               <p class="tracking-wide">
+                  {{ data?.no_kk || '-' }}
                </p>
             </div>
             <div class="">
-               <p class="text-base font-semibold mb-1">
+               <p class="text-gray-500">
                   Jenis Kelamin
                </p>
-               <p class="text-gray-500 tracking-wide">
+               <p class="tracking-wide">
                   {{ data?.gender === 'L' ? 'Laki-laki' : 
-                     data?.gender === 'P' ? 'Perempuan' : ''
+                     data?.gender === 'P' ? 'Perempuan' : '-'
                   }}
                </p>
             </div>
             <div class="">
-               <p class="text-base font-semibold mb-1">
+               <p class="text-gray-500">
                   Tanggal Lahir
                </p>
-               <p class="text-gray-500 tracking-wide">
-                  {{ moment(data?.dob).format('DD MMM YYYY') }}
+               <p class="tracking-wide">
+                  {{ data?.dob ? moment(data?.dob).format('DD MMM YYYY') : '-' }}
                </p>
             </div>
             <div class="">
-               <p class="text-base font-semibold mb-1">
+               <p class="text-gray-500">
                   Tinggi Badan
                </p>
-               <p class="text-gray-500 tracking-wide">
-                  {{ data?.body_height }} cm
+               <p class="tracking-wide">
+                  {{ data?.body_height || '-' }} cm
                </p>
             </div>
             <div class="">
-               <p class="text-base font-semibold mb-1">
+               <p class="text-gray-500">
                   Berat Badan
                </p>
-               <p class="text-gray-500 tracking-wide">
-                  {{ data?.body_weight }} kg
+               <p class="tracking-wide">
+                  {{ data?.body_weight || '-' }} kg
                </p>
             </div>
             <div class="">
-               <p class="text-base font-semibold mb-1">
+               <p class="text-gray-500">
                   Golongan Darah
                </p>
-               <p class="text-gray-500 tracking-wide">
-                  {{ data?.blood_type }}
+               <p class="tracking-wide">
+                  {{ data?.blood_type || '-' }}
+               </p>
+            </div>
+         </div>
+
+         <p class="font-semibold flex items-center gap-2 border-b-[1px] pb-2">
+            <u-icon name="i-heroicons-home"></u-icon>
+            Alamat
+         </p>
+         <div class="py-4 grid gap-4 text-sm">
+            <div v-for="item in data.addresses">
+               <p class="text-gray-500">
+                  {{ item.address_type }}
+               </p>
+               <p class="tracking-wide">
+                  {{ item.address }}
                </p>
             </div>
          </div>
@@ -166,6 +195,8 @@ useHead({ title: store.getTitle })
 const patientSearch : Ref <string | number | undefined> = ref(undefined)
 const data : Ref <Model.Patient | null> = ref(null)
 const loading : Ref <boolean> = ref(false)
+
+const isAccountActive : ComputedRef <boolean> = computed(() => (data.value?.status === 'banned' || data.value?.status === 'blocked') ? false : true)
 
 const fetchPatient = async () => {
    loading.value = true
