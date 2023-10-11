@@ -12,7 +12,7 @@
             <u-button
                variant="ghost"
                color="sky"
-               icon="i-heroicons-eye-solid"
+               icon="i-heroicons-eye"
                @click.stop="doctorDetails(row)"
             ></u-button>
          </u-tooltip>
