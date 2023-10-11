@@ -20,5 +20,5 @@ export const useNurseTableHeader = [
    { key: 'email', label: 'Email' },
    { key: 'phone_number', label: 'No. Telepon' },
    { key: 'status', label: 'Status' },
-   { key: 'custom_actions' }
+   { key: 'actions' }
 ]

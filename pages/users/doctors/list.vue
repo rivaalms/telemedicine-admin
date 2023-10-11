@@ -6,8 +6,18 @@
       :data-length="dataLength"
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-      @emit-row="(row) => doctorDetails(row)"
-   ></app-data-table>
+   >
+      <template #actions="{ row }">
+         <u-tooltip text="Detail">
+            <u-button
+               variant="ghost"
+               color="sky"
+               icon="i-heroicons-eye-solid"
+               @click.stop="doctorDetails(row)"
+            ></u-button>
+         </u-tooltip>
+      </template>
+   </app-data-table>
 </u-card>
 </template>
 

@@ -7,7 +7,6 @@
          :data-length="dataLength"
          :loading="loading"
          @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-         @emit-row="(row: Model.Emergency) => store.showDialog('emergency', 'Detail Emergency', row)"
       >
          <template #filters>
             <u-form-group
@@ -19,6 +18,17 @@
                   @update:model-value="fetchEmergency()"
                ></u-select-menu>
             </u-form-group>
+         </template>
+
+         <template #actions="{ row }">
+            <u-tooltip text="Detail">
+               <u-button
+                  variant="ghost"
+                  color="sky"
+                  icon="i-heroicons-eye"
+                  @click.stop="store.showDialog('emergency', 'Detail Emergency', row)"
+               ></u-button>
+            </u-tooltip>
          </template>
       </app-data-table>
    </u-card>

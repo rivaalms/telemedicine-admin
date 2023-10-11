@@ -7,25 +7,25 @@
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
    >
-      <template #customActions="{ actionData }">
-         <template v-if="actionData.status === 'active'">
+      <template #actions="{ row }">
+         <template v-if="row.status === 'active'">
             <u-tooltip text="Nonaktifkan">
                <u-button
                   variant="ghost"
                   color="red"
                   icon="i-heroicons-no-symbol"
-                  @click.stop="store.showDialog('deactivate-user', `Nonaktifkan ${actionData.full_name}`, actionData)"
+                  @click.stop="store.showDialog('deactivate-user', `Nonaktifkan ${row.full_name}`, row)"
                ></u-button>
             </u-tooltip>
          </template>
 
-         <template v-else-if="actionData.status === 'inactive'">
+         <template v-else-if="row.status === 'inactive'">
             <u-tooltip text="Aktifkan">
                <u-button
                   variant="ghost"
                   color="emerald"
                   icon="i-heroicons-check"
-                  @click.stop="store.showDialog('activate-user', `Aktifkan ${actionData.full_name}`, actionData)"
+                  @click.stop="store.showDialog('activate-user', `Aktifkan ${row.full_name}`, row)"
                ></u-button>
             </u-tooltip>
          </template>

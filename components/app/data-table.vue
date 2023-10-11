@@ -24,17 +24,7 @@
       </template>
 
       <template #actions-data="{ row }">
-         <u-tooltip text="Detail">
-            <u-button
-               variant="ghost"
-               icon="i-heroicons-eye-solid"
-               @click.stop="$emit('emit-row', row)"
-            ></u-button>
-         </u-tooltip>
-      </template>
-      
-      <template #custom_actions-data="{ row }">
-         <slot name="customActions" :action-data="row">
+         <slot name="actions" :row="row">
             {{ '' }}
          </slot>
       </template>
