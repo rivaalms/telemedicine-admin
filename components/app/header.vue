@@ -14,12 +14,12 @@
             >
                <template #leading>
                   <u-avatar
-                     :alt="authStore.getUser.name"
+                     :alt="authStore.getUser?.name"
                      size="xs"
                   />
                </template>
                
-               {{ authStore.getUser.name }}
+               {{ authStore.getUser?.name }}
 
                <template #trailing>
                   <u-icon name="i-heroicons-chevron-down"/>
