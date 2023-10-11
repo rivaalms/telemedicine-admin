@@ -11,7 +11,9 @@ export const useDoctorsTableHeader = [
 export const useDoctorSchedulesTableHeader = [
    { key: 'day', label: 'Hari' },
    { key: 'start_time', label: 'Jam Mulai' },
-   { key: 'end_time', label: 'Jam Berakhir' }
+   { key: 'end_time', label: 'Jam Berakhir' },
+   { key: 'kuota', label: 'Kuota' },
+   { key: 'actions' }
 ]
 
 // NOTE: Used for doctor's schedules on Doctor Schedules page

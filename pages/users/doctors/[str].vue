@@ -148,7 +148,7 @@
       </div>
 
       <div class="grid grid-cols-2 gap-4 py-4">
-         <div>
+         <div class="pb-2">
             <div class="flex justify-between items-center border-b-[1px] pb-2">
                <p class="font-semibold flex items-center gap-2">
                   <u-icon name="i-heroicons-clipboard"></u-icon>
@@ -201,7 +201,7 @@
             </div>
          </div>
 
-         <div>
+         <div class="pb-2">
             <div class="flex justify-between items-center border-b-[1px] pb-2">
                <p class="font-semibold flex items-center gap-2">
                   <u-icon name="i-heroicons-academic-cap"></u-icon>
@@ -255,79 +255,92 @@
                </p>
             </div>
          </div>
-      </div>
 
-      <div class="flex justify-between items-center border-b-[1px] py-2">
-         <p class="font-semibold flex items-center gap-2">
-            <u-icon name="i-heroicons-building-office"></u-icon>
-            Tempat Praktek
-         </p>
-
-         <u-tooltip text="Sunting tempat praktek">
-            <u-button
-               variant="ghost"
-               color="sky"
-               icon="i-heroicons-plus"
-               size="xs"
-               @click.stop="store.showDialog('add-medical-facility-doctor', 'Tambah Tempat Praktek Dokter', profile)"
-            ></u-button>
-         </u-tooltip>
-      </div>
-      <div class="pb-2">
-         <div
-            v-for="item in medicalFacility"
-            :key="item.id!"
-            class="py-2 text-sm"
-         >
-            <div class="flex justify-between items-center">
-               <p class="font-semibold">
-                  {{ item.name }}
+         <div class="pb-2">
+            <div class="flex justify-between items-center border-b-[1px] pb-2">
+               <p class="font-semibold flex items-center gap-2">
+                  <u-icon name="i-heroicons-building-office"></u-icon>
+                  Tempat Praktek
                </p>
 
-               <div class="flex gap-y-4">
-                  <u-tooltip text="Sunting tempat praktek">
-                     <u-button
-                        variant="ghost"
-                        color="amber"
-                        icon="i-heroicons-pencil-square"
-                        size="xs"
-                        @click.stop="store.showDialog('edit-medical-facility-doctor', 'Sunting Tempat Praktek Dokter', item)"
-                     ></u-button>
-                  </u-tooltip>
-
-                  <u-tooltip text="Hapus tempat praktek">
-                     <u-button
-                        variant="ghost"
-                        color="red"
-                        icon="i-heroicons-trash"
-                        size="xs"
-                        @click.stop="store.showDialog('delete-medical-facility-doctor', 'Hapus Tempat Praktek Dokter', item)"
-                     ></u-button>
-                  </u-tooltip>
-               </div>
+               <u-tooltip text="Sunting tempat praktek">
+                  <u-button
+                     variant="ghost"
+                     color="sky"
+                     icon="i-heroicons-plus"
+                     size="xs"
+                     @click.stop="store.showDialog('add-medical-facility-doctor', 'Tambah Tempat Praktek Dokter', profile)"
+                  ></u-button>
+               </u-tooltip>
             </div>
-            <p class="text-gray-500">
-               {{ item.province_name }}, {{ item.regency_name }}
-            </p>
+            <div
+               v-for="item in medicalFacility"
+               :key="item.id!"
+               class="pt-4 text-sm"
+            >
+               <div class="flex justify-between items-center">
+                  <p class="font-semibold">
+                     {{ item.name }}
+                  </p>
+
+                  <div class="flex gap-y-4">
+                     <u-tooltip text="Sunting tempat praktek">
+                        <u-button
+                           variant="ghost"
+                           color="amber"
+                           icon="i-heroicons-pencil-square"
+                           size="xs"
+                           @click.stop="store.showDialog('edit-medical-facility-doctor', 'Sunting Tempat Praktek Dokter', item)"
+                        ></u-button>
+                     </u-tooltip>
+
+                     <u-tooltip text="Hapus tempat praktek">
+                        <u-button
+                           variant="ghost"
+                           color="red"
+                           icon="i-heroicons-trash"
+                           size="xs"
+                           @click.stop="store.showDialog('delete-medical-facility-doctor', 'Hapus Tempat Praktek Dokter', item)"
+                        ></u-button>
+                     </u-tooltip>
+                  </div>
+               </div>
+               <p class="text-gray-500">
+                  {{ item.province_name }}, {{ item.regency_name }}
+               </p>
+            </div>
+         </div>
+
+         <div class="pb-2">
+            <div class="flex justify-between items-center border-b-[1px] pb-2">
+               <p class="font-semibold flex items-center gap-2">
+                  <u-icon name="i-heroicons-calendar"></u-icon>
+                  Jadwal Praktek
+               </p>
+
+               <u-tooltip text="Sunting tempat praktek">
+                  <u-button
+                     variant="ghost"
+                     color="sky"
+                     icon="i-heroicons-plus"
+                     size="xs"
+                     :disabled="schedule?.length! > 6"
+                     @click.stop="store.showDialog('add-schedule-doctor', 'Tambah Jadwal Praktek Dokter', profile)"
+                  ></u-button>
+               </u-tooltip>
+            </div>
+
+            <u-table
+               :columns="useDoctorSchedulesTableHeader"
+               :rows="schedule ? schedule : []"
+               class="pt-4"
+            >
+               <template #day-data="{ row }">
+                  {{ useParseDay(row.day) }}
+               </template>
+            </u-table>
          </div>
       </div>
-
-      <div class="flex justify-between items-center border-b-[1px] py-2">
-         <p class="font-semibold flex items-center gap-2">
-            <u-icon name="i-heroicons-calendar"></u-icon>
-            Jadwal Praktek
-         </p>
-      </div>
-
-      <u-table
-         :columns="useDoctorSchedulesTableHeader"
-         :rows="schedule ? schedule : []"
-         class="pt-2"
-      >
-         <template #day-data="{ row }">
-            {{ useParseDay(row.day) }}
-         </template>
-      </u-table>
    </u-card>
 </div>
 </template>
