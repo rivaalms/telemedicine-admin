@@ -76,5 +76,11 @@ declare namespace API {
          end_time: string
          kuota: string
       }
+
+      type TopUpPayload = {
+         uuid: string
+         nominal: number
+         channel: string
+      }
    }
 }

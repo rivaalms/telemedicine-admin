@@ -22,7 +22,18 @@
 </template>
 
 <script setup lang="ts">
-import { DialogEmergency, DialogUserBan, DialogUserActivate, DialogDoctorEditPersonalData, DialogDoctorSpecialist, DialogDoctorEducation, DialogDoctorMedicalFacility, DialogDoctorSchedules, DialogDelete } from '#components'
+import {
+   DialogEmergency,
+   DialogUserBan,
+   DialogUserActivate,
+   DialogUserTopUp,
+   DialogDoctorEditPersonalData,
+   DialogDoctorSpecialist,
+   DialogDoctorEducation,
+   DialogDoctorMedicalFacility,
+   DialogDoctorSchedules,
+   DialogDelete
+} from '#components'
 
 const store = useAppStore()
 
@@ -50,6 +61,10 @@ watch(() => store.dialog.show, () => {
 
          case 'activate-user':
             dialogComponent.value = DialogUserActivate
+            break
+
+         case 'top-up-user':
+            dialogComponent.value = DialogUserTopUp
             break
 
          case 'edit-personal-data-doctor':

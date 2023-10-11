@@ -25,4 +25,21 @@ declare namespace Utils {
       order_number?: number
       tags?: any[]
    }
+
+   type TopUp = {
+      TransactionID: string
+      TransactionType: string
+      TransferStatus: string
+      ReceiverGLAccountNo: string | number | null
+      ReceiverName: string
+      Amount: number
+      Action: {
+         REDIRECT: {
+            Url?: string | null
+         } | null
+         QR: {
+            Url?: string | null
+         } | null
+      } | null
+   }
 }

@@ -35,3 +35,11 @@ export async function activateUser (uuid: string) : Promise <string> {
    })
    return response.messages!
 }
+
+export async function topUpUser (payload: API.Payload.TopUpPayload) : Promise <Utils.TopUp> {
+   const response = await $fetch <API.Response <Utils.TopUp>> (`/top-up`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}

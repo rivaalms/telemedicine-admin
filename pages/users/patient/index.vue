@@ -62,6 +62,7 @@
                color="sky"
                icon="i-heroicons-wallet-20-solid"
                block
+               @click.stop="store.showDialog('top-up-user', `Top Up Saldo ${data?.full_name}`, data)"
             >
                Top Up Saldo
             </u-button>
