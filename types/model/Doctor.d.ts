@@ -64,8 +64,11 @@ declare namespace Model {
 
    type DoctorSpecialist = {
       doctor_specialist_id?: number | null
+      doctor_id?: number | null
       slug?: string | null
+      specialist_id?: number | null
       specialist?: string | null
+      name?: string | null
       rate?: number | string | null
    }
 

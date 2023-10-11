@@ -46,7 +46,7 @@
       </u-button>
 
       <u-button
-         color="emerald"
+         :color="isEdit ? 'sky' : 'emerald'"
          icon="i-heroicons-check"
          :loading="loading"
          type="submit"
@@ -59,16 +59,17 @@
 
 <script setup lang="ts">
 import { getDoctorSpecialists } from '@/utils/api/utils'
-import { addDoctorSpecialist } from '@/utils/api/doctors'
+import { addDoctorSpecialist, updateDoctorSpecialist } from '@/utils/api/doctors'
 import * as yup from 'yup'
 
 const store = useAppStore()
+const isEdit : ComputedRef <boolean> = computed(() => store.dialog.type === 'edit-specialist-doctor')
 
 const specialistOptions : Ref <Utils.Specialist[]> = ref([])
 const loading : Ref <boolean> = ref(false)
 const state : Ref <any> = ref({
-   slug: '',
-   rate: ''
+   slug: isEdit.value ? store.dialog.data.slug : '',
+   rate: isEdit.value ? store.dialog.data.rate : ''
 })
 
 const validationSchema = yup.object({
@@ -86,16 +87,24 @@ onBeforeMount(async () => {
 
 const submit = async () => {
    loading.value = true
-   const payload : API.Payload.AddDoctorSpecialistPayload = {
-      uuid: store.dialog.data.uuid,
-      doctor_specialists: [ state.value ]
+
+   try {
+      if (isEdit.value) {
+         await updateDoctorSpecialist(store.dialog.data.doctor_specialist_id, state.value)
+      } else {
+         const payload : API.Payload.AddDoctorSpecialistPayload = {
+            uuid: store.dialog.data.uuid,
+            doctor_specialists: [ state.value ]
+         }
+
+         await addDoctorSpecialist(payload)
+      }
+
+      store.clearDialog()
+   } catch (error) {
+      console.error(error)
+   } finally {
+      loading.value = false
    }
-   await addDoctorSpecialist(payload)
-      .then((resp) => {
-         store.clearDialog()
-      })
-      .finally(() => {
-         loading.value = false
-      })
 }
 </script>

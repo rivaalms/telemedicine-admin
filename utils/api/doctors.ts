@@ -34,3 +34,11 @@ export async function addDoctorSpecialist (payload: API.Payload.AddDoctorSpecial
    })
    return response.data!
 }
+
+export async function updateDoctorSpecialist (specialistId: number, payload: Pick <Model.DoctorSpecialist, 'rate' | 'slug'>) : Promise <Model.DoctorSpecialist> {
+   const response = await $fetch <API.Response <Model.DoctorSpecialist>> (`/doctor-specialists/${specialistId}`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}

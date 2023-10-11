@@ -170,9 +170,33 @@
                :key="item.slug!"
                class="text-sm pt-4"
             >
-               <p class="font-semibold">
-                  {{ item.specialist }}
-               </p>
+               <div class="flex justify-between items-center">
+                  <p class="font-semibold">
+                     {{ item.specialist }}
+                  </p>
+
+                  <div class="flex gap-y-4">
+                     <u-tooltip text="Sunting spesialis">
+                        <u-button
+                           variant="ghost"
+                           color="amber"
+                           icon="i-heroicons-pencil-square"
+                           size="xs"
+                           @click.stop="store.showDialog('edit-specialist-doctor', 'Sunting Spesialis Dokter', item)"
+                        ></u-button>
+                     </u-tooltip>
+
+                     <u-tooltip text="Hapus spesialis">
+                        <u-button
+                           variant="ghost"
+                           color="red"
+                           icon="i-heroicons-trash"
+                           size="xs"
+                           @click.stop="store.showDialog('specialist-doctor', 'Sunting Spesialis Dokter', profile)"
+                        ></u-button>
+                     </u-tooltip>
+                  </div>
+               </div>
                <p class="text-gray-500">Rate: {{ parseCurrency(item.rate!) }}</p>
             </div>
          </div>
