@@ -266,9 +266,10 @@
          <u-tooltip text="Sunting tempat praktek">
             <u-button
                variant="ghost"
-               color="amber"
-               icon="i-heroicons-pencil-square"
+               color="sky"
+               icon="i-heroicons-plus"
                size="xs"
+               @click.stop="store.showDialog('add-medical-facility-doctor', 'Tambah Tempat Praktek Dokter', profile)"
             ></u-button>
          </u-tooltip>
       </div>
@@ -278,9 +279,33 @@
             :key="item.id!"
             class="py-2 text-sm"
          >
-            <p class="font-semibold">
-               {{ item.name }}
-            </p>
+            <div class="flex justify-between items-center">
+               <p class="font-semibold">
+                  {{ item.name }}
+               </p>
+
+               <div class="flex gap-y-4">
+                  <u-tooltip text="Sunting tempat praktek">
+                     <u-button
+                        variant="ghost"
+                        color="amber"
+                        icon="i-heroicons-pencil-square"
+                        size="xs"
+                        @click.stop="store.showDialog('edit-medical-facility-doctor', 'Sunting Tempat Praktek Dokter', item)"
+                     ></u-button>
+                  </u-tooltip>
+
+                  <u-tooltip text="Hapus tempat praktek">
+                     <u-button
+                        variant="ghost"
+                        color="red"
+                        icon="i-heroicons-trash"
+                        size="xs"
+                        @click.stop="store.showDialog('delete-medical-facility-doctor', 'Hapus Tempat Praktek Dokter', item)"
+                     ></u-button>
+                  </u-tooltip>
+               </div>
+            </div>
             <p class="text-gray-500">
                {{ item.province_name }}, {{ item.regency_name }}
             </p>

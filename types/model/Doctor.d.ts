@@ -60,6 +60,8 @@ declare namespace Model {
       updated_at?: string | null
       province_name?: string | null
       regency_name?: string | null
+      province?: Utils.Province | null
+      regency?: Utils.Regency | null
    }
 
    type DoctorSpecialist = {

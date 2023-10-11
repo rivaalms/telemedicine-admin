@@ -61,5 +61,12 @@ declare namespace API {
          graduation_year: string
          education: string
       }
+
+      type AddDoctorMedicalFacilityPayload = {
+         uuid: string
+         name: string
+         province_id: number
+         regency_id: number
+      }
    }
 }

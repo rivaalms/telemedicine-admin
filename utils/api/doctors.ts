@@ -72,3 +72,26 @@ export async function deleteDoctorEducation (educationId: number) : Promise <boo
    })
    return true
 }
+
+export async function addDoctorMedicalFacility (payload : API.Payload.AddDoctorMedicalFacilityPayload) : Promise <Model.MedicalFacility> {
+   const response = await $fetch <API.Response <Model.MedicalFacility>> (`doctor-facilities`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updateDoctorMedicalFacility (medicalFacilityId: number, payload: Pick <Model.MedicalFacility, 'name' | 'province_id' | 'regency_id'>) : Promise <Model.MedicalFacility> {
+   const response = await $fetch <API.Response <Model.MedicalFacility>> (`/doctor-facilities/${medicalFacilityId}`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function deleteDoctorMedicalFacility (medicalFacilityId: number) : Promise <boolean> {
+   const response = await $fetch <void> (`/doctor-facilities/${medicalFacilityId}`, {
+      method: 'DELETE'
+   })
+   return true
+}
