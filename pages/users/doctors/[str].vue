@@ -208,12 +208,13 @@
                   Riwayat Pendidikan
                </p>
 
-               <u-tooltip text="Sunting riwayat pendidikan">
+               <u-tooltip text="Tambah spesialis">
                   <u-button
                      variant="ghost"
-                     color="amber"
-                     icon="i-heroicons-pencil-square"
+                     color="sky"
+                     icon="i-heroicons-plus"
                      size="xs"
+                     @click.stop="store.showDialog('add-education-doctor', 'Tambah Riwayat Pendidikan Dokter', profile)"
                   ></u-button>
                </u-tooltip>
             </div>
@@ -222,9 +223,33 @@
                :key="item.id!"
                class="text-sm pt-4"
             >
-               <p class="font-semibold">
-                  {{ item.education }}
-               </p>
+               <div class="flex justify-between items-center">
+                  <p class="font-semibold">
+                     {{ item.education }}
+                  </p>
+
+                  <div class="flex gap-y-4">
+                     <u-tooltip text="Sunting riwayat pendidikan">
+                        <u-button
+                           variant="ghost"
+                           color="amber"
+                           icon="i-heroicons-pencil-square"
+                           size="xs"
+                           @click.stop="store.showDialog('edit-education-doctor', 'Sunting Riwayat Pendidikan Dokter', item)"
+                        ></u-button>
+                     </u-tooltip>
+
+                     <u-tooltip text="Hapus riwayat pendidikan">
+                        <u-button
+                           variant="ghost"
+                           color="red"
+                           icon="i-heroicons-trash"
+                           size="xs"
+                           @click.stop="store.showDialog('delete-education-doctor', 'Hapus Riwayat Pendidikan Dokter', item)"
+                        ></u-button>
+                     </u-tooltip>
+                  </div>
+               </div>
                <p class="text-gray-500">
                   Tahun Kelulusan: {{ item.graduation_year }}
                </p>

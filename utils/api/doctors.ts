@@ -49,3 +49,19 @@ export async function deleteDoctorSpecialist (specialistId: number) : Promise <s
    })
    return response.messages!
 }
+
+export async function addDoctorEducation (payload: API.Payload.AddDoctorEducationPayload) : Promise <Model.DoctorEducation> {
+   const response = await $fetch <API.Response <Model.DoctorEducation>> (`/doctor-educations`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updateDoctorEducation (educationId: number, payload: Pick <Model.DoctorEducation, 'education' | 'graduation_year'>) : Promise <Model.DoctorEducation> {
+   const response = await $fetch <API.Response <Model.DoctorEducation>> (`/doctor-educations/${educationId}`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}

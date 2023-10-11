@@ -55,5 +55,11 @@ declare namespace API {
             rate?: number
          }>
       }
+
+      type AddDoctorEducationPayload = {
+         uuid: string
+         graduation_year: string
+         education: string
+      }
    }
 }
