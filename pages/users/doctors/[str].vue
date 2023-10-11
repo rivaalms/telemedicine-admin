@@ -38,7 +38,7 @@
                icon="i-heroicons-no-symbol"
                color="red"
                block
-               @click.stop="store.showDialog('ban-doctor', `Ban ${profile?.full_name}`, profile)"
+               @click.stop="store.showDialog('ban-user', `Ban ${profile?.full_name}`, profile)"
             >
                Ban
             </u-button>
@@ -58,7 +58,7 @@
                icon="i-heroicons-check"
                color="emerald"
                block
-               @click.stop="store.showDialog('activate-doctor', `Aktifkan ${profile?.full_name}`, profile)"
+               @click.stop="store.showDialog('activate-user', `Aktifkan ${profile?.full_name}`, profile)"
             >
                Aktifkan
             </u-button>

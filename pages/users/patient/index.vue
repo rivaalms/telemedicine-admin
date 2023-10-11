@@ -72,7 +72,7 @@
                   variant="outline"
                   icon="i-heroicons-no-symbol"
                   block
-                  @click.stop="store.showDialog('ban-doctor', `Ban ${data?.full_name}`, data)"
+                  @click.stop="store.showDialog('ban-user', `Ban ${data?.full_name}`, data)"
                >
                   Ban
                </u-button>
@@ -91,7 +91,7 @@
                   icon="i-heroicons-check"
                   color="emerald"
                   block
-                  @click.stop="store.showDialog('activate-doctor', `Aktifkan ${data?.full_name}`, data)"
+                  @click.stop="store.showDialog('activate-user', `Aktifkan ${data?.full_name}`, data)"
                >
                   Aktifkan
                </u-button>
