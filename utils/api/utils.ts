@@ -11,3 +11,10 @@ export async function getRegencies (provinceId: number) : Promise <Utils.Regency
    })
    return response.data!
 }
+
+export async function getDoctorSpecialists () : Promise <Utils.Specialist[]> {
+   const response = await $fetch <API.Response <Utils.Specialist[]>> (`/specialists`, {
+      method: 'GET'
+   })
+   return response.data!
+}

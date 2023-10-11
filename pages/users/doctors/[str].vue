@@ -155,12 +155,13 @@
                   Spesialis
                </p>
 
-               <u-tooltip text="Sunting spesialis">
+               <u-tooltip text="Tambah spesialis">
                   <u-button
                      variant="ghost"
-                     color="amber"
-                     icon="i-heroicons-pencil-square"
+                     color="sky"
+                     icon="i-heroicons-plus"
                      size="xs"
+                     @click.stop="store.showDialog('add-specialist-doctor', 'Tambah Spesialis Dokter', profile)"
                   ></u-button>
                </u-tooltip>
             </div>

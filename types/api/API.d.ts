@@ -47,5 +47,13 @@ declare namespace API {
          start_date: string
          end_date: string
       }
+
+      type AddDoctorSpecialistPayload = {
+         uuid: string
+         doctor_specialists: Array <{
+            slug?: string
+            rate?: number
+         }>
+      }
    }
 }

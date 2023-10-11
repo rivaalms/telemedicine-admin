@@ -13,4 +13,14 @@ declare namespace Utils {
       created_at?: string | null
       updated_at?: string | null
    }
+
+   type Specialist = {
+      name: string
+      slug: string
+      description?: string | null
+      parent?: any
+      image?: string | null
+      order_number?: number
+      tags?: any[]
+   }
 }
