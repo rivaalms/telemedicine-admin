@@ -279,27 +279,6 @@
          </template>
       </u-table>
    </u-card>
-
-   <!-- <u-card
-      class="col-span-3"
-   >
-      <div class="flex justify-between items-center border-b-[1px] pb-2">
-         <p class="font-semibold flex items-center gap-2">
-            <u-icon name="i-heroicons-calendar"></u-icon>
-            Jadwal Praktek
-         </p>
-      </div>
-
-      <u-table
-         :columns="useDoctorSchedulesTableHeader"
-         :rows="schedule ? schedule : []"
-         class="pt-2"
-      >
-         <template #day-data="{ row }">
-            {{ useParseDay(row.day) }}
-         </template>
-      </u-table>
-   </u-card> -->
 </div>
 </template>
 
