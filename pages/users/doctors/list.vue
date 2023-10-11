@@ -7,6 +7,18 @@
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
    >
+      <template #filters>
+         <div class="col-start-12 flex items-center justify-end">
+            <u-button
+               color="primary"
+               icon="i-heroicons-plus"
+               @click.stop="store.showDialog('add-doctor', 'Tambah Dokter', null)"
+            >
+               Tambah Dokter
+            </u-button>
+         </div>
+      </template>
+
       <template #actions="{ row }">
          <u-tooltip text="Detail">
             <u-button

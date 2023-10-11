@@ -33,6 +33,7 @@ import {
    DialogDoctorEducation,
    DialogDoctorMedicalFacility,
    DialogDoctorSchedules,
+   DialogDoctorAdd,
    DialogDelete
 } from '#components'
 
@@ -71,6 +72,11 @@ watch(() => store.dialog.show, () => {
 
          case 'top-up-user':
             dialogComponent.value = DialogUserTopUp
+            break
+
+         case 'add-doctor':
+            dialogComponent.value = DialogDoctorAdd
+            dialogWidth.value = 'sm:max-w-5xl'
             break
 
          case 'edit-personal-data-doctor':
