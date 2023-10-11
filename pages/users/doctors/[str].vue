@@ -58,7 +58,7 @@
                icon="i-heroicons-check"
                color="emerald"
                block
-               @click.stop="store.showDialog('activate-user', `Aktifkan ${profile?.full_name}`, profile)"
+               @click.stop="store.showDialog('unban-user', `Aktifkan ${profile?.full_name}`, profile)"
             >
                Aktifkan
             </u-button>

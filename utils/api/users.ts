@@ -29,7 +29,7 @@ export async function banUser (reason: string, uuid: string) : Promise <Model.Us
    return response.data!
 }
 
-export async function activateUser (uuid: string) : Promise <string> {
+export async function unbanUser (uuid: string) : Promise <string> {
    const response = await $fetch <API.Response <[]>> (`/auth/active/${uuid}`, {
       method: 'POST'
    })
@@ -42,4 +42,21 @@ export async function topUpUser (payload: API.Payload.TopUpPayload) : Promise <U
       body: payload
    })
    return response.data!
+}
+
+export async function activateUser (uuid: string) : Promise <string> {
+   const response = await $fetch <API.Response <null>> (`/users/status/${uuid}/active`, {
+      method: 'PUT'
+   })
+   return response.messages!
+}
+
+export async function deactivateUser (uuid: string, note: string) : Promise <string> {
+   const response = await $fetch <API.Response <null>> (`/users/status/${uuid}/inactive`, {
+      method: 'PUT',
+      body: {
+         note
+      }
+   })
+   return response.messages!
 }

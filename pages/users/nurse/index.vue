@@ -6,13 +6,36 @@
       :data-length="dataLength"
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-   ></app-data-table>
+   >
+      <template #customActions="{ actionData }">
+         <template v-if="actionData.status === 'active'">
+            <u-tooltip text="Nonaktifkan">
+               <u-button
+                  variant="ghost"
+                  color="red"
+                  icon="i-heroicons-no-symbol"
+                  @click.stop="store.showDialog('deactivate-user', `Nonaktifkan ${actionData.full_name}`, actionData)"
+               ></u-button>
+            </u-tooltip>
+         </template>
+
+         <template v-else-if="actionData.status === 'inactive'">
+            <u-tooltip text="Aktifkan">
+               <u-button
+                  variant="ghost"
+                  color="emerald"
+                  icon="i-heroicons-check"
+                  @click.stop="store.showDialog('activate-user', `Aktifkan ${actionData.full_name}`, actionData)"
+               ></u-button>
+            </u-tooltip>
+         </template>
+      </template>
+   </app-data-table>
 </u-card>
 </template>
 
 <script setup lang="ts">
 import { getNurses } from '@/utils/api/users'
-import { useNurseTableHeader } from '~/composables/users';
 
 const store = useAppStore()
 store.title = 'Perawat'

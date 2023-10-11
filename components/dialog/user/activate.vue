@@ -23,20 +23,25 @@
 </template>
 
 <script setup lang="ts">
-import { activateUser } from '@/utils/api/users'
+import { unbanUser, activateUser } from '@/utils/api/users'
 
 const store = useAppStore()
 const uuid : ComputedRef <string> = computed(() => store.dialog.data!.uuid)
 const loading : Ref <boolean> = ref(false)
+const isBanned : ComputedRef <boolean> = computed(() => store.dialog.type === 'unban-user')
 
 const activate = async () => {
    loading.value = true
-   await activateUser(uuid.value)
-      .then((resp) => {
-         store.clearDialog()
-      })
-      .finally(() => {
-         loading.value = false
-      })
+
+   try {
+      if (isBanned.value) await unbanUser(uuid.value)
+      else await activateUser(uuid.value)
+
+      store.clearDialog()
+   } catch (error) {
+      console.error(error)
+   } finally {
+      loading.value = false
+   }
 }
 </script>

@@ -33,6 +33,11 @@
          </u-tooltip>
       </template>
       
+      <template #custom_actions-data="{ row }">
+         <slot name="customActions" :action-data="row">
+            {{ '' }}
+         </slot>
+      </template>
    </u-table>
 
    <div class="flex justify-between mt-4">

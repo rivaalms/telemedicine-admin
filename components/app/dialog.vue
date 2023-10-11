@@ -26,6 +26,7 @@ import {
    DialogEmergency,
    DialogUserBan,
    DialogUserActivate,
+   DialogUserDeactivate,
    DialogUserTopUp,
    DialogDoctorEditPersonalData,
    DialogDoctorSpecialist,
@@ -60,7 +61,12 @@ watch(() => store.dialog.show, () => {
             break
 
          case 'activate-user':
+         case 'unban-user':
             dialogComponent.value = DialogUserActivate
+            break
+
+         case 'deactivate-user':
+            dialogComponent.value = DialogUserDeactivate
             break
 
          case 'top-up-user':
