@@ -65,3 +65,10 @@ export async function updateDoctorEducation (educationId: number, payload: Pick 
    })
    return response.data!
 }
+
+export async function deleteDoctorEducation (educationId: number) : Promise <boolean> {
+   const response = await $fetch <void> (`/doctor-educations/${educationId}`, {
+      method: 'DELETE'
+   })
+   return true
+}

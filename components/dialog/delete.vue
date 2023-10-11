@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { deleteDoctorSpecialist } from '@/utils/api/doctors'
+import { deleteDoctorSpecialist, deleteDoctorEducation } from '@/utils/api/doctors'
 
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
@@ -34,10 +34,16 @@ const confirmDelete = async () => {
    loading.value = true
 
    try {
-      if (store.dialog.type === 'delete-specialist-doctor')
-         await deleteDoctorSpecialist(data.doctor_specialist_id!)
-      else
-         console.log(data)
+      switch (store.dialog.type) {
+         case 'delete-specialist-doctor':
+            await deleteDoctorSpecialist(data.doctor_specialist_id!)
+            break
+         case 'delete-education-doctor':
+            await deleteDoctorEducation(data.id!)
+            break
+         default:
+            break
+      }
 
       store.clearDialog()
    } catch (error) {
