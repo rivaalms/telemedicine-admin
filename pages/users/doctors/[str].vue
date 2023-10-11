@@ -192,7 +192,7 @@
                            color="red"
                            icon="i-heroicons-trash"
                            size="xs"
-                           @click.stop="store.showDialog('specialist-doctor', 'Sunting Spesialis Dokter', profile)"
+                           @click.stop="store.showDialog('delete-specialist-doctor', 'Hapus Spesialis Dokter', item)"
                         ></u-button>
                      </u-tooltip>
                   </div>

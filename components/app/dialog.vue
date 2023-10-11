@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { DialogEmergency, DialogDoctorBan, DialogDoctorActivate, DialogDoctorEditPersonalData, DialogDoctorSpecialist } from '#components'
+import { DialogEmergency, DialogDoctorBan, DialogDoctorActivate, DialogDoctorEditPersonalData, DialogDoctorSpecialist, DialogDelete } from '#components'
 
 const store = useAppStore()
 
@@ -50,6 +50,9 @@ watch(() => store.dialog.show, () => {
          case 'add-specialist-doctor':
          case 'edit-specialist-doctor':
             dialogComponent.value = DialogDoctorSpecialist
+            break
+         case 'delete-specialist-doctor':
+            dialogComponent.value = DialogDelete
             break
          default:
             dialogComponent.value = 'div'

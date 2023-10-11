@@ -42,3 +42,10 @@ export async function updateDoctorSpecialist (specialistId: number, payload: Pic
    })
    return response.data!
 }
+
+export async function deleteDoctorSpecialist (specialistId: number) : Promise <string> {
+   const response = await $fetch <API.Response <string>> (`/doctor-specialists/${specialistId}`, {
+      method: 'DELETE'
+   })
+   return response.messages!
+}
