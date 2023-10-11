@@ -30,7 +30,13 @@ const dialogComponent : Ref <any> = ref('div')
 const dialogWidth : Ref <string> = ref('sm:max-w-lg')
 
 watch(() => store.dialog.show, () => {
-   if (!store.dialog.show) store.clearDialog()
+   if (!store.dialog.show) {
+      store.clearDialog()
+      setTimeout(() => {
+         dialogWidth.value = 'sm:max-w-lg'
+         dialogComponent.value = 'div'
+      }, 600)
+   }
    else {
       switch (store.dialog.type) {
          case 'emergency':
