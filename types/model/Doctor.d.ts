@@ -76,10 +76,13 @@ declare namespace Model {
 
    type DoctorSchedule = {
       id?: number | null
+      doctors_id?: number
       day?: number | string | null
       start_time?: string | null
       end_time?: string | null
       kuota?: string | number | null
+      updated_at?: string | null
+      created_at?: string | null
    }
 
    type PageDoctorSchedule = Pick <Model.Doctor, 'uuid' | 'full_name'> & {

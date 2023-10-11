@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { DialogEmergency, DialogDoctorBan, DialogDoctorActivate, DialogDoctorEditPersonalData, DialogDoctorSpecialist, DialogDoctorEducation, DialogDoctorMedicalFacility, DialogDelete } from '#components'
+import { DialogEmergency, DialogDoctorBan, DialogDoctorActivate, DialogDoctorEditPersonalData, DialogDoctorSpecialist, DialogDoctorEducation, DialogDoctorMedicalFacility, DialogDoctorSchedules, DialogDelete } from '#components'
 
 const store = useAppStore()
 
@@ -37,33 +37,46 @@ watch(() => store.dialog.show, () => {
             dialogComponent.value = DialogEmergency
             dialogWidth.value = 'sm:max-w-5xl'
             break
+
          case 'ban-doctor':
             dialogComponent.value = DialogDoctorBan
             break
+
          case 'activate-doctor':
             dialogComponent.value = DialogDoctorActivate
             break
+
          case 'edit-personal-data-doctor':
             dialogComponent.value = DialogDoctorEditPersonalData
             dialogWidth.value = 'sm:max-w-5xl'
             break
+
          case 'add-specialist-doctor':
          case 'edit-specialist-doctor':
             dialogComponent.value = DialogDoctorSpecialist
             break
+
          case 'add-education-doctor':
          case 'edit-education-doctor':
             dialogComponent.value = DialogDoctorEducation
             break
+
          case 'add-medical-facility-doctor':
          case 'edit-medical-facility-doctor':
             dialogComponent.value = DialogDoctorMedicalFacility
             break
+
+         case 'add-schedule-doctor':
+         case 'edit-schedule-doctor':
+            dialogComponent.value = DialogDoctorSchedules
+            break
+
          case 'delete-specialist-doctor':
          case 'delete-education-doctor':
          case 'delete-medical-facility-doctor':
             dialogComponent.value = DialogDelete
             break
+
          default:
             dialogComponent.value = 'div'
             dialogWidth.value = 'sm:max-w-lg'

@@ -325,7 +325,7 @@
                      icon="i-heroicons-plus"
                      size="xs"
                      :disabled="schedule?.length! > 6"
-                     @click.stop="store.showDialog('add-schedule-doctor', 'Tambah Jadwal Praktek Dokter', profile)"
+                     @click.stop="store.showDialog('add-schedule-doctor', 'Tambah Jadwal Praktek Dokter', { doctor: profile, schedule })"
                   ></u-button>
                </u-tooltip>
             </div>
@@ -337,6 +337,20 @@
             >
                <template #day-data="{ row }">
                   {{ useParseDay(row.day) }}
+               </template>
+
+               <template #actions-data="{ row }">
+                  <div class="flex gap-4">
+                     <u-tooltip text="Sunting jadwal praktek">
+                        <u-button
+                           variant="ghost"
+                           color="amber"
+                           icon="i-heroicons-pencil-square"
+                           size="xs"
+                           @click.stop="store.showDialog('edit-schedule-doctor', 'Sunting Jadwal Praktek Dokter', { doctor: profile, schedule: row })"
+                        ></u-button>
+                     </u-tooltip>
+                  </div>
                </template>
             </u-table>
          </div>

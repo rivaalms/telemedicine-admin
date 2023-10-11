@@ -95,3 +95,19 @@ export async function deleteDoctorMedicalFacility (medicalFacilityId: number) : 
    })
    return true
 }
+
+export async function addDoctorSchedule (payload: API.Payload.AddDoctorSchedulePayload) : Promise <Model.DoctorSchedule> {
+   const response = await $fetch <API.Response <Model.DoctorSchedule>> (`/doctor-schedules`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updateDoctorSchedule (scheduleId: number, payload: API.Payload.AddDoctorSchedulePayload) : Promise <Model.DoctorSchedule> {
+   const response = await $fetch <API.Response <Model.DoctorSchedule>> (`/doctor-schedules/${scheduleId}`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}

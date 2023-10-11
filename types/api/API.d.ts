@@ -68,5 +68,13 @@ declare namespace API {
          province_id: number
          regency_id: number
       }
+
+      type AddDoctorSchedulePayload = {
+         doctor_uuid: string
+         day: string
+         start_time: string
+         end_time: string
+         kuota: string
+      }
    }
 }
