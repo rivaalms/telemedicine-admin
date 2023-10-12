@@ -11,10 +11,7 @@ declare namespace Model {
       ref_type?: string | null
       pin?: boolean
       medical_facility?: any
-      role?: {
-         id?: string | number
-         name?: string
-      } | null
+      role?: Utils.Role | null
    }
 
    type User = {
