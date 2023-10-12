@@ -6,7 +6,18 @@
       :data-length="dataLength"
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-   ></app-data-table>
+   >
+      <template #filters>
+         <div class="col-start-12 flex justify-end items-center">
+            <u-button
+               icon="i-heroicons-plus"
+               @click.stop="store.showDialog('add-admin', 'Tambah Admin', null)"
+            >
+               Tambah Admin
+            </u-button>
+         </div>
+      </template>
+   </app-data-table>
 </u-card>
 </template>
 

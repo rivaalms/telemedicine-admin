@@ -5,6 +5,14 @@ export async function getAdmin () : Promise <Model.User[]> {
    return response.data!
 }
 
+export async function addAdmin (payload: Model.User) : Promise <Model.User> {
+   const response = await $fetch <API.Response <Model.User>> (`/users`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
 export async function getOfficers () : Promise <Model.Officer[]> {
    const response = await $fetch <API.Response <Model.Officer[]>> (`/officers`, {
       method: 'GET'

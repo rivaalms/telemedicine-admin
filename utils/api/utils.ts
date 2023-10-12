@@ -23,3 +23,17 @@ export async function getDoctorSpecialists () : Promise <Utils.Specialist[]> {
    })
    return response.data!
 }
+
+export async function getMedicalFacilities () : Promise <Model.MedicalFacility[]> {
+   const response = await $fetch <API.Response <Model.MedicalFacility[]>> (`/medical-facilities`, {
+      method: 'GET'
+   })
+   return response.data!
+}
+
+export async function getRoles () : Promise <Utils.Role[]> {
+   const response = await $fetch <API.Response <Utils.Role[]>> (`/roles`, {
+      method: 'GET'
+   })
+   return response.data!
+}
