@@ -806,9 +806,8 @@
                   @change="(event) => setImage(event)"
                />
 
-               <div class="flex justify-center mb-4">
+               <div v-if="croppedImage" class="flex justify-center mb-4">
                   <img
-                     v-if="croppedImage"
                      :src="croppedImage"
                   />
                </div>
@@ -844,7 +843,7 @@
 
                <div class="flex justify-center gap-4">
                   <u-button
-                     v-if="!isCropping"
+                     v-if="!isCropping && !isImageUploaded"
                      color="sky"
                      :variant="!imageFile ? 'solid' : 'ghost'"
                      icon="i-heroicons-photo"
@@ -857,7 +856,7 @@
                   </u-button>
 
                   <u-button
-                     v-if="imageFile"
+                     v-if="imageFile && !isImageUploaded"
                      color="emerald"
                      icon="i-heroicons-check"
                      @click.stop="uploadImage"
@@ -884,6 +883,36 @@
                @click="currentTab++"
             >
                Selanjutnya
+            </u-button>
+         </div>
+      </div>
+   </template>
+
+   <template #finish>
+      <div class="grid gap-2">
+         <u-card>
+            <div class="flex justify-center">
+               <p class="font-semibold text-sm">
+                  Data registrasi dokter berhasil disimpan
+               </p>
+            </div>
+         </u-card>
+
+         <div class="flex items-center justify-between gap-2 mt-6">
+            <u-button
+               color="gray"
+               variant="ghost"
+               icon="i-heroicons-arrow-small-left"
+               @click="currentTab--"
+            >
+               Sebelumnya
+            </u-button>
+            <u-button
+               color="emerald"
+               trailing-icon="i-heroicons-arrow-check"
+               @click="store.clearDialog()"
+            >
+               Selesai
             </u-button>
          </div>
       </div>
@@ -920,13 +949,12 @@ const education : Ref <Model.DoctorEducation[]> = ref([])
 const medicalFacility : Ref <Model.MedicalFacility[]> = ref([])
 
 const isFormDisabled : ComputedRef <boolean> = computed(() => doctor.value ? true : false)
-const stepper : Ref <number> = ref(0)
 const currentTab : Ref <number> = ref(0)
 const loading : Ref <boolean> = ref(false)
 const tabs : Ref <any> = ref([
    { slot: 'data', label: 'Data Dokter' },
    { slot: 'details', label: 'Detail', disabled: true },
-   { slot: 'image', label: 'Unggah Foto', disabled: false },
+   { slot: 'image', label: 'Unggah Foto', disabled: true },
    { slot: 'finish', label: 'Selesai', disabled: true }
 ])
 
@@ -1006,6 +1034,7 @@ const imageFile : Ref <any> = ref(null)
 const imageInput : Ref <any> = ref()
 const cropper : Ref <any> = ref()
 const isCropping : Ref <boolean> = ref(false)
+const isImageUploaded : Ref <boolean> = ref(false)
 
 onBeforeMount(async () => {
    await getProvinces()
@@ -1262,6 +1291,8 @@ const uploadImage = async () => {
    await addDoctorImage(doctor.value!.uuid!, imageFile.value)
       .then((resp) => {
          doctor.value = resp
+         isImageUploaded.value = true
+         currentTab.value++
       })
 }
 </script>
