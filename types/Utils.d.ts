@@ -42,4 +42,9 @@ declare namespace Utils {
          } | null
       } | null
    }
+
+   type Role = {
+      id: number
+      name: string
+   }
 }
