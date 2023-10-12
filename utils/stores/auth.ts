@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', {
    }),
 
    getters: {
-      getUser: (state) : any => state.user,
+      getUser: (state) : Model.Auth | null => state.user,
       isLoggedIn: (state) : boolean => !!state.user,
       getRole: (state) : string => {
          if (state.user?.ref_type === "App\\Model\\MedicalFacility" && state.user?.role) return state.user.role.name!
