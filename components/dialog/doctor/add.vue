@@ -813,7 +813,7 @@
                   />
                </div>
 
-               <div v-if="isCropping" class="flex justify-center mb-4">
+               <div v-if="isCropping" class="grid gap-4 mb-4">
                   <vue-cropper
                      :src="image"
                      ref="cropper"
@@ -822,12 +822,7 @@
                      preview=".preview"
                   ></vue-cropper>
 
-                  <div class="preview-area max-h-[300px]">
-                  </div>
-                  
-                  <div class="">
-                     <div class="preview"></div>
-
+                  <div class="flex justify-center gap-4">
                      <u-button
                         variant="ghost"
                         color="gray"
@@ -847,13 +842,27 @@
                   </div>
                </div>
 
-               <div class="flex justify-center">
+               <div class="flex justify-center gap-4">
                   <u-button
+                     v-if="!isCropping"
                      color="sky"
+                     :variant="!imageFile ? 'solid' : 'ghost'"
                      icon="i-heroicons-photo"
-                     @click.stop="imageInput.click()"
+                     @click.stop="() => {
+                        cancelCrop()
+                        imageInput.click()
+                     }"
                   >
-                     Unggah Foto
+                     {{ !imageFile ? 'Pilih Foto' : 'Ubah Foto' }}
+                  </u-button>
+
+                  <u-button
+                     v-if="imageFile"
+                     color="emerald"
+                     icon="i-heroicons-check"
+                     @click.stop="uploadImage"
+                  >
+                     Simpan
                   </u-button>
                </div>
             </div>
@@ -993,6 +1002,7 @@ const validationSchemaMedicalFacility = yup.object({
 
 const image : Ref <any> = ref(null)
 const croppedImage : Ref <any> = ref(null)
+const imageFile : Ref <any> = ref(null)
 const imageInput : Ref <any> = ref()
 const cropper : Ref <any> = ref()
 const isCropping : Ref <boolean> = ref(false)
@@ -1199,7 +1209,7 @@ const cropImage = async () => {
                })
          }
       } else {
-         croppedImage.value = fileImg
+         imageFile.value = fileImg
       }
    })
 
@@ -1234,7 +1244,7 @@ const reduceFileRes = async (fileImg: any) => {
          ctx!.drawImage(img, 0, 0, maxWidth, maxHeight)
          canvas.toBlob((blob: any) => {
             result = new File([blob], 'image.png')
-            croppedImage.value = result
+            imageFile.value = result
             resolve(result)
          }, mimeType, quality)
       }
@@ -1244,11 +1254,12 @@ const reduceFileRes = async (fileImg: any) => {
 const cancelCrop = () => {
    image.value = null
    croppedImage.value = null
+   imageFile.value = null
    isCropping.value = false
 }
 
 const uploadImage = async () => {
-   await addDoctorImage(doctor.value!.uuid!, image.value)
+   await addDoctorImage(doctor.value!.uuid!, imageFile.value)
       .then((resp) => {
          doctor.value = resp
       })
