@@ -1,3 +1,5 @@
+const config = useRuntimeConfig().public
+
 export async function getProvinces () : Promise <Utils.Province[]> {
    const response = await $fetch <API.Response <Utils.Province[]>> (`/provinces`, {
       method: 'GET'
@@ -14,7 +16,10 @@ export async function getRegencies (provinceId: number) : Promise <Utils.Regency
 
 export async function getDoctorSpecialists () : Promise <Utils.Specialist[]> {
    const response = await $fetch <API.Response <Utils.Specialist[]>> (`/specialists`, {
-      method: 'GET'
+      method: 'GET',
+      headers: {
+         'faskes-id': config.faskesId
+      }
    })
    return response.data!
 }
