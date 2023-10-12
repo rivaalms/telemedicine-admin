@@ -34,6 +34,7 @@ import {
    DialogDoctorMedicalFacility,
    DialogDoctorSchedules,
    DialogDoctorAdd,
+   DialogOfficerAdd,
    DialogDelete
 } from '#components'
 
@@ -108,6 +109,11 @@ watch(() => store.dialog.show, () => {
          case 'delete-education-doctor':
          case 'delete-medical-facility-doctor':
             dialogComponent.value = DialogDelete
+            break
+
+         case 'add-officer':
+            dialogComponent.value = DialogOfficerAdd
+            dialogWidth.value = 'sm:max-w-2xl'
             break
 
          default:
