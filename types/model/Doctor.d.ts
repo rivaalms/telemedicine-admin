@@ -48,7 +48,7 @@ declare namespace Model {
    }
 
    type MedicalFacility = {
-      id?: string | null
+      id?: number | null
       doctor_id?: string | number | null
       medical_facility_id?: number | null
       name?: string | null
