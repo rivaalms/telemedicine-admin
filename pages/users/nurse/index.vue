@@ -7,6 +7,17 @@
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
    >
+      <template #filters>
+         <div class="col-start-12 flex justify-end items-center">
+            <u-button
+               icon="i-heroicons-plus"
+               @click.stop="store.showDialog('add-nurse', 'Tambah Perawat', null)"
+            >
+               Tambah Perawat
+            </u-button>
+         </div>
+      </template>
+
       <template #actions="{ row }">
          <template v-if="row.status === 'active'">
             <u-tooltip text="Nonaktifkan">

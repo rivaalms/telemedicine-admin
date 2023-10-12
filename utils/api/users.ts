@@ -35,6 +35,14 @@ export async function getNurses () : Promise <Model.Nurse[]> {
    return response.data!
 }
 
+export async function addNurse (payload: Model.Nurse) : Promise <Model.Nurse> {
+   const response = await $fetch <API.Response <Model.Nurse>> (`/nurses`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
 export async function banUser (reason: string, uuid: string) : Promise <Model.User> {
    const response = await $fetch <API.Response <Model.User>> (`/users-banned/${uuid}`, {
       method: 'PUT',

@@ -36,6 +36,7 @@ import {
    DialogDoctorAdd,
    DialogOfficerAdd,
    DialogAdminAdd,
+   DialogNurseAdd,
    DialogDelete
 } from '#components'
 
@@ -120,6 +121,10 @@ watch(() => store.dialog.show, () => {
          case 'add-admin':
             dialogComponent.value = DialogAdminAdd
             dialogWidth.value = 'sm:max-w-2xl'
+            break
+
+         case 'add-nurse':
+            dialogComponent.value = DialogNurseAdd
             break
 
          default:
