@@ -91,7 +91,7 @@
                            {{ detail.unit }}
                         </td>
                         <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                           {{ parseCurrency(detail.price!) }}
+                           {{ useFormatCurrency(detail.price!) }}
                         </td>
                      </tr>
                   </template>
@@ -108,22 +108,22 @@
                            {{ detail.unit }}
                         </td>
                         <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                           {{ parseCurrency(detail.price!) }}
+                           {{ useFormatCurrency(detail.price!) }}
                         </td>
                      </template>
                   </template>
    
                   <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(item.medicine_amount!) }}
+                     {{ useFormatCurrency(item.medicine_amount!) }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(item.delivery_amount!) }}
+                     {{ useFormatCurrency(item.delivery_amount!) }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(item.voucher_amount!) }}
+                     {{ useFormatCurrency(item.voucher_amount!) }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(item.total!) }}
+                     {{ useFormatCurrency(item.total!) }}
                   </td>
                </tr>
                <tr>
@@ -131,16 +131,16 @@
                      Total
                   </td>
                   <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(subTotal!) }}
+                     {{ useFormatCurrency(subTotal!) }}
                   </td>
                   <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(deliveries!) }}
+                     {{ useFormatCurrency(deliveries!) }}
                   </td>
                   <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(vouchers!) }}
+                     {{ useFormatCurrency(vouchers!) }}
                   </td>
                   <td class="font-bold whitespace-nowrap text-center px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(total!) }}
+                     {{ useFormatCurrency(total!) }}
                   </td>
                </tr>
             </template>
@@ -204,14 +204,5 @@ const fetchMedicineReports = async () => {
       .finally(() => {
          loading.value = false
       })
-}
-
-const parseCurrency = (value: string | number) => {
-   const number = Number(value)
-   return number.toLocaleString('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      maximumFractionDigits: 0,
-   })
 }
 </script>

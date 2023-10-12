@@ -197,7 +197,7 @@
                      </u-tooltip>
                   </div>
                </div>
-               <p class="text-gray-500">Rate: {{ parseCurrency(item.rate!) }}</p>
+               <p class="text-gray-500">Rate: {{ useFormatCurrency(item.rate!) }}</p>
             </div>
          </div>
 
@@ -384,13 +384,4 @@ onBeforeMount(async () => {
          store.title = resp.full_name!
       })
 })
-
-const parseCurrency = (value: string | number) => {
-   const number = Number(value)
-   return number.toLocaleString('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      maximumFractionDigits: 0,
-   })
-}
 </script>

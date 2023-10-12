@@ -32,7 +32,7 @@
 
       <u-card class="shadow-none ring-0 text-center">
          <p class="text-sm text-gray-500 dark:text-gray-400">Total Pendapatan</p>
-         <p class="text-xl">{{ parseCurrency(amount) }}</p>
+         <p class="text-xl">{{ useFormatCurrency(amount) }}</p>
       </u-card>
 
       <u-card
@@ -104,7 +104,7 @@ const amountChartOptions = computed(() => {
             fontWeight: 500,
             fontFamily: 'Nunito Sans'
          },
-         formatter: (val: any) => parseCurrency(val)
+         formatter: (val: any) => useFormatCurrency(val)
       },
       markers: {
          size: 4,
@@ -115,12 +115,12 @@ const amountChartOptions = computed(() => {
       tooltip: {
          enabled: true,
          y: {
-            formatter: (val: any) => parseCurrency(val)
+            formatter: (val: any) => useFormatCurrency(val)
          }
       },
       yaxis: {
          labels: {
-            formatter: (val: any) => parseCurrency(val)
+            formatter: (val: any) => useFormatCurrency(val)
          }
       },
       stroke: {
@@ -202,14 +202,5 @@ const fetchTransactionIncome = async () => {
             number++
          }
       })
-}
-
-const parseCurrency = (value: string | number) => {
-   const number = Number(value)
-   return number.toLocaleString('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      maximumFractionDigits: 0,
-   })
 }
 </script>

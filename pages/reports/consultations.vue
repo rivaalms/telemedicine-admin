@@ -85,7 +85,7 @@
                      {{ item.finished_at }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-gray-500 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(item.total!) }}
+                     {{ useFormatCurrency(item.total!) }}
                   </td>
                </tr>
                <tr>
@@ -93,7 +93,7 @@
                      Total
                   </td>
                   <td class="font-bold whitespace-nowrap px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                     {{ parseCurrency(total) }}
+                     {{ useFormatCurrency(total) }}
                   </td>
                </tr>
             </template>
@@ -153,14 +153,5 @@ const fetchConsultationReports = async () => {
       .finally(() => {
          loading.value = false
       })
-}
-
-const parseCurrency = (value: string | number) => {
-   const number = Number(value)
-   return number.toLocaleString('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      maximumFractionDigits: 0,
-   })
 }
 </script>

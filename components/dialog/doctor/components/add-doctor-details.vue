@@ -113,7 +113,7 @@
                      </u-popover>
                   </div>
                </div>
-               <p class="text-gray-500">Rate: {{ item.rate ? parseCurrency(item.rate) : '-' }}</p>
+               <p class="text-gray-500">Rate: {{ item.rate ? useFormatCurrency(item.rate) : '-' }}</p>
             </div>
          </div>
 
@@ -829,14 +829,5 @@ const deleteMedicalFacility = async (data: Model.MedicalFacility) => {
 
 const isNumber = (event: any) => {
    if (!/^[0-9]+$/.test(event.key) || event.key === '.') return event.preventDefault()
-}
-
-const parseCurrency = (value: string | number) => {
-   const number = Number(value)
-   return number.toLocaleString('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      maximumFractionDigits: 0,
-   })
 }
 </script>
