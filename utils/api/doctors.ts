@@ -119,3 +119,14 @@ export async function updateDoctorSchedule (scheduleId: number, payload: API.Pay
    })
    return response.data!
 }
+
+export async function addDoctorImage (uuid: string, image: any) : Promise <Model.Doctor> {
+   const payload = new FormData()
+   payload.append('image', image)
+
+   const response = await $fetch <API.Response <Model.Doctor>> (`/doctors/${uuid}/image`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
