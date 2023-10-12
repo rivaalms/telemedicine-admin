@@ -54,7 +54,7 @@
          <u-input
             v-model="state.phone_number"
             :disabled="props.disabled || loading"
-            @keypress="isNumber"
+            @keypress="useValidateNumber"
          ></u-input>
       </u-form-group>
 
@@ -66,7 +66,7 @@
          <u-input
             v-model="state.no_str"
             :disabled="props.disabled || loading"
-            @keypress="isNumber"
+            @keypress="useValidateNumber"
          ></u-input>
       </u-form-group>
 
@@ -210,6 +210,7 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import * as yup from 'yup'
 import moment from 'moment'
+import { useValidateNumber } from '~/composables/utils'
 
 const store = useAppStore()
 const props = defineProps<{
@@ -282,9 +283,5 @@ const submitData = async () => {
       .finally(() => {
          loading.value = false
       })
-}
-
-const isNumber = (event: any) => {
-   if (!/^[0-9]+$/.test(event.key) || event.key === '.') return event.preventDefault()
 }
 </script>

@@ -62,7 +62,7 @@
                                        <u-input
                                           v-model="stateSpecialist.rate"
                                           :disabled="loading"
-                                          @keypress="isNumber"
+                                          @keypress="useValidateNumber"
                                        ></u-input>
                                     </u-form-group>
                                  </div>
@@ -165,7 +165,7 @@
                            <u-input
                               v-model="stateSpecialist.rate"
                               :disabled="loading"
-                              @keypress="isNumber"
+                              @keypress="useValidateNumber"
                            ></u-input>
                         </u-form-group>
 
@@ -825,9 +825,5 @@ const deleteMedicalFacility = async (data: Model.MedicalFacility) => {
       .then((resp) => {
          medicalFacility.value = medicalFacility.value.filter((item) => item.id !== data.id)
       })
-}
-
-const isNumber = (event: any) => {
-   if (!/^[0-9]+$/.test(event.key) || event.key === '.') return event.preventDefault()
 }
 </script>

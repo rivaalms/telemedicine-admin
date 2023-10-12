@@ -18,3 +18,7 @@ export const useFormatCurrency = (value: string | number) : string => {
       maximumFractionDigits: 0,
    })
 }
+
+export const useValidateNumber = (event: KeyboardEvent) => {
+   if (!/^[0-9]+$/.test(event.key) || event.key === '.') return event.preventDefault()
+}
