@@ -891,7 +891,11 @@
    <template #finish>
       <div class="grid gap-2">
          <u-card>
-            <div class="flex justify-center">
+            <div class="flex flex-col justify-center items-center gap-4">
+               <u-icon
+                  name="i-heroicons-check-circle"
+                  class="text-emerald-500 text-5xl"
+               ></u-icon>
                <p class="font-semibold text-sm">
                   Data registrasi dokter berhasil disimpan
                </p>
@@ -909,7 +913,7 @@
             </u-button>
             <u-button
                color="emerald"
-               trailing-icon="i-heroicons-arrow-check"
+               trailing-icon="i-heroicons-check"
                @click="store.clearDialog()"
             >
                Selesai
@@ -953,7 +957,7 @@ const currentTab : Ref <number> = ref(0)
 const loading : Ref <boolean> = ref(false)
 const tabs : Ref <any> = ref([
    { slot: 'data', label: 'Data Dokter' },
-   { slot: 'details', label: 'Detail', disabled: true },
+   { slot: 'details', label: 'Detail', disabled: false },
    { slot: 'image', label: 'Unggah Foto', disabled: true },
    { slot: 'finish', label: 'Selesai', disabled: true }
 ])
