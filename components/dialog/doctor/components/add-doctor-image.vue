@@ -64,6 +64,7 @@
                v-if="imageFile && !isImageUploaded"
                color="emerald"
                icon="i-heroicons-check"
+               :loading="loading"
                @click.stop="uploadImage"
             >
                Simpan
@@ -100,6 +101,7 @@ import 'cropperjs/dist/cropper.css'
 const store = useAppStore()
 const emit = defineEmits(['nextTab', 'prevTab'])
 
+const loading : Ref <boolean> = ref(false)
 const image : Ref <any> = ref(null)
 const croppedImage : Ref <any> = ref(null)
 const imageFile : Ref <any> = ref(null)
@@ -202,11 +204,15 @@ const cancelCrop = () => {
 }
 
 const uploadImage = async () => {
+   loading.value = true
    await addDoctorImage(store.dialog.data!.uuid!, imageFile.value)
       .then((resp) => {
          store.dialog.data = resp
          isImageUploaded.value = true
          emit('nextTab')
+      })
+      .finally(() => {
+         loading.value = false
       })
 }
 </script>
