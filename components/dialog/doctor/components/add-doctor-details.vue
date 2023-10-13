@@ -250,7 +250,7 @@
                                                 :model-value="stateEducation.graduation_year"
                                                 readonly="readonly"
                                                 :disabled="loading"
-                                                icons="i-heroicons-calendar"
+                                                icons="i-heroicons-calendar-solid"
                                              ></u-input>
                                           </template>
                                        </vue-date-picker>
@@ -354,7 +354,7 @@
                                     :model-value="stateEducation.graduation_year"
                                     readonly="readonly"
                                     :disabled="loading"
-                                    icons="i-heroicons-calendar"
+                                    icons="i-heroicons-calendar-solid"
                                  ></u-input>
                               </template>
                            </vue-date-picker>

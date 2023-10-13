@@ -85,7 +85,7 @@
             <template #trigger>
                <u-input
                   :model-value="state.str_date"
-                  icon="i-heroicons-calendar"
+                  icon="i-heroicons-calendar-solid"
                   readonly="readonly"
                   :disabled="props.disabled || loading"
                ></u-input>
@@ -107,7 +107,7 @@
             <template #trigger>
                <u-input
                   :model-value="state.sip_date"
-                  icon="i-heroicons-calendar"
+                  icon="i-heroicons-calendar-solid"
                   readonly="readonly"
                   :disabled="props.disabled || loading"
                ></u-input>
@@ -129,7 +129,7 @@
             <template #trigger>
                <u-input
                   :model-value="state.start_experience"
-                  icon="i-heroicons-calendar"
+                  icon="i-heroicons-calendar-solid"
                   readonly="readonly"
                   :disabled="props.disabled || loading"
                ></u-input>

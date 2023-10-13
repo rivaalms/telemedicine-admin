@@ -7,6 +7,7 @@
          <u-input
             v-model="search"
             placeholder="Cari..."
+            icon="i-heroicons-magnifying-glass"
             @keyup.enter="emitData"
          ></u-input>
       </div>

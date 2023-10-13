@@ -19,12 +19,12 @@
       </template>
 
       <template #actions="{ row }">
+         <div class="flex justify-end items-center gap-2">
             <u-tooltip text="Sunting">
                <u-button
                   variant="ghost"
                   color="amber"
                   icon="i-heroicons-pencil"
-                  class="me-4"
                   @click.stop="store.showDialog('edit-ambulance', 'Sunting Ambulance', row)"
                ></u-button>
             </u-tooltip>
@@ -37,6 +37,7 @@
                   @click.stop="store.showDialog('delete-ambulance', 'Hapus Ambulance', row)"
                ></u-button>
             </u-tooltip>
+         </div>
       </template>
    </app-data-table>
 </u-card>

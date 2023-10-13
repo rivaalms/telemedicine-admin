@@ -19,7 +19,7 @@
       </template>
 
       <template #actions="{ row }">
-         <div class="flex justify-end items-center gap-4">
+         <div class="flex justify-end items-center gap-2">
             <u-tooltip text="Sunting">
                <u-button
                   variant="ghost"
