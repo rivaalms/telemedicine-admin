@@ -30,7 +30,8 @@ export default defineNuxtConfig({
 
   build: {
     transpile: [
-      '@vuepic/vue-datepicker'
+      '@vuepic/vue-datepicker',
+      '@voerro/vue-tagsinput'
     ]
   },
   

@@ -1521,6 +1521,11 @@
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-4.4.0.tgz#8ae96573236cdb12de6850a6d929b5537ec85390"
   integrity sha512-xdguqb+VUwiRpSg+nsc2HtbAUSGak25DXYvpQQi4RVU1Xq1uworyoH/md9Rfd8zMmPR/pSghr309QNcftUVseg==
 
+"@voerro/vue-tagsinput@^2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@voerro/vue-tagsinput/-/vue-tagsinput-2.7.1.tgz#80bb936c645b9294a4566e0569dd1e8c41b65f9c"
+  integrity sha512-G7ClILHgtc/D1vEw9qp6dlsAstlhwLDkPvEp6w1iY/dmSzu4hhxaMk8jyahjxQRDgiLlrAikESOsfkVhy18YwQ==
+
 "@vue-macros/common@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@vue-macros/common/-/common-1.8.0.tgz#885f1e7095b3b4e32773a35fd8f768f82a6c0e5c"
