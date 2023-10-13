@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { updateSpecialistImage, updateVoucherImage } from '@/utils/api/masters'
+import { updateSpecialistImage, updateAdvertisementImage, updateVoucherImage } from '@/utils/api/masters'
 
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
@@ -56,6 +56,7 @@ const submit = async () => {
    try {
       if (type.value === 'specialist') await updateSpecialistImage(store.dialog.data.slug, imageFile.value)
       else if (type.value === 'voucher') await updateVoucherImage(store.dialog.data.slug, imageFile.value)
+      else if (type.value === 'advertisement') await updateAdvertisementImage(store.dialog.data.slug, imageFile.value)
       else loading.value = false
       store.clearDialog()
    } catch (error) {
