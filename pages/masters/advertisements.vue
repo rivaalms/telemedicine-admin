@@ -6,7 +6,49 @@
       :data-length="dataLength"
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-   ></app-data-table>
+   >
+      <template #filters>
+         <div class="col-start-12 flex justify-end items-center">
+            <u-button
+               icon="i-heroicons-plus"
+               @click.stop="store.showDialog('add-advertisement', 'Tambah Data Iklan', null)"
+            >
+               Tambah Data Iklan
+            </u-button>
+         </div>
+      </template>
+
+      <template #actions="{ row }">
+         <div class="flex justify-end items-center gap-4">
+            <u-tooltip text="Sunting">
+               <u-button
+                  variant="ghost"
+                  color="amber"
+                  icon="i-heroicons-pencil"
+                  @click.stop="store.showDialog('edit-advertisement', 'Sunting Data Iklan', row)"
+               ></u-button>
+            </u-tooltip>
+
+            <u-tooltip text="Sunting Gambar">
+               <u-button
+                  variant="ghost"
+                  color="sky"
+                  icon="i-heroicons-photo"
+                  @click.stop="store.showDialog('edit-image-advertisement', 'Sunting Gambar Data Iklan', row)"
+               ></u-button>
+            </u-tooltip>
+
+            <u-tooltip text="Hapus">
+               <u-button
+                  variant="ghost"
+                  color="red"
+                  icon="i-heroicons-trash"
+                  @click.stop="store.showDialog('delete-advertisement', 'Hapus Data Iklan', row)"
+               ></u-button>
+            </u-tooltip>
+         </div>
+      </template>
+   </app-data-table>
 </u-card>
 </template>
 

@@ -8,7 +8,8 @@ export const useAdvertTableHeader = [
    { key: 'title', label: 'Judul' },
    { key: 'description', label: 'Deskripsi' },
    { key: 'start_date', label: 'Tanggal Mulai' },
-   { key: 'end_date', label: 'Tanggal Selesai' }
+   { key: 'end_date', label: 'Tanggal Selesai' },
+   { key: 'actions' }
 ]
 
 export const useVoucherTableHeader = [

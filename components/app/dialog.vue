@@ -39,7 +39,8 @@ import {
    DialogNurseAdd,
    DialogAmbulanceAdd,
    DialogMastersSpecialistAdd,
-   DialogMastersSpecialistUpdateImage,
+   DialogMastersUpdateImage,
+   DialogMastersAdvertisementForm,
    DialogDelete
 } from '#components'
 
@@ -134,8 +135,14 @@ watch(() => store.dialog.show, () => {
             dialogComponent.value = DialogMastersSpecialistAdd
             break
 
+         case 'add-advertisement':
+         case 'edit-advertisement':
+            dialogComponent.value = DialogMastersAdvertisementForm
+            break
+
          case 'edit-image-specialist':
-            dialogComponent.value = DialogMastersSpecialistUpdateImage
+         case 'edit-image-advertisement':
+            dialogComponent.value = DialogMastersUpdateImage
             break
 
          case 'delete-specialist-doctor':
@@ -143,6 +150,7 @@ watch(() => store.dialog.show, () => {
          case 'delete-medical-facility-doctor':
          case 'delete-ambulance':
          case 'delete-specialist':
+         case 'delete-advertisement':
             dialogComponent.value = DialogDelete
             break
 

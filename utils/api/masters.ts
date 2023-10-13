@@ -50,6 +50,39 @@ export async function getAdvertisement () : Promise <Model.Master.Advertisement[
    return response.data!
 }
 
+export async function createAdvertisement (payload: Model.Master.Advertisement) : Promise <Model.Master.Advertisement> {
+   const response = await $fetch <API.Response <Model.Master.Advertisement>> (`/advertisements`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updateAdvertisement (slug: string, payload: Model.Master.Advertisement) : Promise <Model.Master.Advertisement> {
+   const response = await $fetch <API.Response <Model.Master.Advertisement>> (`/advertisements/${slug}`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updateAdvertisementImage (slug: string, image: any) : Promise <Model.Master.Advertisement> {
+   const payload = new FormData()
+   payload.append('image', image)
+   const response = await $fetch <API.Response <Model.Master.Advertisement>> (`/advertisements/${slug}/image`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function deleteAdvertisement (slug: string) : Promise <boolean> {
+   const response = await $fetch <API.Response <void>> (`/advertisements/${slug}`, {
+      method: 'DELETE'
+   })
+   return true
+}
+
 export async function getVouchers () : Promise <Model.Master.Voucher[]> {
    const response = await $fetch <API.Response <Model.Master.Voucher[]>> (`/vouchers`, {
       method: 'GET'
