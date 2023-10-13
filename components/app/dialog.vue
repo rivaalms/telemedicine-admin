@@ -42,6 +42,7 @@ import {
    DialogMastersUpdateImage,
    DialogMastersAdvertisementForm,
    DialogMastersVoucherForm,
+   DialogTemplateChatForm,
    DialogDelete
 } from '#components'
 
@@ -151,6 +152,11 @@ watch(() => store.dialog.show, () => {
          case 'edit-image-advertisement':
          case 'edit-image-voucher':
             dialogComponent.value = DialogMastersUpdateImage
+            break
+
+         case 'add-template-chat':
+         case 'edit-template-chat':
+            dialogComponent.value = DialogTemplateChatForm
             break
 
          case 'delete-specialist-doctor':

@@ -6,7 +6,31 @@
       :data-length="dataLength"
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-   ></app-data-table>
+   >
+      <template #filters>
+         <div class="col-start-12 flex justify-end items-center">
+            <u-button
+               icon="i-heroicons-plus"
+               @click.stop="store.showDialog('add-template-chat', 'Tambah Template Chat', null)"
+            >
+               Tambah Template Chat
+            </u-button>
+         </div>
+      </template>
+
+      <template #actions="{ row }">
+         <div class="flex justify-end items-center gap-2">
+            <u-tooltip text="Sunting">
+               <u-button
+                  variant="ghost"
+                  color="amber"
+                  icon="i-heroicons-pencil"
+                  @click.stop="store.showDialog('edit-template-chat', 'Sunting Template Chat', row)"
+               ></u-button>
+            </u-tooltip>
+         </div>
+      </template>
+   </app-data-table>
 </u-card>
 </template>
 
