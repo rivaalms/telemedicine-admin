@@ -41,6 +41,7 @@ import {
    DialogMastersSpecialistAdd,
    DialogMastersUpdateImage,
    DialogMastersAdvertisementForm,
+   DialogMastersVoucherForm,
    DialogDelete
 } from '#components'
 
@@ -140,8 +141,15 @@ watch(() => store.dialog.show, () => {
             dialogComponent.value = DialogMastersAdvertisementForm
             break
 
+         case 'add-voucher':
+         case 'edit-voucher':
+            dialogComponent.value = DialogMastersVoucherForm
+            dialogWidth.value = 'sm:max-w-3xl'
+            break
+
          case 'edit-image-specialist':
          case 'edit-image-advertisement':
+         case 'edit-image-voucher':
             dialogComponent.value = DialogMastersUpdateImage
             break
 
@@ -151,6 +159,7 @@ watch(() => store.dialog.show, () => {
          case 'delete-ambulance':
          case 'delete-specialist':
          case 'delete-advertisement':
+         case 'delete-voucher':
             dialogComponent.value = DialogDelete
             break
 

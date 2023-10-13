@@ -39,8 +39,8 @@ declare namespace Model {
             medicine_classification?: string | number | null
             max_usage?: string | number | null
             users?: string | null
-            image?: string | null
          }
+         image?: string | null
       }
    }
 }

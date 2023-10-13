@@ -18,5 +18,6 @@ export const useVoucherTableHeader = [
    { key: 'nominal', label: 'Nominal' },
    { key: 'quota', label: 'Kuota' },
    { key: 'start_date', label: 'Tanggal Mulai' },
-   { key: 'end_date', label: 'Tanggal Selesai' }
+   { key: 'end_date', label: 'Tanggal Selesai' },
+   { key: 'actions' }
 ]

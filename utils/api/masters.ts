@@ -89,3 +89,35 @@ export async function getVouchers () : Promise <Model.Master.Voucher[]> {
    })
    return response.data!
 }
+
+export async function createVoucher (payload: Model.Master.Voucher) : Promise <Model.Master.Voucher> {
+   const response = await $fetch <API.Response <Model.Master.Voucher>> (`/vouchers`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updateVoucher (slug: string, payload: Model.Master.Voucher) : Promise <Model.Master.Voucher> {
+   const response = await $fetch <API.Response <Model.Master.Voucher>> (`/vouchers/${slug}`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updateVoucherImage (slug: string, image: any) : Promise <Model.Master.Voucher> {
+   const payload = new FormData()
+   payload.append('image', image)
+   const response = await $fetch <API.Response <Model.Master.Voucher>> (`/vouchers/${slug}/image`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function deleteVoucher (slug: string) : Promise <void> {
+   await $fetch <void> (`/vouchers/${slug}`, {
+      method: 'DELETE',
+   })
+}

@@ -6,7 +6,49 @@
       :data-length="dataLength"
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-   ></app-data-table>
+   >
+      <template #filters>
+         <div class="col-start-12 flex justify-end align-center">
+            <u-button
+               icon="i-heroicons-plus"
+               @click.stop="store.showDialog('add-voucher', 'Tambah Voucher', null)"
+            >
+               Tambah Voucher
+            </u-button>
+         </div>
+      </template>
+
+      <template #actions="{ row }">
+         <div class="flex justify-end items-center gap-2">
+            <u-tooltip text="Sunting">
+               <u-button
+                  variant="ghost"
+                  color="amber"
+                  icon="i-heroicons-pencil"
+                  @click.stop="store.showDialog('edit-voucher', 'Sunting Voucher', row)"
+               ></u-button>
+            </u-tooltip>
+
+            <u-tooltip text="Sunting gambar">
+               <u-button
+                  variant="ghost"
+                  color="sky"
+                  icon="i-heroicons-photo"
+                  @click.stop="store.showDialog('edit-image-voucher', 'Sunting Gambar Voucher', row)"
+               ></u-button>
+            </u-tooltip>
+
+            <u-tooltip text="Hapus">
+               <u-button
+                  variant="ghost"
+                  color="red"
+                  icon="i-heroicons-trash"
+                  @click.stop="store.showDialog('delete-voucher', 'Hapus Voucher', row)"
+               ></u-button>
+            </u-tooltip>
+         </div>
+      </template>
+   </app-data-table>
 </u-card>
 </template>
 

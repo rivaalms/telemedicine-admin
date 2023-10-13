@@ -40,10 +40,12 @@
 </template>
 
 <script setup lang="ts">
-import { updateSpecialistImage } from '@/utils/api/masters'
+import { updateSpecialistImage, updateVoucherImage } from '@/utils/api/masters'
 
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
+
+const type : ComputedRef <string> = computed(() => store.dialog.type.split('-').pop()!)
 
 const imageFile : Ref <any> = ref(null)
 const imagePreview : Ref <any> = ref(store.dialog.data.image)
@@ -51,6 +53,17 @@ const imagePreview : Ref <any> = ref(store.dialog.data.image)
 const submit = async () => {
    loading.value = true
 
+   try {
+      if (type.value === 'specialist') await updateSpecialistImage(store.dialog.data.slug, imageFile.value)
+      else if (type.value === 'voucher') await updateVoucherImage(store.dialog.data.slug, imageFile.value)
+      else loading.value = false
+      store.clearDialog()
+   } catch (error) {
+      console.error(error)
+   } finally {
+      loading.value = false
+   }
+   
    await updateSpecialistImage(store.dialog.data.slug, imageFile.value)
       .then(() => {
          store.clearDialog()

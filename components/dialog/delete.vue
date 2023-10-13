@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { deleteDoctorSpecialist, deleteDoctorEducation, deleteDoctorMedicalFacility } from '@/utils/api/doctors'
 import { deleteAmbulance } from '@/utils/api/ambulance'
-import { deleteSpecialist, deleteAdvertisement } from '@/utils/api/masters'
+import { deleteSpecialist, deleteAdvertisement, deleteVoucher } from '@/utils/api/masters'
 
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
@@ -54,6 +54,8 @@ const confirmDelete = async () => {
             break
          case 'delete-advertisement':
             await deleteAdvertisement(data.slug!)
+         case 'delete-voucher':
+            await deleteVoucher(data.slug!)
          default:
             break
       }
