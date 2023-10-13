@@ -89,7 +89,17 @@ const doctorChartOptions = computed(() => {
          id: 'consultaionDoctorChart',
          type: 'pie'
       },
-      labels: doctors.value.map(item => item.full_name)
+      labels: doctors.value.map(item => item.full_name),
+      dataLabels: {
+         formatter: (val: any, opts: any) => {
+            return opts.w.config.series[opts.seriesIndex]
+         },
+         style: {
+            fontWeight: 500,
+            fontFamily: 'Nunito Sans'
+         },
+         dropShadow: { enabled: false },
+      },
    }
 })
 
@@ -101,7 +111,17 @@ const specialistChartOptions = computed(() => {
          id: 'consultationSpecialistChart',
          type: 'pie'
       },
-      labels: specialist.value.map(item => item.specialist)
+      labels: specialist.value.map(item => item.specialist),
+      dataLabels: {
+         formatter: (val: any, opts: any) => {
+            return opts.w.config.series[opts.seriesIndex]
+         },
+         style: {
+            fontWeight: 500,
+            fontFamily: 'Nunito Sans'
+         },
+         dropShadow: { enabled: false },
+      },
    }
 })
 

@@ -26,7 +26,31 @@ const ambulanceChartOptions = computed(() => {
          id: 'ambulanceChart',
          type: 'donut'
       },
-      labels: data.value.map(item => item.ambulance_type)
+      labels: data.value.map(item => item.ambulance_type),
+      dataLabels: {
+         formatter: (val: any, opts: any) => {
+            return opts.w.config.series[opts.seriesIndex]
+         },
+         style: {
+            fontWeight: 500,
+            fontFamily: 'Nunito Sans'
+         },
+         dropShadow: { enabled: false }
+      },
+      plotOptions: {
+         pie: {
+            donut: {
+               labels: {
+                  show: true,
+                  total: {
+                     show: true,
+                     showAlways: true,
+                     fontFamily: 'Nunito Sans'
+                  }
+               }
+            }
+         }
+      }
    }
 })
 

@@ -72,7 +72,31 @@ const patientChartOptions = computed(() => {
          id: 'patientChart',
          type: 'donut'
       },
-      labels: ['Laki-laki', 'Perempuan']
+      labels: ['Laki-laki', 'Perempuan'],
+      dataLabels: {
+         formatter: (val: any, opts: any) => {
+            return opts.w.config.series[opts.seriesIndex]
+         },
+         style: {
+            fontWeight: 500,
+            fontFamily: 'Nunito Sans'
+         },
+         dropShadow: { enabled: false },
+      },
+      plotOptions: {
+         pie: {
+            donut: {
+               labels: {
+                  show: true,
+                  total: {
+                     show: true,
+                     showAlways: true,
+                     fontFamily: 'Nunito Sans'
+                  }
+               }
+            }
+         }
+      }
    }
 })
 
