@@ -29,7 +29,7 @@ export async function updateSpecialist (slug: string, payload: Model.Master.Doct
 export async function updateSpecialistImage (slug: string, image: any) : Promise <Model.Master.DoctorsSpecialist> {
    const payload = new FormData()
    payload.append('image', image)
-   const response = await $fetch <API.Response <Model.Master.DoctorsSpecialist>> (`/specialist/${slug}/image`, {
+   const response = await $fetch <API.Response <Model.Master.DoctorsSpecialist>> (`/specialists/${slug}/image`, {
       method: 'POST',
       body: payload
    })
