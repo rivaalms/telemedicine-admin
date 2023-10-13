@@ -6,7 +6,49 @@
       :data-length="dataLength"
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-   ></app-data-table>
+   >
+      <template #filters>
+         <div class="col-start-12 flex justify-end items-center gap-4">
+            <u-button
+               icon="i-heroicons-plus"
+               @click.stop="store.showDialog('add-specialist', 'Tambah Spesialis', { data: null, selectOptions: specialistOptions })"
+            >
+               Tambah Spesialis
+            </u-button>
+         </div>
+      </template>
+
+      <template #actions="{ row }">
+         <div class="flex justify-end items-center gap-4">
+            <u-tooltip text="Sunting">
+               <u-button
+                  variant="ghost"
+                  color="amber"
+                  icon="i-heroicons-pencil"
+                  @click.stop="store.showDialog('edit-specialist', 'Sunting Spesialis', { data: row, selectOptions: specialistOptions })"
+               ></u-button>
+            </u-tooltip>
+
+            <u-tooltup text="Sunting Foto">
+               <u-button
+                  variant="ghost"
+                  color="sky"
+                  icon="i-heroicons-photo"
+                  @click.stop="store.showDialog('edit-image-specialist', 'Sunting Foto Spesialis', row)"
+               ></u-button>
+            </u-tooltup>
+
+            <u-tooltip text="Hapus">
+               <u-button
+                  variant="ghost"
+                  color="red"
+                  icon="i-heroicons-trash"
+                  @click.stop="store.showDialog('delete-specialist', 'Hapus Spesialis', row)"
+               ></u-button>
+            </u-tooltip>
+         </div>
+      </template>
+   </app-data-table>
 </u-card>
 </template>
 
@@ -23,6 +65,7 @@ const loading : Ref <boolean> = ref(false)
 const search : Ref <string | null> = ref(null)
 const page : Ref <number> = ref(1)
 const perPage : Ref <number> = ref(10)
+const specialistOptions : Ref <Model.Master.DoctorsSpecialist[]> = ref([])
 
 onBeforeMount(async () => {
    await fetchSpecialists()
@@ -33,6 +76,7 @@ const fetchSpecialists = async () => {
    await getSpecialists()
       .then((resp) => {
          let response = resp
+         specialistOptions.value = resp
 
          if (search.value && search.value.length > 0) {
             response = response.filter(value => {

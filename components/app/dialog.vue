@@ -38,6 +38,8 @@ import {
    DialogAdminAdd,
    DialogNurseAdd,
    DialogAmbulanceAdd,
+   DialogMastersSpecialistAdd,
+   DialogMastersSpecialistUpdateImage,
    DialogDelete
 } from '#components'
 
@@ -127,10 +129,20 @@ watch(() => store.dialog.show, () => {
             dialogComponent.value = DialogAmbulanceAdd
             break
 
+         case 'add-specialist':
+         case 'edit-specialist':
+            dialogComponent.value = DialogMastersSpecialistAdd
+            break
+
+         case 'edit-image-specialist':
+            dialogComponent.value = DialogMastersSpecialistUpdateImage
+            break
+
          case 'delete-specialist-doctor':
          case 'delete-education-doctor':
          case 'delete-medical-facility-doctor':
          case 'delete-ambulance':
+         case 'delete-specialist':
             dialogComponent.value = DialogDelete
             break
 

@@ -1,6 +1,7 @@
 export const useDoctorSpecialistTableHeader = [
    { key: 'name', label: 'Nama' },
-   { key: 'order_number', label: 'No. Urut' }
+   { key: 'order_number', label: 'No. Urut' },
+   { key: 'actions' },
 ]
 
 export const useAdvertTableHeader = [

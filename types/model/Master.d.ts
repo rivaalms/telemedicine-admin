@@ -5,7 +5,7 @@ declare namespace Model {
          slug?: string | null
          description?: string | null
          parent?: string | number | null
-         image?: string | null
+         image?: any
          order_number?: number | null
          tags?: any
       }
