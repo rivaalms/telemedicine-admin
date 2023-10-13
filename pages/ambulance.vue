@@ -6,7 +6,39 @@
       :data-length="dataLength"
       :loading="loading"
       @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
-   ></app-data-table>
+   >
+      <template #filters>
+         <div class="col-start-12 flex justify-end items-center">
+            <u-button
+               icon="i-heroicons-plus"
+               @click.stop="store.showDialog('add-ambulance', 'Tambah Ambulance', null)"
+            >
+               Tambah Ambulance
+            </u-button>
+         </div>
+      </template>
+
+      <template #actions="{ row }">
+            <u-tooltip text="Sunting">
+               <u-button
+                  variant="ghost"
+                  color="amber"
+                  icon="i-heroicons-pencil"
+                  class="me-4"
+                  @click.stop="store.showDialog('edit-ambulance', 'Sunting Ambulance', row)"
+               ></u-button>
+            </u-tooltip>
+
+            <u-tooltip text="Hapus">
+               <u-button
+                  variant="ghost"
+                  color="red"
+                  icon="i-heroicons-trash"
+                  @click.stop="store.showDialog('delete-ambulance', 'Hapus Ambulance', row)"
+               ></u-button>
+            </u-tooltip>
+      </template>
+   </app-data-table>
 </u-card>
 </template>
 
