@@ -47,7 +47,6 @@
             name="image"
          >
             <u-input
-               v-model="imageFile"
                type="file"
                accept="image/*"
                :ui="{ base: 'file:mr-4 file:py-1 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100' }"
@@ -141,7 +140,7 @@ const submit = async () => {
 }
 
 const onFileChange = (e: any) => {
-   const file = e.target.files[0]
-   imagePreview.value = URL.createObjectURL(file)
+   imageFile.value = e.target.files[0]
+   imagePreview.value = URL.createObjectURL(imageFile.value)
 }
 </script>
