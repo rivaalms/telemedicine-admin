@@ -63,6 +63,12 @@
       <div class="col-span-3 bg-[url('/img/login.svg')] bg-no-repeat bg-center bg-contain"></div>
    </div>
 </main>
+
+<u-notifications>
+   <template #title="{ title }">
+      <p class="font-semibold">{{ title }}</p>
+   </template>
+</u-notifications>
 </template>
 
 <script setup lang="ts">
@@ -106,9 +112,13 @@ const submit = async () => {
    loading.value = true
 
    await authStore.login(state.value!)
-      .then(() => useRouter().push('/'))
+      .then(() => {
+         store.notify('success', 'Log in berhasil!', 'login')
+         useRouter().push('/')
+      })
       .catch((error: any) => {
-         console.log(error)
+         store.notify('error', 'Akun tidak terdaftar', 'login')
+         state.value.password = ''
       })
       .finally(() => {
          loading.value = false

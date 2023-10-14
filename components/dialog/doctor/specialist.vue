@@ -100,9 +100,11 @@ const submit = async () => {
          await addDoctorSpecialist(payload)
       }
 
+      const messageSuffix = isEdit.value ? 'diperbarui' : 'ditambahkan'
+      store.notify('success', `Data spesialis dokter berhasil ${messageSuffix}`)
       store.clearDialog()
-   } catch (error) {
-      console.error(error)
+   } catch (error: any) {
+      store.notify('error', error.data?.message || error)
    } finally {
       loading.value = false
    }

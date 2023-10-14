@@ -34,35 +34,46 @@ const loading : Ref <boolean> = ref(false)
 const confirmDelete = async () => {
    const data = store.dialog.data
    loading.value = true
+   let messageType: string = ''
 
    try {
       switch (store.dialog.type) {
          case 'delete-specialist-doctor':
             await deleteDoctorSpecialist(data.doctor_specialist_id!)
+            messageType = 'spesialis dokter'
             break
          case 'delete-education-doctor':
             await deleteDoctorEducation(data.id!)
+            messageType = 'riwayat pendidikan dokter'
             break
          case 'delete-medical-facility-doctor':
             await deleteDoctorMedicalFacility(data.id!)
+            messageType = 'lokasi praktek dokter'
             break
          case 'delete-ambulance':
             await deleteAmbulance(data.id!)
+            messageType = 'ambulance'
             break
          case 'delete-specialist':
             await deleteSpecialist(data.slug!)
+            messageType = 'master spesialis'
             break
          case 'delete-advertisement':
             await deleteAdvertisement(data.slug!)
+            messageType = 'master iklan'
+            break
          case 'delete-voucher':
             await deleteVoucher(data.slug!)
+            messageType = 'master voucher'
+            break
          default:
             break
       }
 
+      store.notify('info', `Data ${messageType} berhasil dihapus`)
       store.clearDialog()
-   } catch (error) {
-      console.error(error)
+   } catch (error: any) {
+      store.notify('error', error.data?.message || error)
    } finally {
       loading.value = false
    }

@@ -95,9 +95,11 @@ const submit = async () => {
          await addDoctorEducation(payload)
       }
 
+      const messageSuffix = isEdit.value ? 'diperbarui' : 'ditambahkan'
+      store.notify('success', `Data riwayat pendidikan dokter berhasil ${messageSuffix}`)
       store.clearDialog()
-   } catch (error) {
-      console.error(error)
+   } catch (error: any) {
+      store.notify('error', error.data?.message || error)
    } finally {
       loading.value = false
    }

@@ -142,7 +142,11 @@ const submit = async () => {
    loading.value = true
    await addOfficer(state.value)
       .then((resp) => {
+         store.notify('success', `Officer ${resp.full_name} berhasil ditambahkan`)
          store.clearDialog()
+      })
+      .catch((error: any) => {
+         store.notify('error', error.data?.message || error)
       })
       .finally(() => {
          loading.value = false

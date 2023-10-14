@@ -278,7 +278,11 @@ const submitData = async () => {
    await addDoctor(state.value)
       .then(resp => {
          store.dialog.data = resp
+         store.notify('success', `Dokter ${resp.full_name} berhasil ditambahkan`)
          emit('nextTab')
+      })
+      .catch((error: any) => {
+         store.notify('error', error.data?.message || error)
       })
       .finally(() => {
          loading.value = false

@@ -113,12 +113,12 @@ const isImageUploaded : Ref <boolean> = ref(false)
    const setImage = (event: any) => {
    const file = event.target!.files[0]
    if (file.type.indexOf('image/') < 0) {
-      console.error('Not an image')
+      store.notify('error', 'Data yang dipilih harus berupa gambar')
       return
    }
 
    if ((file.size / 1024) > 600) {
-      console.error('Image must not larger than 600kb')
+      store.notify('error', 'Gambar yang dipilih tidak boleh lebih besar dari 600 KB')
       return
    }
 
@@ -149,7 +149,7 @@ const cropImage = async () => {
                })
                .catch((error: any) => {
                   exitLoop = true
-                  console.error(error)
+                  store.notify('error', error)
                   return
                })
          }
@@ -175,7 +175,7 @@ const reduceFileRes = async (fileImg: any) => {
 
       img.onerror = function () {
          URL.revokeObjectURL(this.src)
-         console.error('Cannot load image')
+         store.notify('error', 'Gagal memuat gambar')
       }
       
       img.onload = function () {

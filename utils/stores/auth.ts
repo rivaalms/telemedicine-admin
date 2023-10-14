@@ -27,7 +27,7 @@ export const useAuthStore = defineStore('auth', {
                   this.user = resp
                   localStorage.setItem('user', JSON.stringify(this.user))
                }
-               else return alert('akun tidak terdaftar')
+               else throw Error
             })
       },
 
@@ -35,6 +35,7 @@ export const useAuthStore = defineStore('auth', {
          if (this.isLoggedIn) await Auth.logout()
          this.user = null
          if (localStorage.getItem('user')) localStorage.removeItem('user')
+         useAppStore().notify('info', 'Log out berhasil')
          return Promise.resolve(null)
       },
 

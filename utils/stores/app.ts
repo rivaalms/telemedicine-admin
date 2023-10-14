@@ -1,3 +1,4 @@
+import { NotificationColor } from '@nuxt/ui/dist/runtime/types'
 import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
@@ -34,6 +35,40 @@ export const useAppStore = defineStore('app', {
             this.dialog.title = ''
             this.dialog.type = ''
          }, 200)
+      },
+
+      notify(type: 'success' | 'error' | 'info', message: string, id?: string) {
+         let title : string = ''
+         let color : NotificationColor = 'gray'
+         let icon : string = 'i-heroicons-bell'
+
+         switch (type) {
+            case 'success':
+               title = 'Sukses'
+               color = 'emerald'
+               icon = 'i-heroicons-check-circle'
+               break
+            case 'error':
+               title = 'Error'
+               color = 'red'
+               icon = 'i-heroicons-exclamation-circle'
+               break
+            case 'info':
+               title = 'Info'
+               color = 'sky'
+               icon = 'i-heroicons-information-circle'
+               break
+            default:
+               break
+         }
+         
+         useToast().add({
+            id,
+            title,
+            description: message,
+            color,
+            icon,
+         })
       }
    }
 })

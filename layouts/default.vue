@@ -17,7 +17,13 @@
    </div>
 </div>
 
-<app-dialog></app-dialog>
+<lazy-app-dialog></lazy-app-dialog>
+
+<lazy-u-notifications>
+   <template #title="{ title }">
+      <p class="font-semibold">{{ title }}</p>
+   </template>
+</lazy-u-notifications>
 </template>
 
 <script setup lang="ts">

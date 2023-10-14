@@ -743,8 +743,11 @@ const submitSpecialist = async (isEdit: boolean, data?: any) => {
          slug: '',
          rate: ''
       }
-   } catch (error) {
-      console.error(error)
+
+      const messageSuffix = isEdit ? 'diperbarui' : 'ditambahkan'
+      store.notify('success', `Spesialis dokter ${store.dialog.data.full_name} berhasil ${messageSuffix}`)
+   } catch (error: any) {
+      store.notify('error', error.data?.message || error)
    } finally {
       loading.value = false
    }
@@ -754,6 +757,7 @@ const deleteSpecialist = async (data: Model.DoctorSpecialist) => {
    await deleteDoctorSpecialist(data.specialist_id!)
       .then((resp) => {
          specialist.value = specialist.value.filter((item) => item.specialist_id !== data.specialist_id)
+         store.notify('info', `Data spesialis berhasil dihapus`)
       })
 }
 
@@ -778,8 +782,16 @@ const submitEducation = async (isEdit: boolean, data?: Model.DoctorEducation) =>
                education.value.push(resp)
             })
       }
-   } catch (error) {
-      console.error(error)
+
+      stateEducation.value = {
+         education: '',
+         graduation_year: ''
+      }
+
+      const messageSuffix = isEdit ? 'diperbarui' : 'ditambahkan'
+      store.notify('success', `Riwayat pendidikan dokter ${store.dialog.data.full_name} berhasil ${messageSuffix}`)
+   } catch (error: any) {
+      store.notify('error', error.data?.message || error)
    } finally {
       loading.value = false
    }
@@ -789,6 +801,7 @@ const deleteEducation = async (data: Model.DoctorEducation) => {
    await deleteDoctorEducation(data.id!)
       .then((resp) => {
          education.value = education.value.filter((item) => item.id !== data.id)
+         store.notify('info', `Data riwayat pendidikan berhasil dihapus`)
       })
 }
 
@@ -813,8 +826,17 @@ const submitMedicalFacility = async (isEdit: boolean, data?: Model.MedicalFacili
                medicalFacility.value.push(resp)
             })
       }
-   } catch (error) {
-      console.error(error)
+
+      stateMedicalFacility.value = {
+         name: '',
+         province_id: null,
+         regency_id: null
+      }
+
+      const messageSuffix = isEdit ? 'diperbarui' : 'ditambahkan'
+      store.notify('success', `Lokasi praktek dokter ${store.dialog.data.full_name} berhasil ${messageSuffix}`)
+   } catch (error: any) {
+      store.notify('error', error.data?.message || error)
    } finally {
       loading.value = false
    }
@@ -824,6 +846,7 @@ const deleteMedicalFacility = async (data: Model.MedicalFacility) => {
    await deleteDoctorMedicalFacility(data.id!)
       .then((resp) => {
          medicalFacility.value = medicalFacility.value.filter((item) => item.id !== data.id)
+         store.notify('info', `Data riwayat pendidikan berhasil dihapus`)
       })
 }
 </script>

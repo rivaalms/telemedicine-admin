@@ -72,9 +72,11 @@ const submit = async () => {
       if (isEdit.value) await updateTemplateChat(store.dialog.data.id!, state.value)
       else await createTemplateChat(state.value)
 
+      const messageSuffix = isEdit.value ? 'diperbarui' : 'ditambahkan'
+      store.notify('success', `Data template chat berhasil ${messageSuffix}`)
       store.clearDialog()
-   } catch (error) {
-
+   } catch (error: any) {
+      store.notify('error', error.data?.message || error)
    } finally {
       loading.value = false
    }

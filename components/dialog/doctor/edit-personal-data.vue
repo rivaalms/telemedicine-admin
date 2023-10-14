@@ -196,7 +196,11 @@ const submit = async () => {
    loading.value = true
    await updateDoctor(state.value)
       .then((resp) => {
+         store.notify('success', 'Data dokter berhasil diperbarui')
          store.clearDialog()
+      })
+      .catch((error: any) => {
+         store.notify('error', error.data.message)
       })
       .finally(() => {
          loading.value = false

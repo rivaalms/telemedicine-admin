@@ -54,13 +54,30 @@ const submit = async () => {
    loading.value = true
 
    try {
-      if (type.value === 'specialist') await updateSpecialistImage(store.dialog.data.slug, imageFile.value)
-      else if (type.value === 'voucher') await updateVoucherImage(store.dialog.data.slug, imageFile.value)
-      else if (type.value === 'advertisement') await updateAdvertisementImage(store.dialog.data.slug, imageFile.value)
-      else loading.value = false
+      let messageType = ''
+
+      switch (type.value) {
+         case 'specialist':
+            await updateSpecialistImage(store.dialog.data.slug, imageFile.value)
+            messageType = 'spesialis'
+            break
+         case 'voucher':
+            await updateVoucherImage(store.dialog.data.slug, imageFile.value)
+            messageType = 'voucher'
+            break
+         case 'advertisement':
+            await updateAdvertisementImage(store.dialog.data.slug, imageFile.value)
+            messageType = 'iklan'
+            break
+         default:
+            loading.value = false
+            break
+      }
+
+      store.notify('success', `Gambar master ${messageType} berhasil diperbarui`)
       store.clearDialog()
-   } catch (error) {
-      console.error(error)
+   } catch (error: any) {
+      store.notify('error', error.data?.message || error)
    } finally {
       loading.value = false
    }
