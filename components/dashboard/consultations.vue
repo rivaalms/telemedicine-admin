@@ -75,6 +75,8 @@ import moment from 'moment'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
+const props = defineProps<{ render?: boolean }>()
+
 const doctors : Ref <Dashboard.ConsultationSummaryByDoctor[]> = ref([])
 const specialist : Ref <Dashboard.ConsultationSummaryBySpecialist[]> = ref([])
 const total : Ref <number> = ref(0)
@@ -127,7 +129,7 @@ const specialistChartOptions = computed(() => {
 
 const specialistChartData = computed(() => specialist.value.map(item => item.total))
 
-onBeforeMount(async () => {
+watch(() => props.render, async () => {
    await fetchSummaryConsultations()
 })
 

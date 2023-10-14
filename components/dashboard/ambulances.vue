@@ -17,6 +17,8 @@
 <script setup lang="ts">
 import { getSummaryAmbulance } from '@/utils/api/dashboard'
 
+const props = defineProps<{ render?: boolean }>()
+
 const data : Ref <Dashboard.Ambulance[]> = ref([])
 const total : Ref <number> = ref(0)
 
@@ -56,7 +58,7 @@ const ambulanceChartOptions = computed(() => {
 
 const ambulanceChartData = computed(() => data.value.map(item => item.total))
 
-onBeforeMount(async () => {
+watch(() => props.render, async () => {
    await fetchSummaryAmbulance()
 })
 

@@ -7,7 +7,7 @@
          <app-sidebar/>
       </aside>
 
-      <div class="relative flex-1 overflow-y-auto bg-gray-100 flex flex-col">
+      <div ref="main" class="relative flex-1 overflow-y-auto bg-gray-100 flex flex-col">
          <main class="flex-grow p-2">
             <app-title/>
             <slot/>
@@ -19,3 +19,9 @@
 
 <app-dialog></app-dialog>
 </template>
+
+<script setup lang="ts">
+const main : Ref <HTMLElement | null> = ref(null)
+const { x, y } = useScroll(main)
+provide('scroll', { scrollX: x, scrollY: y })
+</script>

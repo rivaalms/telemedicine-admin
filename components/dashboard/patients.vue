@@ -58,6 +58,8 @@ import moment from 'moment'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
+const props = defineProps<{ render?: boolean }>()
+
 const data : Ref <Dashboard.PatientGender> = ref({
    total: 0,
    gender: {
@@ -107,7 +109,7 @@ const filter : Ref <any> = ref({
    end_date: moment().endOf('month'),
 })
 
-onBeforeMount(async () => {
+watch(() => props.render, async () => {
    await fetchPatients()
 })
 

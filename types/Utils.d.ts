@@ -47,4 +47,9 @@ declare namespace Utils {
       id: number
       name: string
    }
+
+   type ScrollProvider = {
+      scrollX?: WritableComputedRef<number>,
+      scrollY?: WritableComputedRef<number>
+   }
 }
