@@ -23,27 +23,27 @@
 
 <script setup lang="ts">
 import {
-   DialogEmergencyDetails,
-   DialogUserBan,
-   DialogUserActivate,
-   DialogUserDeactivate,
-   DialogUserTopUp,
-   DialogDoctorEditPersonalData,
-   DialogDoctorSpecialist,
-   DialogDoctorEducation,
-   DialogDoctorMedicalFacility,
-   DialogDoctorSchedules,
-   DialogDoctorAdd,
-   DialogOfficerForm,
-   DialogAdminForm,
-   DialogNurseForm,
-   DialogAmbulanceForm,
-   DialogMastersSpecialistForm,
-   DialogMastersUpdateImage,
-   DialogMastersAdvertisementForm,
-   DialogMastersVoucherForm,
-   DialogTemplateChatForm,
-   DialogDelete
+   LazyDialogEmergencyDetails,
+   LazyDialogUserBan,
+   LazyDialogUserActivate,
+   LazyDialogUserDeactivate,
+   LazyDialogUserTopUp,
+   LazyDialogDoctorEditPersonalData,
+   LazyDialogDoctorSpecialist,
+   LazyDialogDoctorEducation,
+   LazyDialogDoctorMedicalFacility,
+   LazyDialogDoctorSchedules,
+   LazyDialogDoctorAdd,
+   LazyDialogOfficerForm,
+   LazyDialogAdminForm,
+   LazyDialogNurseForm,
+   LazyDialogAmbulanceForm,
+   LazyDialogMastersSpecialistForm,
+   LazyDialogMastersUpdateImage,
+   LazyDialogMastersAdvertisementForm,
+   LazyDialogMastersVoucherForm,
+   LazyDialogTemplateChatForm,
+   LazyDialogDelete
 } from '#components'
 
 const store = useAppStore()
@@ -62,101 +62,101 @@ watch(() => store.dialog.show, () => {
    else {
       switch (store.dialog.type) {
          case 'emergency':
-            dialogComponent.value = DialogEmergencyDetails
+            dialogComponent.value = LazyDialogEmergencyDetails
             dialogWidth.value = 'sm:max-w-5xl'
             break
 
          case 'ban-user':
-            dialogComponent.value = DialogUserBan
+            dialogComponent.value = LazyDialogUserBan
             break
 
          case 'activate-user':
          case 'unban-user':
-            dialogComponent.value = DialogUserActivate
+            dialogComponent.value = LazyDialogUserActivate
             break
 
          case 'deactivate-user':
-            dialogComponent.value = DialogUserDeactivate
+            dialogComponent.value = LazyDialogUserDeactivate
             break
 
          case 'top-up-user':
-            dialogComponent.value = DialogUserTopUp
+            dialogComponent.value = LazyDialogUserTopUp
             break
 
          case 'add-doctor':
-            dialogComponent.value = DialogDoctorAdd
+            dialogComponent.value = LazyDialogDoctorAdd
             dialogWidth.value = 'sm:max-w-5xl'
             break
 
          case 'edit-personal-data-doctor':
-            dialogComponent.value = DialogDoctorEditPersonalData
+            dialogComponent.value = LazyDialogDoctorEditPersonalData
             dialogWidth.value = 'sm:max-w-5xl'
             break
 
          case 'add-specialist-doctor':
          case 'edit-specialist-doctor':
-            dialogComponent.value = DialogDoctorSpecialist
+            dialogComponent.value = LazyDialogDoctorSpecialist
             break
 
          case 'add-education-doctor':
          case 'edit-education-doctor':
-            dialogComponent.value = DialogDoctorEducation
+            dialogComponent.value = LazyDialogDoctorEducation
             break
 
          case 'add-medical-facility-doctor':
          case 'edit-medical-facility-doctor':
-            dialogComponent.value = DialogDoctorMedicalFacility
+            dialogComponent.value = LazyDialogDoctorMedicalFacility
             break
 
          case 'add-schedule-doctor':
          case 'edit-schedule-doctor':
-            dialogComponent.value = DialogDoctorSchedules
+            dialogComponent.value = LazyDialogDoctorSchedules
             break
 
          case 'add-officer':
-            dialogComponent.value = DialogOfficerForm
+            dialogComponent.value = LazyDialogOfficerForm
             dialogWidth.value = 'sm:max-w-2xl'
             break
 
          case 'add-admin':
-            dialogComponent.value = DialogAdminForm
+            dialogComponent.value = LazyDialogAdminForm
             dialogWidth.value = 'sm:max-w-2xl'
             break
 
          case 'add-nurse':
-            dialogComponent.value = DialogNurseForm
+            dialogComponent.value = LazyDialogNurseForm
             break
 
          case 'add-ambulance':
          case 'edit-ambulance':
-            dialogComponent.value = DialogAmbulanceForm
+            dialogComponent.value = LazyDialogAmbulanceForm
             break
 
          case 'add-specialist':
          case 'edit-specialist':
-            dialogComponent.value = DialogMastersSpecialistForm
+            dialogComponent.value = LazyDialogMastersSpecialistForm
             break
 
          case 'add-advertisement':
          case 'edit-advertisement':
-            dialogComponent.value = DialogMastersAdvertisementForm
+            dialogComponent.value = LazyDialogMastersAdvertisementForm
             break
 
          case 'add-voucher':
          case 'edit-voucher':
-            dialogComponent.value = DialogMastersVoucherForm
+            dialogComponent.value = LazyDialogMastersVoucherForm
             dialogWidth.value = 'sm:max-w-3xl'
             break
 
          case 'edit-image-specialist':
          case 'edit-image-advertisement':
          case 'edit-image-voucher':
-            dialogComponent.value = DialogMastersUpdateImage
+            dialogComponent.value = LazyDialogMastersUpdateImage
             break
 
          case 'add-template-chat':
          case 'edit-template-chat':
-            dialogComponent.value = DialogTemplateChatForm
+            dialogComponent.value = LazyDialogTemplateChatForm
             break
 
          case 'delete-specialist-doctor':
@@ -166,7 +166,7 @@ watch(() => store.dialog.show, () => {
          case 'delete-specialist':
          case 'delete-advertisement':
          case 'delete-voucher':
-            dialogComponent.value = DialogDelete
+            dialogComponent.value = LazyDialogDelete
             break
 
          default:

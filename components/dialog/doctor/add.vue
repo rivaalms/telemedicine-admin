@@ -4,24 +4,24 @@
    :items="tabs"
 >
    <template #data>
-      <dialog-doctor-components-add-data
+      <lazy-dialog-doctor-components-add-data
          :disabled="isFormDisabled"
          @next-tab="onFormSubmitted"
-      ></dialog-doctor-components-add-data>
+      ></lazy-dialog-doctor-components-add-data>
    </template>
 
    <template #details>
-      <dialog-doctor-components-add-details
+      <lazy-dialog-doctor-components-add-details
          @next-tab="currentTab++"
          @prev-tab="currentTab--"
-      ></dialog-doctor-components-add-details>
+      ></lazy-dialog-doctor-components-add-details>
    </template>
 
    <template #image>
-      <dialog-doctor-components-add-image
+      <lazy-dialog-doctor-components-add-image
          @next-tab="currentTab++"
          @prev-tab="currentTab--"
-      ></dialog-doctor-components-add-image>
+      ></lazy-dialog-doctor-components-add-image>
    </template>
 
    <template #finish>
