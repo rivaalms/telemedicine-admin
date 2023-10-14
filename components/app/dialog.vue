@@ -46,6 +46,7 @@ import {
    LazyDialogDelete,
    LazyDialogProfileForm,
    LazyDialogProfileChangePassword,
+   LazyDialogLogout
 } from '#components'
 
 const store = useAppStore()
@@ -178,6 +179,10 @@ watch(() => store.dialog.show, () => {
          case 'delete-advertisement':
          case 'delete-voucher':
             dialogComponent.value = LazyDialogDelete
+            break
+
+         case 'logout':
+            dialogComponent.value = LazyDialogLogout
             break
 
          default:

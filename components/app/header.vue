@@ -52,10 +52,7 @@ const menu = computed(() => {
          {
             label: 'Keluar',
             slot: 'logout',
-            click: async () => {
-               await authStore.logout()
-                  .then(() => { navigateTo('/login') })
-            }
+            click: () => { store.showDialog('logout', 'Keluar', null) }
          }
       ]
    ]

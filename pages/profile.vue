@@ -88,6 +88,7 @@
                   color="red"
                   icon="i-heroicons-arrow-left-on-rectangle"
                   class="w-full"
+                  @click.stop="store.showDialog('logout', 'Keluar', null)"
                >
                   Keluar
                </u-button>
