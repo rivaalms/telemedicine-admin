@@ -1,6 +1,5 @@
 <template>
 <div class="grid grid-cols-2 gap-2">
-   {{ scrollY }}
    <div
       ref="transactionIncome"
       class="col-span-2"
