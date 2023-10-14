@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import {
-   DialogEmergency,
+   DialogEmergencyDetails,
    DialogUserBan,
    DialogUserActivate,
    DialogUserDeactivate,
@@ -34,11 +34,11 @@ import {
    DialogDoctorMedicalFacility,
    DialogDoctorSchedules,
    DialogDoctorAdd,
-   DialogOfficerAdd,
-   DialogAdminAdd,
-   DialogNurseAdd,
-   DialogAmbulanceAdd,
-   DialogMastersSpecialistAdd,
+   DialogOfficerForm,
+   DialogAdminForm,
+   DialogNurseForm,
+   DialogAmbulanceForm,
+   DialogMastersSpecialistForm,
    DialogMastersUpdateImage,
    DialogMastersAdvertisementForm,
    DialogMastersVoucherForm,
@@ -62,7 +62,7 @@ watch(() => store.dialog.show, () => {
    else {
       switch (store.dialog.type) {
          case 'emergency':
-            dialogComponent.value = DialogEmergency
+            dialogComponent.value = DialogEmergencyDetails
             dialogWidth.value = 'sm:max-w-5xl'
             break
 
@@ -114,27 +114,27 @@ watch(() => store.dialog.show, () => {
             break
 
          case 'add-officer':
-            dialogComponent.value = DialogOfficerAdd
+            dialogComponent.value = DialogOfficerForm
             dialogWidth.value = 'sm:max-w-2xl'
             break
 
          case 'add-admin':
-            dialogComponent.value = DialogAdminAdd
+            dialogComponent.value = DialogAdminForm
             dialogWidth.value = 'sm:max-w-2xl'
             break
 
          case 'add-nurse':
-            dialogComponent.value = DialogNurseAdd
+            dialogComponent.value = DialogNurseForm
             break
 
          case 'add-ambulance':
          case 'edit-ambulance':
-            dialogComponent.value = DialogAmbulanceAdd
+            dialogComponent.value = DialogAmbulanceForm
             break
 
          case 'add-specialist':
          case 'edit-specialist':
-            dialogComponent.value = DialogMastersSpecialistAdd
+            dialogComponent.value = DialogMastersSpecialistForm
             break
 
          case 'add-advertisement':
