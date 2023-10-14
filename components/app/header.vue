@@ -45,7 +45,7 @@ const menu = computed(() => {
       [
          {
             label: 'Profil saya',
-            click: () => { alert('profile') }
+            click: () => { navigateTo('/profile') }
          }
       ],
       [

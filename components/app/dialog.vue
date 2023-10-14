@@ -43,7 +43,9 @@ import {
    LazyDialogMastersAdvertisementForm,
    LazyDialogMastersVoucherForm,
    LazyDialogTemplateChatForm,
-   LazyDialogDelete
+   LazyDialogDelete,
+   LazyDialogProfileForm,
+   LazyDialogProfileChangePassword,
 } from '#components'
 
 const store = useAppStore()
@@ -157,6 +159,15 @@ watch(() => store.dialog.show, () => {
          case 'add-template-chat':
          case 'edit-template-chat':
             dialogComponent.value = LazyDialogTemplateChatForm
+            break
+
+         case 'edit-email-profile':
+         case 'edit-phone-profile':
+            dialogComponent.value = LazyDialogProfileForm
+            break
+
+         case 'edit-password-profile':
+            dialogComponent.value = LazyDialogProfileChangePassword
             break
 
          case 'delete-specialist-doctor':

@@ -36,3 +36,34 @@ export async function forgotPasswordByEmail (email: string) : Promise <any> {
       }
    })
 }
+
+export async function updateEmail (payload: API.Payload.Login) : Promise <any> {
+   const response = await $fetch <API.Response <any>> (`/profile/email`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updatePhoneNumber (payload: { password: string, phone_number: string }) : Promise <any> {
+   const response = await $fetch <API.Response <any>> (`/profile/phone-number`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function updatePassword (payload:  UpdatePassword) : Promise <any> {
+   const response = await $fetch <API.Response <any>> (`/profile/password`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}
+
+type UpdatePassword = {
+   old_password: string
+   password: string
+   password_confirmation: string
+   phone_number: string
+}
