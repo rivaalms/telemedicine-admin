@@ -20,6 +20,7 @@
     "@types/parse": "^3.0.5",
     "@types/vue-cropperjs": "^4.1.4",
     "@vuepic/vue-datepicker": "^6.1.0",
+    "@vueup/vue-quill": "^1.2.0",
     "@vueuse/core": "^10.5.0",
     "@vueuse/nuxt": "^10.5.0",
     "apexcharts": "^3.43.0",
