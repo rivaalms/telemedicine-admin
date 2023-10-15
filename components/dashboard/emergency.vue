@@ -29,6 +29,7 @@
          height="350"
          :options="emergencyChartOptions"
          :series="emergencyChartData"
+         @data-point-selection="(evt: any, ctx: any, config: any) => onChartClicked(config)"
       ></apexchart>
    </div>
 </u-card>
@@ -37,11 +38,15 @@
 <script setup lang="ts">
 import { getEmergencyTrends } from '@/utils/api/dashboard'
 import moment from 'moment'
+import 'moment/dist/locale/id'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
+moment.locale('id')
+const store = useAppStore()
+
 const year : Ref <string> = ref(moment().format('YYYY'))
-const trendData : Ref <any> = ref([])
+const trendData : Ref <any[]> = ref([])
 const months: Ref <string[]> = ref([])
 
 const emergencyChartData : ComputedRef <any> = computed(() => {
@@ -77,7 +82,7 @@ const emergencyChartOptions : ComputedRef <any> = computed(() => {
       chart: {
          id: 'emergencyChart',
          type: 'bar',
-         stacked: true
+         stacked: true,
       },
       xaxis: {
          categories: months.value
@@ -91,6 +96,13 @@ const emergencyChartOptions : ComputedRef <any> = computed(() => {
             fontFamily: 'Nunito Sans'
          }
       },
+      states: {
+         active: {
+            filter: {
+               type: 'none'
+            }
+         }
+      }
    }
 })
 
@@ -116,5 +128,21 @@ const fetchEmergencyTrends = async () => {
             number++
          }
       })
+}
+
+const onChartClicked = async (config: any) => {
+   const { dataPointIndex, seriesIndex } : { [key: string]: number } = config
+
+   const data = trendData.value[dataPointIndex]
+   const status = config.w.config.series[seriesIndex].name
+
+   const payload : API.Payload.EmergencyReport = {
+      start_date: moment(`${data.month} ${year.value}`, 'MMMM YYYY').startOf('month').format('YYYY-MM-DD'),
+      end_date: moment(`${data.month} ${year.value}`, 'MMMM YYYY').endOf('month').format('YYYY-MM-DD'),
+      status,
+      latest: 0,
+   }
+
+   store.showDialog('report-emergency', `Laporan Emergency ${status} ${data.month} ${year.value}`, payload)
 }
 </script>

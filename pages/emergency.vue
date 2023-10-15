@@ -27,7 +27,7 @@
                      variant="ghost"
                      color="sky"
                      icon="i-heroicons-eye"
-                     @click.stop="store.showDialog('emergency', 'Detail Emergency', row)"
+                     @click.stop="store.showDialog('details-emergency', 'Detail Emergency', row)"
                   ></u-button>
                </u-tooltip>
             </div>

@@ -82,5 +82,11 @@ declare namespace API {
          nominal: number
          channel: string
       }
+
+      type EmergencyReport = API.Payload.DateRangePayload & {
+         status: string
+         latest: number
+         page?: number
+      }
    }
 }

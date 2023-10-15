@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import {
    LazyDialogEmergencyDetails,
+   LazyDialogEmergencyReport,
    LazyDialogUserBan,
    LazyDialogUserActivate,
    LazyDialogUserDeactivate,
@@ -64,8 +65,13 @@ watch(() => store.dialog.show, () => {
    }
    else {
       switch (store.dialog.type) {
-         case 'emergency':
+         case 'details-emergency':
             dialogComponent.value = LazyDialogEmergencyDetails
+            dialogWidth.value = 'sm:max-w-5xl'
+            break
+
+         case 'report-emergency':
+            dialogComponent.value = LazyDialogEmergencyReport
             dialogWidth.value = 'sm:max-w-5xl'
             break
 
