@@ -31,6 +31,9 @@ const loading : Ref <boolean> = ref(false)
 
 const logout = async () => {
    await authStore.logout()
-      .then(() => { navigateTo('/login') })
+      .then(() => {
+         store.clearDialog()
+         navigateTo('/login')
+      })
 }
 </script>
