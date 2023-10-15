@@ -1,7 +1,7 @@
 <template>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-2">
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-2">
    <u-card
-      class="lg:h-[calc(537px)] overflow-y-auto"
+      class="xl:h-[calc(537px)] overflow-y-auto"
    >
       <div class="flex flex-col items-center border-b-[1px]">
          <img :src="profile?.profile_picture! || ''" class="rounded-full h-60" alt="Doctor">
@@ -67,7 +67,7 @@
    </u-card>
 
    <u-card
-      class="lg:col-span-2 lg:h-[calc(537px)] overflow-y-auto"
+      class="xl:col-span-2 xl:h-[calc(537px)] overflow-y-auto"
    >
       <div class="flex justify-between items-center border-b-[1px] pb-2">
          <p class="font-semibold flex items-center gap-2">
@@ -85,7 +85,7 @@
             ></u-button>
          </u-tooltip>
       </div>
-      <div class="py-2 grid lg:grid-cols-2 gap-4 text-sm">
+      <div class="py-2 grid md:grid-cols-2 gap-4 text-sm mb-0 lg:mb-4">
          <div class="">
             <p class="text-gray-500">
                No. STR
@@ -147,7 +147,7 @@
          </div>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-4 pb-4 pt-12 lg:pb-0 lg:pt-0 lg:py-4">
+      <div class="grid md:grid-cols-2 gap-4 pb-4 pt-12 lg:pb-0 lg:pt-0 lg:py-4">
          <div class="pb-12 lg:pb-2">
             <div class="flex justify-between items-center border-b-[1px] pb-2">
                <p class="font-semibold flex items-center gap-2">

@@ -1,7 +1,7 @@
 <template>
 <u-card>
    <div class="container mx-auto">
-      <div class="grid grid-cols-5 gap-4 items-start">
+      <div class="grid sm:grid-cols-2 xl:grid-cols-5 gap-12 xl:gap-4 items-start">
          <div class="flex justify-center">
             <img
                :src="user.profile_picture || '/img/profile.svg'"
@@ -10,7 +10,7 @@
             >
          </div>
 
-         <div class="col-span-3 flex justify-center">
+         <div class="xl:col-span-3 flex justify-center">
             <div>
                <div class="mb-4">
                   <p class="text-xl font-semibold">
@@ -43,7 +43,7 @@
             </div>
          </div>
 
-         <div class="grid gap-2">
+         <div class="sm:col-span-2 grid gap-2">
             <div>
                <u-button
                   variant="ghost"

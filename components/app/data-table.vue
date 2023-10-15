@@ -2,7 +2,7 @@
    <div class="grid grid-cols-12 gap-4 mb-4">
       <div
          v-if="!prop.hideSearchInput"
-         class="col-span-12 lg:col-span-3 flex flex-col justify-end"
+         class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 order-last md:order-first flex flex-col justify-end"
       >
          <u-input
             v-model="search"
@@ -31,7 +31,7 @@
       </template>
    </u-table>
 
-   <div class="flex flex-col-reverse lg:flex-row justify-center lg:justify-between gap-4 mt-4">
+   <div class="flex flex-col-reverse sm:flex-row justify-center sm:justify-between gap-8 sm:gap-4 mt-4">
       <div class="flex items-center justify-center lg:justify-start gap-4 text-sm">
          <p>Tampilkan</p>
          <u-select-menu

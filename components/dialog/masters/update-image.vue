@@ -1,6 +1,6 @@
 <template>
 <div class="grid gap-6">
-   <div class="flex justify-center max-h-40">
+   <div class="flex justify-center max-w-full">
       <img
          :src="imagePreview"
          alt="Image Preview"

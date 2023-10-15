@@ -3,7 +3,7 @@
    <div class="grid grid-cols-12 gap-4 mb-4">
       <u-form-group
          label="Start date"
-         class="col-span-2"
+         class="col-span-6 sm:col-span-3 xl:col-span-2"
       >
          <vue-date-picker
             v-model="filter.start_date"
@@ -22,7 +22,7 @@
 
       <u-form-group
          label="End date"
-         class="col-span-2"
+         class="col-span-6 sm:col-span-3 xl:col-span-2"
       >
          <vue-date-picker
             v-model="filter.end_date"

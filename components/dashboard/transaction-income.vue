@@ -36,7 +36,7 @@
       </u-card>
 
       <u-card
-         class="shadow-none ring-0 py-0 col-span-2 lg:col-span-1"
+         class="shadow-none ring-0 py-0 col-span-2 xl:col-span-1"
          :ui="{ body: { padding: 'py-0 sm:p-0 sm:px-6 sm:py-0' } }"
       >
          <apexchart
@@ -46,7 +46,7 @@
       </u-card>
 
       <u-card
-         class="shadow-none ring-0 py-0 col-span-2 lg:col-span-1"
+         class="shadow-none ring-0 py-0 col-span-2 xl:col-span-1"
          :ui="{ body: { padding: 'py-0 sm:p-0 sm:px-6 sm:py-0' } }"
       >
          <apexchart

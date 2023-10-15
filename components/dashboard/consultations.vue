@@ -48,7 +48,7 @@
          <p class="text-xl">{{ total }}</p>
       </u-card>
       
-      <u-card class="shadow-none ring-0 col-span-2 lg:col-span-1">
+      <u-card class="shadow-none ring-0 col-span-2 xl:col-span-1">
          <p class="text-sm text-gray-500 dark:text-gray-400">Konsultasi Berdasarkan Dokter</p>
 
       <apexchart
@@ -57,7 +57,7 @@
       ></apexchart>
       </u-card>
 
-      <u-card class="shadow-none ring-0 col-span-2 lg:col-span-1">
+      <u-card class="shadow-none ring-0 col-span-2 xl:col-span-1">
          <p class="text-sm text-gray-500 dark:text-gray-400">Konsultasi Berdasarkan Spesialis</p>
 
          <apexchart

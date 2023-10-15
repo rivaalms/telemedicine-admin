@@ -1,7 +1,7 @@
 <template>
 <div class="grid grid-cols-1 gap-2">
    <u-card>
-      <div class="grid lg:grid-cols-3 gap-2">
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-2">
          <u-form-group
             label="No. Telepon/Email Pasien"
          >
@@ -25,9 +25,9 @@
    
    <div
       v-if="data"
-      class="grid grid-cols-1 lg:grid-cols-3 gap-2"
+      class="grid grid-cols-1 xl:grid-cols-3 gap-2"
    >
-      <u-card class="lg:h-[537px] overflow-y-auto">
+      <u-card class="xl:h-[537px] overflow-y-auto">
          <div class="flex flex-col items-center border-b-[1px]">
             <img :src="data?.profile_picture || ''" class="rounded-full h-60" alt="Patient">
             <p class="p-4 font-semibold text-lg">
@@ -100,12 +100,12 @@
          </div>
       </u-card>
 
-      <u-card class="lg:col-span-2 lg:h-[537px] overflow-y-auto">
+      <u-card class="lg:col-span-2 xl:h-[537px] overflow-y-auto">
          <p class="font-semibold flex items-center gap-2 border-b-[1px] pb-2">
             <u-icon name="i-heroicons-user"></u-icon>
             Data Pasien
          </p>
-         <div class="pt-4 pb-12 lg:pt-0 lg:pb-0 lg:py-4 grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm">
+         <div class="pt-4 pb-12 lg:py-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div class="">
                <p class="text-gray-500">
                   NIK

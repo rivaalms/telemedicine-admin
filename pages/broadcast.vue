@@ -6,7 +6,7 @@
       :validate-on="['submit']"
       @submit.prevent="submit"
    >
-      <div class="grid grid-cols-5 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
          <u-form-group
             label="Tujuan"
             name="to"
@@ -51,7 +51,9 @@
                :disabled="loading"
             >
                <template #label>
-                  {{ state.notification_type || 'Pilih tipe notifikasi...' }}
+                  <p class="truncate">
+                     {{ state.notification_type || 'Pilih tipe notifikasi...' }}
+                  </p>
                </template>
             </u-select-menu>
          </u-form-group>
@@ -103,7 +105,7 @@
          </u-form-group>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 mt-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
          <div class="grid gap-4">
             <u-form-group
                label="Judul"

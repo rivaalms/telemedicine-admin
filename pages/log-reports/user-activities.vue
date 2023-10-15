@@ -9,7 +9,7 @@
       @data-emit="(search: string, page: number, perPage: number) => emitHandler(search, page, perPage)"
    >
       <template #filters>
-         <div class="col-span-4 flex items-end">
+         <div class="col-span-12 md:col-span-6 2xl:col-span-4 flex items-end">
             <u-form-group
                label="Filter"
                class="w-full"
@@ -22,7 +22,9 @@
                      option-attribute="label"
                   >
                      <template #label>
-                        {{ filterOptions.find((item: any) => item.id === filterOptionsValue).label }}
+                        <p class="truncate">
+                           {{ filterOptions.find((item: any) => item.id === filterOptionsValue).label }}
+                        </p>
                      </template>
                   </u-select-menu>
                   <u-input

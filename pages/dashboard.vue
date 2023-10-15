@@ -7,19 +7,19 @@
       <lazy-dashboard-transaction-income></lazy-dashboard-transaction-income>
    </div>
 
-   <div ref="emergency" class="col-span-2 lg:col-span-1">
+   <div ref="emergency" class="col-span-2 xl:col-span-1">
       <lazy-dashboard-emergency></lazy-dashboard-emergency>
    </div>
 
-   <div ref="doctorOnlineStatus" class="col-span-2 lg:col-span-1">
+   <div ref="doctorOnlineStatus" class="col-span-2 xl:col-span-1">
       <lazy-dashboard-doctor-online-status></lazy-dashboard-doctor-online-status>
    </div>
 
-   <div ref="ambulances" class="col-span-2 lg:col-span-1">
+   <div ref="ambulances" class="col-span-2 xl:col-span-1">
       <lazy-dashboard-ambulances :render="render.ambulances"></lazy-dashboard-ambulances>
    </div>
 
-   <div ref="patients" class="col-span-2 lg:col-span-1">
+   <div ref="patients" class="col-span-2 xl:col-span-1">
       <lazy-dashboard-patients :render="render.patients"></lazy-dashboard-patients>
    </div>
 
