@@ -71,6 +71,11 @@ export const useRoutes : Router[] = [
       ]
    },
    {
+      label: 'Broadcast',
+      to: '/broadcast',
+      icon: 'i-heroicons-rss'
+   },
+   {
       label: 'Jadwal Dokter',
       to: '/doctors-schedules',
       icon: 'i-heroicons-calendar-days'
