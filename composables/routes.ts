@@ -4,22 +4,26 @@ export const useRoutes : Router[] = [
       to: '/',
       children: null,
       icon: 'i-heroicons-home',
+      roles: '*'
    },
    {
       label: 'Dashboard',
       to: '/dashboard',
-      icon: 'i-heroicons-rectangle-group'
+      icon: 'i-heroicons-rectangle-group',
+      roles: [ 'Admin Faskes', 'Admin Keuangan' ]
    },
    {
       label: 'Emergency',
       to: '/emergency',
       children: null,
-      icon: 'i-heroicons-exclamation-triangle'
+      icon: 'i-heroicons-exclamation-triangle',
+      roles: [ 'Admin Faskes', 'Admin Emergency' ]
    },
    {
       label: 'Reservasi Konsultasi',
       to: '/reservation-consultation',
       icon: 'i-heroicons-calendar',
+      roles: [ 'Admin Faskes' ]
    },
    {
       label: 'Users',
@@ -28,29 +32,35 @@ export const useRoutes : Router[] = [
          {
             label: 'Dokter',
             to: '/users/doctors/list',
+            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
          },
          {
             label: 'Pasien',
-            to: '/users/patient'
+            to: '/users/patient',
+            roles: [ 'Admin Faskes', 'Admin Top Up' ]
          },
          {
             label: 'Perawat',
-            to: '/users/nurse'
+            to: '/users/nurse',
+            roles: [ 'Admin Faskes' ]
          },
          {
             label: 'Officer',
-            to: '/users/officers'
+            to: '/users/officers',
+            roles: [ 'Admin Faskes' ]
          },
          {
             label: 'Admin',
-            to: '/users/admin'
+            to: '/users/admin',
+            roles: [ 'Admin Faskes' ]
          }
       ]
    },
    {
       label: 'Ambulance',
       to: '/ambulance',
-      icon: 'i-heroicons-truck'
+      icon: 'i-heroicons-truck',
+      roles: [ 'Admin Faskes' ]
    },
    {
       label: 'Data Master',
@@ -58,37 +68,44 @@ export const useRoutes : Router[] = [
       children: [
          {
             label: 'Spesialis Dokter',
-            to: '/masters/doctors-specialists'
+            to: '/masters/doctors-specialists',
+            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
          },
          {
             label: 'Data Iklan',
-            to: '/masters/advertisements'
+            to: '/masters/advertisements',
+            roles: [ 'Admin Faskes' ]
          },
          {
             label: 'Voucher',
-            to: '/masters/vouchers'
+            to: '/masters/vouchers',
+            roles: [ 'Admin Faskes' ]
          }
       ]
    },
    {
       label: 'Broadcast',
       to: '/broadcast',
-      icon: 'i-heroicons-rss'
+      icon: 'i-heroicons-rss',
+      roles: [ 'Admin Faskes' ]
    },
    {
       label: 'Jadwal Dokter',
       to: '/doctors-schedules',
-      icon: 'i-heroicons-calendar-days'
+      icon: 'i-heroicons-calendar-days',
+      roles: [ 'Admin Faskes', 'Admin Keuangan' ]
    },
    {
       label: 'Settings',
       to: '/settings',
-      icon: 'i-heroicons-cog-6-tooth'
+      icon: 'i-heroicons-cog-6-tooth',
+      roles: [ 'Admin Faskes' ]
    },
    {
       label: 'Template Chat',
       to: '/template-chats',
-      icon: 'i-heroicons-chat-bubble-left-ellipsis'
+      icon: 'i-heroicons-chat-bubble-left-ellipsis',
+      roles: [ 'Admin Faskes' ]
    },
    {
       label: 'Logs Report',
@@ -96,15 +113,18 @@ export const useRoutes : Router[] = [
       children: [
          {
             label: 'Aktivitas User',
-            to: '/log-reports/user-activities'
+            to: '/log-reports/user-activities',
+            roles: [ 'Admin Faskes' ]
          },
          {
             label: 'Konsultasi',
-            to: '/log-reports/consultations'
+            to: '/log-reports/consultations',
+            roles: [ 'Admin Faskes' ]
          },
          {
             label: 'Emergency',
-            to: '/log-reports/emergency'
+            to: '/log-reports/emergency',
+            roles: [ 'Admin Faskes' ]
          }
       ]
    },
@@ -114,23 +134,28 @@ export const useRoutes : Router[] = [
       children: [
          {
             label: 'Laporan Konsultasi',
-            to: '/reports/consultations'
+            to: '/reports/consultations',
+            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
          },
          {
             label: 'Laporan Pembelian Obat',
-            to: '/reports/medicines'
+            to: '/reports/medicines',
+            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
          },
          {
             label: 'Laporan Emergency',
-            to: '/reports/emergency'
+            to: '/reports/emergency',
+            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
          },
          {
             label: 'Laporan Driver Emergency',
-            to: '/reports/emergency-officers'
+            to: '/reports/emergency-officers',
+            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
          },
          {
             label: 'Laporan Dokter Emergency',
-            to: '/reports/emergency-doctors'
+            to: '/reports/emergency-doctors',
+            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
          }
       ]
    }
@@ -141,4 +166,5 @@ type Router = {
    to?: string
    children?: Router[] | null
    icon?: string
+   roles?: string | string[]
 }
