@@ -11,7 +11,7 @@
          <div class="col-start-12 flex justify-end items-center">
             <u-button
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-template-chat', 'Tambah Template Chat', null)"
+               @click.stop="store.showDialog('add-template-chat', 'Tambah Template Chat', null, async () => await fetchTemplateChats())"
             >
                Tambah Template Chat
             </u-button>
@@ -25,7 +25,7 @@
                   variant="ghost"
                   color="amber"
                   icon="i-heroicons-pencil"
-                  @click.stop="store.showDialog('edit-template-chat', 'Sunting Template Chat', row)"
+                  @click.stop="store.showDialog('edit-template-chat', 'Sunting Template Chat', row, async () => await fetchTemplateChats())"
                ></u-button>
             </u-tooltip>
          </div>

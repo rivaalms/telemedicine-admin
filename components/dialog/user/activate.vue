@@ -34,12 +34,19 @@ const activate = async () => {
    loading.value = true
 
    try {
-      if (isBanned.value) await unbanUser(uuid.value)
-      else await activateUser(uuid.value)
+      if (isBanned.value) {
+         await unbanUser(uuid.value)
+         store.notify('info', `Pengguna ${store.dialog.data!.full_name} berhasil di-unban`)
+      }
+      else {
+         await activateUser(uuid.value)
+         store.notify('info', `Pengguna ${store.dialog.data!.full_name} berhasil diaktifkan`)
+      }
 
+      store.dialog.callback()
       store.clearDialog()
-   } catch (error) {
-      console.error(error)
+   } catch (error: any) {
+      store.notify('error', error.response?._data?.messages || error)
    } finally {
       loading.value = false
    }

@@ -11,7 +11,7 @@
          <div class="col-start-12 flex justify-end items-center">
             <u-button
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-advertisement', 'Tambah Data Iklan', null)"
+               @click.stop="store.showDialog('add-advertisement', 'Tambah Data Iklan', null, async () => await fetchAdvert())"
             >
                Tambah Data Iklan
             </u-button>
@@ -25,7 +25,7 @@
                   variant="ghost"
                   color="amber"
                   icon="i-heroicons-pencil"
-                  @click.stop="store.showDialog('edit-advertisement', 'Sunting Data Iklan', row)"
+                  @click.stop="store.showDialog('edit-advertisement', 'Sunting Data Iklan', row, async () => await fetchAdvert())"
                ></u-button>
             </u-tooltip>
 
@@ -34,7 +34,7 @@
                   variant="ghost"
                   color="sky"
                   icon="i-heroicons-photo"
-                  @click.stop="store.showDialog('edit-image-advertisement', 'Sunting Gambar Data Iklan', row)"
+                  @click.stop="store.showDialog('edit-image-advertisement', 'Sunting Gambar Data Iklan', row, async () => await fetchAdvert())"
                ></u-button>
             </u-tooltip>
 
@@ -43,7 +43,7 @@
                   variant="ghost"
                   color="red"
                   icon="i-heroicons-trash"
-                  @click.stop="store.showDialog('delete-advertisement', 'Hapus Data Iklan', row)"
+                  @click.stop="store.showDialog('delete-advertisement', 'Hapus Data Iklan', row, async () => await fetchAdvert())"
                ></u-button>
             </u-tooltip>
          </div>

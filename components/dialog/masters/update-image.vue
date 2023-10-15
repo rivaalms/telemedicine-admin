@@ -75,7 +75,6 @@ const submit = async () => {
       }
 
       store.notify('success', `Gambar master ${messageType} berhasil diperbarui`)
-      store.clearDialog()
    } catch (error: any) {
       store.notify('error', error.data?.message || error)
    } finally {
@@ -84,7 +83,11 @@ const submit = async () => {
    
    await updateSpecialistImage(store.dialog.data.slug, imageFile.value)
       .then(() => {
+         store.dialog.callback()
          store.clearDialog()
+      })
+      .catch((error: any) => {
+         store.notify('error', error.response?._data?.messages || error)
       })
       .finally(() => {
          loading.value = false

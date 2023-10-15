@@ -45,7 +45,7 @@
       >
          Simpan
       </u-button>
-   </div>f
+   </div>
 </u-form>
 </template>
 
@@ -62,7 +62,7 @@ const state : Ref <Model.TemplateChat> = ref({
 })
 
 const validationSchema = yup.object({
-   text: yup.string().required('Teks harus diisi')
+   text: yup.string().max(55, (max) => `Teks tidak boleh lebih dari ${max} karakter`).required('Teks harus diisi')
 })
 
 const submit = async () => {
@@ -74,9 +74,10 @@ const submit = async () => {
 
       const messageSuffix = isEdit.value ? 'diperbarui' : 'ditambahkan'
       store.notify('success', `Data template chat berhasil ${messageSuffix}`)
+      store.dialog.callback()
       store.clearDialog()
    } catch (error: any) {
-      store.notify('error', error.data?.message || error)
+      store.notify('error', error.response?._data?.messages || error)
    } finally {
       loading.value = false
    }

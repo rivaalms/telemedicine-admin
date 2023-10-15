@@ -11,7 +11,7 @@
          <div class="col-start-12 flex justify-end items-center">
             <u-button
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-ambulance', 'Tambah Ambulance', null)"
+               @click.stop="store.showDialog('add-ambulance', 'Tambah Ambulance', null, async () => await fetchAmbulances())"
             >
                Tambah Ambulance
             </u-button>
@@ -25,7 +25,7 @@
                   variant="ghost"
                   color="amber"
                   icon="i-heroicons-pencil"
-                  @click.stop="store.showDialog('edit-ambulance', 'Sunting Ambulance', row)"
+                  @click.stop="store.showDialog('edit-ambulance', 'Sunting Ambulance', row, async () => await fetchAmbulances())"
                ></u-button>
             </u-tooltip>
 
@@ -34,7 +34,7 @@
                   variant="ghost"
                   color="red"
                   icon="i-heroicons-trash"
-                  @click.stop="store.showDialog('delete-ambulance', 'Hapus Ambulance', row)"
+                  @click.stop="store.showDialog('delete-ambulance', 'Hapus Ambulance', row, async () => await fetchAmbulances())"
                ></u-button>
             </u-tooltip>
          </div>

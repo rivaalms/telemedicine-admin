@@ -109,7 +109,7 @@ const submit = async () => {
       store.notify('success', `Data ambulance berhasil ${messageSuffix}`)
       store.clearDialog()
    } catch (error: any) {
-      store.notify('error', error.data?.message || error)
+      store.notify('error', error.response?._data?.messages || error)
    } finally {
       loading.value = false
    }

@@ -185,10 +185,11 @@ const submit = async () => {
    await addAdmin(state.value)
       .then((resp) => {
          store.notify('success', `Admin ${resp.full_name} berhasil ditambahkan`)
+         store.dialog.callback()
          store.clearDialog()
       })
       .catch((error: any) => {
-         store.notify('error', error.data?.message || error)
+         store.notify('error', error.response?._data?.messages || error)
       })
       .finally(() => {
          loading.value = false

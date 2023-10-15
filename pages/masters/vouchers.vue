@@ -11,7 +11,7 @@
          <div class="col-start-12 flex justify-end align-center">
             <u-button
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-voucher', 'Tambah Voucher', null)"
+               @click.stop="store.showDialog('add-voucher', 'Tambah Voucher', null, async () => await fetchVouchers())"
             >
                Tambah Voucher
             </u-button>
@@ -25,7 +25,7 @@
                   variant="ghost"
                   color="amber"
                   icon="i-heroicons-pencil"
-                  @click.stop="store.showDialog('edit-voucher', 'Sunting Voucher', row)"
+                  @click.stop="store.showDialog('edit-voucher', 'Sunting Voucher', row, async () => await fetchVouchers())"
                ></u-button>
             </u-tooltip>
 
@@ -34,7 +34,7 @@
                   variant="ghost"
                   color="sky"
                   icon="i-heroicons-photo"
-                  @click.stop="store.showDialog('edit-image-voucher', 'Sunting Gambar Voucher', row)"
+                  @click.stop="store.showDialog('edit-image-voucher', 'Sunting Gambar Voucher', row, async () => await fetchVouchers())"
                ></u-button>
             </u-tooltip>
 
@@ -43,7 +43,7 @@
                   variant="ghost"
                   color="red"
                   icon="i-heroicons-trash"
-                  @click.stop="store.showDialog('delete-voucher', 'Hapus Voucher', row)"
+                  @click.stop="store.showDialog('delete-voucher', 'Hapus Voucher', row, async () => await fetchVouchers())"
                ></u-button>
             </u-tooltip>
          </div>
@@ -56,6 +56,7 @@
 import { getVouchers } from '@/utils/api/masters'
 
 const store = useAppStore()
+store.dialog.callback = async () => await fetchVouchers()
 store.title = 'Voucher'
 useHead({ title: store.getTitle })
 

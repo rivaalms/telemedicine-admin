@@ -38,7 +38,7 @@
                icon="i-heroicons-no-symbol"
                color="red"
                block
-               @click.stop="store.showDialog('ban-user', `Ban ${profile?.full_name}`, profile)"
+               @click.stop="store.showDialog('ban-user', `Ban ${profile?.full_name}`, profile, async () => await fetchDoctor())"
             >
                Ban
             </u-button>
@@ -58,7 +58,7 @@
                icon="i-heroicons-check"
                color="emerald"
                block
-               @click.stop="store.showDialog('unban-user', `Aktifkan ${profile?.full_name}`, profile)"
+               @click.stop="store.showDialog('unban-user', `Aktifkan ${profile?.full_name}`, profile, async () => await fetchDoctor())"
             >
                Aktifkan
             </u-button>
@@ -81,7 +81,7 @@
                color="amber"
                icon="i-heroicons-pencil-square"
                size="xs"
-               @click.stop="store.showDialog('edit-personal-data-doctor', 'Sunting Data Pribadi', profile)"
+               @click.stop="store.showDialog('edit-personal-data-doctor', 'Sunting Data Pribadi', profile, async () => await fetchDoctor())"
             ></u-button>
          </u-tooltip>
       </div>
@@ -161,7 +161,7 @@
                      color="sky"
                      icon="i-heroicons-plus"
                      size="xs"
-                     @click.stop="store.showDialog('add-specialist-doctor', 'Tambah Spesialis Dokter', profile)"
+                     @click.stop="store.showDialog('add-specialist-doctor', 'Tambah Spesialis Dokter', profile, async () => await fetchDoctor())"
                   ></u-button>
                </u-tooltip>
             </div>
@@ -182,7 +182,7 @@
                            color="amber"
                            icon="i-heroicons-pencil-square"
                            size="xs"
-                           @click.stop="store.showDialog('edit-specialist-doctor', 'Sunting Spesialis Dokter', item)"
+                           @click.stop="store.showDialog('edit-specialist-doctor', 'Sunting Spesialis Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
 
@@ -192,7 +192,7 @@
                            color="red"
                            icon="i-heroicons-trash"
                            size="xs"
-                           @click.stop="store.showDialog('delete-specialist-doctor', 'Hapus Spesialis Dokter', item)"
+                           @click.stop="store.showDialog('delete-specialist-doctor', 'Hapus Spesialis Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
                   </div>
@@ -214,7 +214,7 @@
                      color="sky"
                      icon="i-heroicons-plus"
                      size="xs"
-                     @click.stop="store.showDialog('add-education-doctor', 'Tambah Riwayat Pendidikan Dokter', profile)"
+                     @click.stop="store.showDialog('add-education-doctor', 'Tambah Riwayat Pendidikan Dokter', profile, async () => await fetchDoctor())"
                   ></u-button>
                </u-tooltip>
             </div>
@@ -235,7 +235,7 @@
                            color="amber"
                            icon="i-heroicons-pencil-square"
                            size="xs"
-                           @click.stop="store.showDialog('edit-education-doctor', 'Sunting Riwayat Pendidikan Dokter', item)"
+                           @click.stop="store.showDialog('edit-education-doctor', 'Sunting Riwayat Pendidikan Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
 
@@ -245,7 +245,7 @@
                            color="red"
                            icon="i-heroicons-trash"
                            size="xs"
-                           @click.stop="store.showDialog('delete-education-doctor', 'Hapus Riwayat Pendidikan Dokter', item)"
+                           @click.stop="store.showDialog('delete-education-doctor', 'Hapus Riwayat Pendidikan Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
                   </div>
@@ -269,7 +269,7 @@
                      color="sky"
                      icon="i-heroicons-plus"
                      size="xs"
-                     @click.stop="store.showDialog('add-medical-facility-doctor', 'Tambah Tempat Praktek Dokter', profile)"
+                     @click.stop="store.showDialog('add-medical-facility-doctor', 'Tambah Tempat Praktek Dokter', profile, async () => await fetchDoctor())"
                   ></u-button>
                </u-tooltip>
             </div>
@@ -290,7 +290,7 @@
                            color="amber"
                            icon="i-heroicons-pencil-square"
                            size="xs"
-                           @click.stop="store.showDialog('edit-medical-facility-doctor', 'Sunting Tempat Praktek Dokter', item)"
+                           @click.stop="store.showDialog('edit-medical-facility-doctor', 'Sunting Tempat Praktek Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
 
@@ -300,7 +300,7 @@
                            color="red"
                            icon="i-heroicons-trash"
                            size="xs"
-                           @click.stop="store.showDialog('delete-medical-facility-doctor', 'Hapus Tempat Praktek Dokter', item)"
+                           @click.stop="store.showDialog('delete-medical-facility-doctor', 'Hapus Tempat Praktek Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
                   </div>
@@ -325,7 +325,7 @@
                      icon="i-heroicons-plus"
                      size="xs"
                      :disabled="schedule?.length! > 6"
-                     @click.stop="store.showDialog('add-schedule-doctor', 'Tambah Jadwal Praktek Dokter', { doctor: profile, schedule })"
+                     @click.stop="store.showDialog('add-schedule-doctor', 'Tambah Jadwal Praktek Dokter', { doctor: profile, schedule }, async () => await fetchDoctor())"
                   ></u-button>
                </u-tooltip>
             </div>
@@ -347,7 +347,7 @@
                            color="amber"
                            icon="i-heroicons-pencil-square"
                            size="xs"
-                           @click.stop="store.showDialog('edit-schedule-doctor', 'Sunting Jadwal Praktek Dokter', { doctor: profile, schedule: row })"
+                           @click.stop="store.showDialog('edit-schedule-doctor', 'Sunting Jadwal Praktek Dokter', { doctor: profile, schedule: row }, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
                   </div>
@@ -374,6 +374,10 @@ const schedule : Ref <Model.DoctorSchedule[] | null> = ref(null)
 const isAccountActive : ComputedRef <boolean> = computed(() => (profile.value?.status === 'banned' || profile.value?.status === 'blocked') ? false : true)
 
 onBeforeMount(async () => {
+   await fetchDoctor()
+})
+
+const fetchDoctor = async () => {
    await getByStr(useRoute().params.str!.toString())
       .then((resp) => {
          profile.value = resp
@@ -383,5 +387,5 @@ onBeforeMount(async () => {
          schedule.value = resp.doctor_schedules!
          store.title = resp.full_name!
       })
-})
+}
 </script>

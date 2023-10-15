@@ -11,7 +11,7 @@
          <div class="col-start-12 flex justify-end items-center gap-4">
             <u-button
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-specialist', 'Tambah Spesialis', { data: null, selectOptions: specialistOptions })"
+               @click.stop="store.showDialog('add-specialist', 'Tambah Spesialis', { data: null, selectOptions: specialistOptions }, async () => await fetchSpecialists())"
             >
                Tambah Spesialis
             </u-button>
@@ -25,7 +25,7 @@
                   variant="ghost"
                   color="amber"
                   icon="i-heroicons-pencil"
-                  @click.stop="store.showDialog('edit-specialist', 'Sunting Spesialis', { data: row, selectOptions: specialistOptions })"
+                  @click.stop="store.showDialog('edit-specialist', 'Sunting Spesialis', { data: row, selectOptions: specialistOptions }, async () => await fetchSpecialists())"
                ></u-button>
             </u-tooltip>
 
@@ -34,7 +34,7 @@
                   variant="ghost"
                   color="sky"
                   icon="i-heroicons-photo"
-                  @click.stop="store.showDialog('edit-image-specialist', 'Sunting Foto Spesialis', row)"
+                  @click.stop="store.showDialog('edit-image-specialist', 'Sunting Foto Spesialis', row, async () => await fetchSpecialists())"
                ></u-button>
             </u-tooltup>
 
@@ -43,7 +43,7 @@
                   variant="ghost"
                   color="red"
                   icon="i-heroicons-trash"
-                  @click.stop="store.showDialog('delete-specialist', 'Hapus Spesialis', row)"
+                  @click.stop="store.showDialog('delete-specialist', 'Hapus Spesialis', row, async () => await fetchSpecialists())"
                ></u-button>
             </u-tooltip>
          </div>
@@ -56,6 +56,7 @@
 import { getSpecialists } from '@/utils/api/masters'
 
 const store = useAppStore()
+store.dialog.callback = async () => await fetchSpecialists()
 store.title = 'Spesialis Dokter'
 useHead({ title: store.getTitle })
 

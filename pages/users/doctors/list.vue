@@ -12,7 +12,7 @@
             <u-button
                color="primary"
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-doctor', 'Tambah Dokter', null)"
+               @click.stop="store.showDialog('add-doctor', 'Tambah Dokter', null, async () => await fetchDoctorList())"
             >
                Tambah Dokter
             </u-button>

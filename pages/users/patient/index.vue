@@ -62,7 +62,7 @@
                color="sky"
                icon="i-heroicons-wallet-20-solid"
                block
-               @click.stop="store.showDialog('top-up-user', `Top Up Saldo ${data?.full_name}`, data)"
+               @click.stop="store.showDialog('top-up-user', `Top Up Saldo ${data?.full_name}`, data, async () => await fetchPatient())"
             >
                Top Up Saldo
             </u-button>
@@ -73,7 +73,7 @@
                   variant="outline"
                   icon="i-heroicons-no-symbol"
                   block
-                  @click.stop="store.showDialog('ban-user', `Ban ${data?.full_name}`, data)"
+                  @click.stop="store.showDialog('ban-user', `Ban ${data?.full_name}`, data, async () => await fetchPatient())"
                >
                   Ban
                </u-button>
@@ -92,7 +92,7 @@
                   icon="i-heroicons-check"
                   color="emerald"
                   block
-                  @click.stop="store.showDialog('unban-user', `Aktifkan ${data?.full_name}`, data)"
+                  @click.stop="store.showDialog('unban-user', `Aktifkan ${data?.full_name}`, data, async () => await fetchPatient())"
                >
                   Aktifkan
                </u-button>

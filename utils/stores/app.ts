@@ -11,7 +11,8 @@ export const useAppStore = defineStore('app', {
          show: false,
          title: '',
          type: '',
-         data: null
+         data: null,
+         callback: () => {}
       }
    }),
 
@@ -21,10 +22,11 @@ export const useAppStore = defineStore('app', {
    },
    
    actions: {
-      showDialog(type: string, title: string, data: any) {
+      showDialog(type: string, title: string, data?: any, callback?: Function) {
          this.dialog.type = type
          this.dialog.title = title
-         this.dialog.data = data
+         if (data) this.dialog.data = data
+         if (callback) this.dialog.callback = callback
          this.dialog.show = true
       },
 
@@ -34,6 +36,7 @@ export const useAppStore = defineStore('app', {
             this.dialog.data = null
             this.dialog.title = ''
             this.dialog.type = ''
+            this.dialog.callback = () => {}
          }, 200)
       },
 
@@ -81,5 +84,6 @@ type AppState = {
       title: string
       type: string
       data: any
+      callback: Function
    }
 }

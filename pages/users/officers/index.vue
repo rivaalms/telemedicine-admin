@@ -11,7 +11,7 @@
          <div class="col-start-12 flex justify-end items-center">
             <u-button
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-officer', 'Tambah Officer', null)"
+               @click.stop="store.showDialog('add-officer', 'Tambah Officer', null, async () => await fetchOfficers())"
             >
                Tambah Officer
             </u-button>

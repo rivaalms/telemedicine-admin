@@ -11,7 +11,7 @@
          <div class="col-start-12 flex justify-end items-center">
             <u-button
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-nurse', 'Tambah Perawat', null)"
+               @click.stop="store.showDialog('add-nurse', 'Tambah Perawat', null, async () => await fetchNurses())"
             >
                Tambah Perawat
             </u-button>
@@ -25,7 +25,7 @@
                   variant="ghost"
                   color="red"
                   icon="i-heroicons-no-symbol"
-                  @click.stop="store.showDialog('deactivate-user', `Nonaktifkan ${row.full_name}`, row)"
+                  @click.stop="store.showDialog('deactivate-user', `Nonaktifkan ${row.full_name}`, row, async () => await fetchNurses())"
                ></u-button>
             </u-tooltip>
          </template>
@@ -36,7 +36,7 @@
                   variant="ghost"
                   color="emerald"
                   icon="i-heroicons-check"
-                  @click.stop="store.showDialog('activate-user', `Aktifkan ${row.full_name}`, row)"
+                  @click.stop="store.showDialog('activate-user', `Aktifkan ${row.full_name}`, row, async () => await fetchNurses())"
                ></u-button>
             </u-tooltip>
          </template>

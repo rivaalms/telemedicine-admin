@@ -88,7 +88,12 @@ const submit = async () => {
    loading.value = true
    await deactivateUser(store.dialog.data.uuid, state.value.note)
       .then((resp) => {
+         store.notify('info', `Pengguna ${store.dialog.data!.full_name} berhasil dinonaktifkan`)
+         store.dialog.callback()
          store.clearDialog()
+      })
+      .catch((error: any) => {
+         store.notify('error', error.response?._data?.messages || error)
       })
       .finally(() => {
          loading.value = false

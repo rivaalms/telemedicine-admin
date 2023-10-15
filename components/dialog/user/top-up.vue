@@ -62,7 +62,12 @@ const submit = async () => {
 
    await topUpUser(payload)
       .then((resp) => {
+         store.notify('success', `Saldo pasien ${resp.ReceiverName} berhasil ditambahkan`)
+         store.dialog.callback()
          store.clearDialog()
+      })
+      .catch((error: any) => {
+         store.notify('error', error.response?._data?.messages || error)
       })
       .finally(() => {
          loading.value = false

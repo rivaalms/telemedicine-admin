@@ -166,9 +166,10 @@ const submit = async () => {
 
       const messageSuffix = isEdit.value ? 'diperbarui' : 'ditambahkan'
       store.notify('success', `Data master iklan berhasil ${messageSuffix}`)
+      store.dialog.callback()
       store.clearDialog()
    } catch (error: any) {
-      store.notify('error', error.data?.message || error)
+      store.notify('error', error.response?._data?.messages || error)
    } finally {
       loading.value = false
    }

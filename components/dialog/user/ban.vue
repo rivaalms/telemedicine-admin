@@ -58,7 +58,7 @@
                      icon="i-heroicons-no-symbol"
                      :loading="loading"
                   >
-                     Ya, ban user
+                     Ya, ban akun
                   </u-button>
                </div>
             </u-card>
@@ -87,7 +87,12 @@ const submit = async () => {
    loading.value = true
    await banUser(state.value.reason, uuid.value)
       .then((resp) => {
+         store.notify('info', `Pengguna ${resp.full_name} berhasil di-ban`)
+         store.dialog.callback()
          store.clearDialog()
+      })
+      .catch((error: any) => {
+         store.notify('error', error.response?._data?.messages || error)
       })
       .finally(() => {
          loading.value = false

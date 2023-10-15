@@ -11,7 +11,7 @@
          <div class="col-start-12 flex justify-end items-center">
             <u-button
                icon="i-heroicons-plus"
-               @click.stop="store.showDialog('add-admin', 'Tambah Admin', null)"
+               @click.stop="store.showDialog('add-admin', 'Tambah Admin', null, async () => await fetchAdmin())"
             >
                Tambah Admin
             </u-button>

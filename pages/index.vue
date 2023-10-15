@@ -1,7 +1,7 @@
 <template>
    <u-card>
       <p class="text-lg font-semibold">
-         Selamat datang, {{ user.name || '' }}!
+         Selamat datang, {{ user?.name || '' }}!
       </p>
    </u-card>
 </template>
