@@ -13,7 +13,8 @@ export const useAppStore = defineStore('app', {
          type: '',
          data: null,
          callback: () => {}
-      }
+      },
+      slideover: false
    }),
 
    getters: {
@@ -86,4 +87,5 @@ type AppState = {
       data: any
       callback: Function
    }
+   slideover: boolean
 }

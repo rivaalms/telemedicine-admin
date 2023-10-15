@@ -40,7 +40,7 @@
                color="gray"
                class="block lg:hidden"
                icon="i-heroicons-bars-3"
-               @click.stop="toggleSlideover"
+               @click.stop="store.slideover = !store.slideover"
             ></u-button>
          </div>
       </div>
@@ -50,13 +50,6 @@
 <script setup lang="ts">
 const store = useAppStore()
 const authStore = useAuthStore()
-
-const props = defineProps<{
-   slideover: boolean
-}>()
-const emit = defineEmits(['slideover-change'])
-
-const slideover : Ref <boolean> = ref(props.slideover)
 
 const menu = computed(() => [
    [
@@ -73,13 +66,4 @@ const menu = computed(() => [
       }
    ]
 ])
-
-watch(() => props.slideover, () => {
-   slideover.value = props.slideover
-})
-
-const toggleSlideover = () => {
-   slideover.value = !slideover.value
-   emit('slideover-change', slideover.value)
-}
 </script>

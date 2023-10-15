@@ -2,8 +2,6 @@
 <div class="relative h-[100dvh] overflow-y-hidden">
    <app-header
       class=" left-0 top-0"
-      :slideover="slideover"
-      @slideover-change="(val: boolean) => slideover = val"
    />
 
    <div class="flex h-[calc(100dvh-56px)] overflow-hidden">
@@ -22,11 +20,9 @@
 </div>
 
 <lazy-u-slideover
-   v-model="slideover"
+   v-model="store.slideover"
 >
    <lazy-app-slideover
-      :slideover="slideover"
-      @slideover-change="(val: boolean) => slideover = val"
       class="overflow-y-auto"
    ></lazy-app-slideover>
 </lazy-u-slideover>
@@ -41,8 +37,8 @@
 </template>
 
 <script setup lang="ts">
+const store = useAppStore()
 const main : Ref <HTMLElement | null> = ref(null)
-const slideover : Ref <boolean> = ref(false)
 const { x, y } = useScroll(main)
 provide('scroll', { scrollX: x, scrollY: y })
 </script>

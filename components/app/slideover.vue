@@ -10,7 +10,7 @@
             color="gray"
             class="block lg:hidden"
             icon="i-heroicons-bars-3"
-            @click.stop="onSlideoverChange"
+            @click.stop="store.slideover = !store.slideover"
          ></u-button>
 
          <u-dropdown
@@ -64,7 +64,7 @@
                            :color="useRoute().path === child.to ? 'primary' : 'gray'"
                            :to="child.to"
                            size="md"
-                           @click="onSlideoverChange"
+                           @click="store.slideover = !store.slideover"
                         >
                            {{ child.label }}
                         </u-button>
@@ -80,7 +80,7 @@
                   :to="item.to"
                   :icon="item.icon"
                   size="md"
-                  @click="onSlideoverChange"
+                  @click="store.slideover = !store.slideover"
                >
                   {{ item.label }}
                </u-button>
@@ -95,12 +95,6 @@
 const store = useAppStore()
 const authStore = useAuthStore()
 
-const props = defineProps<{
-   slideover: boolean
-}>()
-const emit = defineEmits(['slideover-change'])
-
-const slideover : Ref <boolean> = ref(props.slideover)
 const menu = computed(() => [
    [
       {
@@ -116,15 +110,6 @@ const menu = computed(() => [
       }
    ]
 ])
-
-watch(() => props.slideover, () => {
-   slideover.value = props.slideover
-})
-
-const onSlideoverChange = () => {
-   slideover.value = !slideover.value
-   emit('slideover-change', slideover.value)
-}
 
 const routes = computed(() => useRoutes)
 const role : ComputedRef <string> = computed(() => authStore.getRole)
