@@ -5,7 +5,7 @@
 >
    <u-card class="overflow-visible">
       <template #header>
-         <div class="flex justify-between">
+         <div class="flex justify-between items-center">
             <p class="text-semibold">{{ store.dialog.title }}</p>
             <u-button
                variant="ghost"
