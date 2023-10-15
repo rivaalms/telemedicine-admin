@@ -10,6 +10,7 @@
       <template #filters>
          <u-form-group
             label="Status"
+            class="col-span-4 lg:col-span-1"
          >
             <u-select-menu
                v-model="filters.status"
@@ -20,7 +21,7 @@
 
          <u-form-group
             label="Start date"
-            class="col-span-2"
+            class="col-span-4 lg:col-span-2"
          >
             <vue-date-picker
                v-model="filters.start_date"
@@ -33,6 +34,7 @@
                   <u-input
                      :model-value="moment(filters.start_date).format('YYYY-MM-DD')"
                      readonly="readonly"
+                     input-class="cursor-pointer"
                   ></u-input>
                </template>
             </vue-date-picker>
@@ -40,7 +42,7 @@
 
          <u-form-group
             label="End date"
-            class="col-span-2"
+            class="col-span-4 lg:col-span-2"
          >
             <vue-date-picker
                v-model="filters.end_date"
@@ -53,6 +55,7 @@
                   <u-input
                      :model-value="moment(filters.end_date).format('YYYY-MM-DD')"
                      readonly="readonly"
+                     input-class="cursor-pointer"
                   ></u-input>
                </template>
             </vue-date-picker>

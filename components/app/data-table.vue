@@ -2,7 +2,7 @@
    <div class="grid grid-cols-12 gap-4 mb-4">
       <div
          v-if="!prop.hideSearchInput"
-         class="col-span-3 flex flex-col justify-end"
+         class="col-span-12 lg:col-span-3 flex flex-col justify-end"
       >
          <u-input
             v-model="search"
@@ -31,8 +31,8 @@
       </template>
    </u-table>
 
-   <div class="flex justify-between mt-4">
-      <div class="flex items-center gap-4 text-sm">
+   <div class="flex flex-col-reverse lg:flex-row justify-center lg:justify-between gap-4 mt-4">
+      <div class="flex items-center justify-center lg:justify-start gap-4 text-sm">
          <p>Tampilkan</p>
          <u-select-menu
             v-model="perPage"
@@ -52,6 +52,7 @@
          v-model="page"
          :page-count="perPage"
          :total="prop.dataLength"
+         class="justify-center"
          @update:model-value="emitData"
       ></u-pagination>
    </div>

@@ -11,6 +11,7 @@
          <template #filters>
             <u-form-group
                label="Status"
+               class="col-span-6 lg:col-span-1"
             >
                <u-select-menu
                   v-model="filter.status"

@@ -9,19 +9,19 @@
    <div class="overflow-y-auto h-[381px] divide-y">
       <div
          v-for="item in data"
-         class="flex justify-between items-center p-4"
+         class="flex justify-between items-center gap-4 p-4"
       >
-         <div class="flex-grow flex items-center">
+         <div class="flex-grow flex items-center truncate">
             <u-avatar
                :src="item.profile_picture!"
                size="md"
                class="me-4"
             ></u-avatar>
 
-            <p class="text-sm">{{ item.name }}</p>
+            <p class="text-sm truncate">{{ item.name }}</p>
          </div>
 
-         <div>
+         <div class="flex flex-nowrap">
             <u-tooltip text="Konsultasi">
                <svg
                   class="me-2"

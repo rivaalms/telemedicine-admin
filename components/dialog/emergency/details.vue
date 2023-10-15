@@ -1,5 +1,5 @@
 <template>
-<div class="grid grid-cols-2 gap-5">
+<div class="grid lg:grid-cols-2 gap-5">
    <GoogleMap
       :api-key="gmapKey"
       :center="center"
@@ -14,8 +14,8 @@
    </GoogleMap>
 
    <div class="grid content-start gap-6">
-      <div class="grid grid-cols-2 gap-4 place-content-start">
-         <p class="col-span-2 font-semibold">Informasi Pelapor & Pasien</p>
+      <div class="grid lg:grid-cols-2 gap-4 place-content-start">
+         <p class="lg:col-span-2 font-semibold">Informasi Pelapor & Pasien</p>
          <div class="">
             <p class="text-semibold text-sm text-gray-500">Nama Pelapor</p>
             <p class="text-sm">{{ data.request_by?.full_name! || '-' }}</p>
@@ -42,8 +42,8 @@
          </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 place-content-start">
-         <p class="col-span-2 font-semibold">Informasi Ambulance & Dokter</p>
+      <div class="grid lg:grid-cols-2 gap-4 place-content-start">
+         <p class="lg:col-span-2 font-semibold">Informasi Ambulance & Dokter</p>
          <div>
             <p class="text-semibold text-sm text-gray-500">Driver</p>
             <p class="text-sm">{{ data.ambulance?.officer?.full_name! || '-' }}</p>
