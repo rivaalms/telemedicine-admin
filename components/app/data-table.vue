@@ -69,10 +69,10 @@ const prop = defineProps<{
    hideSearchInput?: boolean
 }>()
 
-const emit = defineEmits(['fetch-data', 'emit-row'])
+const emit = defineEmits(['data-emit'])
 
-const page = ref(1)
-const perPageOptions : ComputedRef<any> = computed(() => [
+const page : Ref <number> = ref(1)
+const perPageOptions : ComputedRef<PerPageOption[]> = computed(() => [
    { label: '10', value: 10 },
    { label: '25', value: 25 },
    { label: '50', value: 50 },
@@ -85,5 +85,10 @@ const data = computed(() => prop.rows)
 
 const formatDate = (date: string) => moment(date).format('DD/MM/YYYY HH:mm')
 
-const emitData = () => emit('fetch-data', search.value, page.value, perPage.value)
+const emitData = () => emit('data-emit', search.value, page.value, perPage.value)
+
+type PerPageOption = {
+   label: string
+   value: number
+}
 </script>

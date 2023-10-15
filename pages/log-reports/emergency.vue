@@ -6,7 +6,7 @@
          :data-length="dataLength"
          :loading="loading"
          hide-search-input
-         @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
+         @data-emit="(search: string, page: number, perPage: number) => emitHandler(search, page, perPage)"
       >
          <template #filters>
             <div class="col-span-4 flex items-end">

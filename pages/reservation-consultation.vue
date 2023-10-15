@@ -5,7 +5,7 @@
       :rows="data"
       :data-length="dataLength"
       :loading="loading"
-      @fetch-data="(search, page, perPage) => emitHandler(search, page, perPage)"
+      @data-emit="(search: string, page: number, perPage: number) => emitHandler(search, page, perPage)"
    >
       <template #filters>
          <u-form-group
@@ -26,6 +26,7 @@
                v-model="filters.start_date"
                auto-apply
                :max-date="new Date(filters.end_date)"
+               :enable-time-picker="false"
                @update:model-value="fetchReservation()"
             >
                <template #trigger>
@@ -45,6 +46,7 @@
                v-model="filters.end_date"
                auto-apply
                :min-date="new Date(filters.start_date)"
+               :enable-time-picker="false"
                @update:model-value="fetchReservation()"
             >
                <template #trigger>
@@ -70,6 +72,7 @@ const store = useAppStore()
 store.title = 'Reservasi Konsultasi'
 useHead({ title: store.getTitle })
 
+const raw : Ref <Model.ReservationConsultation[]> = ref([])
 const data : Ref <Model.ReservationConsultation[]> = ref([])
 const dataLength : Ref <number> = ref(0)
 const loading : Ref <boolean> = ref(false)
@@ -92,24 +95,29 @@ const fetchReservation = async () => {
 
    await GetReservation(filters.value)
       .then((resp) => {
-         let response = resp.sort((a, b) => new Date(b.reservation_date!).getTime() - new Date(a.reservation_date!).getTime())
-
-         if (search.value && search.value.length > 0) {
-            response = response.filter(value => {
-               const match =
-                  (value.patient?.name?.toLowerCase().includes(search.value!.toLowerCase())) ||
-                  (value.patient?.phone_number?.toString().toLowerCase().includes(search.value!.toLowerCase())) ||
-                  (value.doctor?.name?.toLowerCase().includes(search.value!.toLowerCase()))
-               return match
-            })
-         }
-
-         dataLength.value = response.length
-         data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
+         raw.value = resp
+         responseHandler()
       })
       .finally(() => {
          loading.value = false
       })
+}
+
+const responseHandler = () => {
+   let response = raw.value
+
+   if (search.value && search.value.length > 0) {
+      response = response.filter(value => {
+         const match =
+            (value.patient?.name?.toLowerCase().includes(search.value!.toLowerCase())) ||
+            (value.patient?.phone_number?.toString().toLowerCase().includes(search.value!.toLowerCase())) ||
+            (value.doctor?.name?.toLowerCase().includes(search.value!.toLowerCase()))
+         return match
+      })
+   }
+
+   dataLength.value = response.length
+   data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
 }
 
 const emitHandler = async (emitSearch: string, emitPage: number, emitPerPage: number) => {
@@ -117,7 +125,7 @@ const emitHandler = async (emitSearch: string, emitPage: number, emitPerPage: nu
    page.value = emitPage
    perPage.value = emitPerPage
 
-   await fetchReservation()
+   responseHandler()
 }
 </script>
 
