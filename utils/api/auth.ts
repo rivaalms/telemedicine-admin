@@ -37,8 +37,8 @@ export async function forgotPasswordByEmail (email: string) : Promise <any> {
    })
 }
 
-export async function updateEmail (payload: API.Payload.Login) : Promise <any> {
-   const response = await $fetch <API.Response <any>> (`/profile/email`, {
+export async function updateEmail (payload: API.Payload.Login) : Promise <UpdateEmailResponse> {
+   const response = await $fetch <API.Response <UpdateEmailResponse>> (`/profile/email`, {
       method: 'PUT',
       body: payload
    })
@@ -86,4 +86,5 @@ export async function resendOTP (phoneNumber: string) : Promise <Model.User> {
    return response.data!
 }
 
+type UpdateEmailResponse = Omit <Model.Auth, 'AUTH-TOKEN'>
 type VerifyOTPResponse = Omit <Model.Auth, 'AUTH-TOKEN'> & { token: string }
