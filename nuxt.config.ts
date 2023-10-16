@@ -72,7 +72,6 @@ export default defineNuxtConfig({
   ui: {
     global: true,
     safelistColors: [
-			'primary',
 			'froly',
 			'green',
 			'red',

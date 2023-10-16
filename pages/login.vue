@@ -1,7 +1,7 @@
 <template>
 <main class="h-screen">
    <div class="grid lg:grid-cols-3 2xl:grid-cols-4 gap-4 h-full">
-      <div class="bg-gradient-to-br from-froly-300 to-froly-500 px-4 py-12 flex flex-col items-center">
+      <div class="bg-gradient-to-br from-primary-300 to-primary-500 px-4 py-12 flex flex-col items-center">
          <img src="/img/telemedicine.png" alt="telemedicine" class="">
 
          <div class="text-white self-stretch px-6">
@@ -46,7 +46,7 @@
 
                <div class="flex flex-col sm:flex-row items-center sm:items-start sm:justify-between gap-4">
                   <p>
-                     Lupa kata sandi? <nuxt-link to="/forgot-password" class="text-white underline hover:text-froly-100">Klik disini</nuxt-link>
+                     Lupa kata sandi? <nuxt-link to="/forgot-password" class="text-white underline hover:text-primary-100">Klik disini</nuxt-link>
                   </p>
 
                   <u-button
