@@ -94,7 +94,7 @@ watch(() => store.dialog.show, () => {
 
          case 'add-doctor':
             dialogComponent.value = LazyDialogDoctorAdd
-            dialogWidth.value = 'sm:max-w-5xl'
+            dialogWidth.value = 'sm:max-w-xl md:max-w-3xl lg:max-w-5xl'
             break
 
          case 'edit-personal-data-doctor':

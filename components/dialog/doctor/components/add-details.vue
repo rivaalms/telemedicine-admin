@@ -1,5 +1,5 @@
 <template>
-<div class="grid grid-cols-3 items-start gap-2">
+<div class="grid lg:grid-cols-3 items-start gap-2">
    <!-- SECTION: Specialist -->
    <div class="grid gap-y-4">
       <p class="font-semibold">
@@ -603,7 +603,7 @@
    </div>
    <!-- !SECTION -->
 
-   <div class="col-span-3 flex items-center justify-between gap-2 mt-6">
+   <div class="lg:col-span-3 flex items-center justify-between gap-2 mt-6">
       <u-button
          color="gray"
          variant="ghost"

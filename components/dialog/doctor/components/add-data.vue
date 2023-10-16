@@ -5,7 +5,7 @@
    :validate-on="['submit']"
    @submit.prevent="submitData"
 >
-   <div class="grid grid-rows-4 grid-flow-col gap-4">
+   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <u-form-group
          label="Nama Lengkap"
          name="full_name"
