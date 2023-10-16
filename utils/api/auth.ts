@@ -45,16 +45,16 @@ export async function updateEmail (payload: API.Payload.Login) : Promise <any> {
    return response.data!
 }
 
-export async function updatePhoneNumber (payload: { password: string, phone_number: string }) : Promise <any> {
-   const response = await $fetch <API.Response <any>> (`/profile/phone-number`, {
+export async function updatePhoneNumber (payload: { password: string, phone_number: string }) : Promise <boolean> {
+   const response = await $fetch <API.Response <boolean>> (`/profile/phone-number`, {
       method: 'PUT',
       body: payload
    })
    return response.data!
 }
 
-export async function updatePassword (payload:  UpdatePassword) : Promise <any> {
-   const response = await $fetch <API.Response <any>> (`/profile/password`, {
+export async function updatePassword (payload:  UpdatePassword) : Promise <string> {
+   const response = await $fetch <API.Response <string>> (`/profile/password`, {
       method: 'PUT',
       body: payload
    })
@@ -67,3 +67,23 @@ type UpdatePassword = {
    password_confirmation: string
    phone_number: string
 }
+
+export async function verifyOTP (payload: API.Payload.VerifyOTPPayload) : Promise <VerifyOTPResponse> {
+   const response = await $fetch <API.Response <VerifyOTPResponse>> (`/verify-otp`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
+
+export async function resendOTP (phoneNumber: string) : Promise <Model.User> {
+   const response = await $fetch <API.Response <Model.User>> (`/auth/resend-otp`, {
+      method: 'POST',
+      body: {
+         phone_number: phoneNumber
+      }
+   })
+   return response.data!
+}
+
+type VerifyOTPResponse = Omit <Model.Auth, 'AUTH-TOKEN'> & { token: string }

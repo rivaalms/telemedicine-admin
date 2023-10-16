@@ -1,5 +1,6 @@
 <template>
 <u-form
+   v-if="!isOTP"
    :schema="validationSchema"
    :state="state"
    :validate-on="['submit']"
@@ -13,6 +14,7 @@
       >
          <u-input
             v-model="state.old_password"
+            type="password"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -24,6 +26,7 @@
       >
          <u-input
             v-model="state.password"
+            type="password"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -35,6 +38,7 @@
       >
          <u-input
             v-model="state.password_confirmation"
+            type="password"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -61,6 +65,13 @@
       </u-button>
    </div>
 </u-form>
+
+<lazy-dialog-profile-otp-form
+   v-else
+   type="password"
+   :phone-number="authStore.getUser!.phone_number!"
+   :hash="hash!"
+></lazy-dialog-profile-otp-form>
 </template>
 
 <script setup lang="ts">
@@ -68,30 +79,34 @@ import { updatePassword } from '@/utils/api/auth'
 import * as yup from 'yup'
 
 const store = useAppStore()
+const authStore = useAuthStore()
 const loading : Ref <boolean> = ref(false)
+const isOTP : Ref <boolean> = ref(false)
+const hash : Ref <string | null> = ref(null)
 
 const state : Ref <any> = ref({
    old_password: null,
    password: null,
    password_confirmation: null,
-   phone_number: useAuthStore().getUser?.phone_number
+   phone_number: authStore.getUser?.phone_number
 })
 
 const validationSchema = yup.object({
    old_password: yup.string().required('Kata sandi lama harus diisi'),
-   password: yup.string().min(8, (min) => `Kata sandi harus berisi minimal ${min} karakter`).required('Kata sandi harus diisi'),
-   password_confirmation: yup.string().test('password', 'Konfirmasi kata sandi tidak sama', (val, ctx) => val === state.value.passowrd)
+   password: yup.string().min(8, 'Kata sandi harus berisi minimal {min} karakter').required('Kata sandi harus diisi'),
+   password_confirmation: yup.string().test('password', 'Konfirmasi kata sandi tidak sama', (val, ctx) => val === state.value.password)
 })
 
 const submit = async () => {
    loading.value = true
    await updatePassword(state.value)
       .then((resp) => {
-         store.notify('success', `Kata sandi berhasil diperbarui`)
-         store.clearDialog()
+         hash.value = resp
+         store.notify('success', `OTP telah dikirim. Silakan masukkan kode OTP untuk melakukan verifikasi perubahan`)
+         isOTP.value = true
       })
       .catch((error: any) => {
-         store.notify('error', error.data?.message || error)
+         store.notify('error', error.response?._data.messages || error)
       })
       .finally(() => {
          loading.value = false

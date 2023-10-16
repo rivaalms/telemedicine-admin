@@ -22,3 +22,8 @@ export const useFormatCurrency = (value: string | number) : string => {
 export const useValidateNumber = (event: KeyboardEvent) => {
    if (!/^[0-9]+$/.test(event.key) || event.key === '.') return event.preventDefault()
 }
+
+export const useOtpType = [
+   { type: 'phone', value: 1 },
+   { type: 'password', value: 2 }
+]

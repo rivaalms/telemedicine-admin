@@ -88,5 +88,13 @@ declare namespace API {
          latest: number
          page?: number
       }
+
+      type VerifyOTPPayload = {
+         hash: string | null
+         is_type: number
+         phone_number: string
+         ref_type: string | null
+         verification_code: number | string | null
+      }
    }
 }

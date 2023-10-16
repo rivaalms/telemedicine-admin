@@ -52,4 +52,17 @@ declare namespace Utils {
       scrollX?: WritableComputedRef<number>,
       scrollY?: WritableComputedRef<number>
    }
+
+   type OTPResponse = {
+      token: string
+      uuid: string
+      name: string
+      email: string
+      phone_number: string
+      device_id: string
+      user_type: string
+      pin: boolean
+      nik: string | null
+      profile_picture: string | null
+   }
 }

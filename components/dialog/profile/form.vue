@@ -1,5 +1,6 @@
 <template>
 <u-form
+   v-if="!isOTP"
    :schema="isEmail ? validationSchemaEmail : validationSchemaPhone"
    :state="isEmail ? stateEmail : statePhone"
    :validate-on="['submit']"
@@ -76,6 +77,12 @@
       </u-button>
    </div>
 </u-form>
+
+<lazy-dialog-profile-otp-form
+   v-else
+   type="phone"
+   :phone-number="statePhone.phone_number"
+></lazy-dialog-profile-otp-form>
 </template>
 
 <script setup lang="ts">
@@ -83,8 +90,11 @@ import { updateEmail, updatePhoneNumber } from '@/utils/api/auth'
 import * as yup from 'yup'
 
 const store = useAppStore()
+const authStore = useAuthStore()
+
 const loading : Ref <boolean> = ref(false)
 const isEmail : ComputedRef <boolean> = computed(() => store.dialog.type.split('-')[1] === 'email')
+const isOTP : Ref <boolean> = ref(false)
 
 const stateEmail : Ref <any> = ref({
    email: '',
@@ -110,22 +120,28 @@ const submit = async () => {
    loading.value = true
 
    try {
-      let messagePrefix = ''
-
       if (isEmail.value) {
          await updateEmail(stateEmail.value)
-         messagePrefix = 'Alamat email'
-      }
-      else {
-         await updatePhoneNumber(statePhone.value)
-         messagePrefix = 'Nomor telepon'
-      }
+            .then(() => {
+               store.notify('info', `Tautan telah dikirim ke email Anda. Silakan cek email Anda untuk melakukan verifikasi. Anda akan dialihkan ke halaman login.`)
+               store.clearDialog()
 
-      store.notify('success', `${messagePrefix} berhasil diperbarui`)
-      store.clearDialog()
-      
+               setTimeout(() => {
+                  authStore.logout()
+                     .then(() => {
+                        navigateTo('/login')
+                     })
+               }, 5000)
+            })
+      } else {
+         await updatePhoneNumber(statePhone.value)
+            .then((resp) => {
+               store.notify('info', 'OTP telah dikirim ke nomor telepon baru Anda. Silakan masukkan kode OTP untuk melakukan verifikasi perubahan.')
+               isOTP.value = true
+            })
+      }
    } catch (error: any) {
-      store.notify('error', error.data?.message || error)
+      store.notify('error', error.response?._data?.messages || error)
    } finally {
       loading.value = false
    }
