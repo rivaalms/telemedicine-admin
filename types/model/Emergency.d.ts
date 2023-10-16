@@ -20,7 +20,7 @@ declare namespace Model {
       transaction?: Model.Transaction
    }
 
-   module Emergency {
+   namespace Emergency {
       type Patient = {
          patient_nik?: string | number
          patient_name?: string | null

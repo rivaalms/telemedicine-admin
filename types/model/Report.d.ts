@@ -1,5 +1,5 @@
 declare namespace Model {
-   module Report {
+   namespace Report {
       type Consultation = {
          transaction_number?: string | null
          trx_date?: string | null

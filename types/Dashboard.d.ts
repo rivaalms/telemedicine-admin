@@ -3,8 +3,8 @@ declare namespace Dashboard {
       year: string | null
       summary: number | null
       amount: number | null
-      summaryMonthly: Dashboard.MonthlyData
-      amountMonthly: Dashboard.MonthlyData
+      summaryMonthly: Utility.Dashboard.MonthlyData
+      amountMonthly: Utility.Dashboard.MonthlyData
    }
 
    type EmergencyTrend = {
@@ -12,7 +12,7 @@ declare namespace Dashboard {
       totalRejected: number
       totalFinished: number
       totalNotAnswered: number
-      summaryMonthly: Dashboard.MonthlyData
+      summaryMonthly: Utility.Dashboard.MonthlyData
    }
 
    type EmergencyStatus = {
@@ -29,8 +29,8 @@ declare namespace Dashboard {
    }
 
    type ConsultationSummary = {
-      summaryByDoctor: ConsultationSummaryByDoctor[]
-      summaryBySpecialist: ConsultationSummaryBySpecialist[]
+      summaryByDoctor: Utility.Dashboard.ConsultationSummaryByDoctor[]
+      summaryBySpecialist: Utility.Dashboard.ConsultationSummaryBySpecialist[]
    }
 
    type DoctorOnlineStatus = {
@@ -43,25 +43,5 @@ declare namespace Dashboard {
    type Ambulance = {
       ambulance_type: 'Ambulance Standar' | 'Ambulance Transport' | 'Ambulance VIP'
       total: number | null
-   }
-
-   type ConsultationSummaryByDoctor = {
-      full_name: string | null
-      total: number | null
-   }
-
-   type ConsultationSummaryBySpecialist = {
-      specialist: string | null
-      total: number | null
-   }
-   
-   type MonthlyData = {
-      [monthDigit: string]: {
-         month: string
-         total?: number
-         rejected?: string | number | null
-         finished?: string | number | null
-         notAnswered?: string | number | null
-      }
    }
 }

@@ -1,5 +1,5 @@
 declare namespace Model {
-   module Master {
+   namespace Master {
       type DoctorsSpecialist = {
          name?: string | null
          slug?: string | null

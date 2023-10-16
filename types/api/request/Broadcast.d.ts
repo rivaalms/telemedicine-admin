@@ -1,4 +1,4 @@
-declare namespace Model {
+declare namespace API.Request {
    type Broadcast = {
       to?: string | null
       app?: string | null

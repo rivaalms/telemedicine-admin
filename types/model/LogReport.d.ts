@@ -1,12 +1,12 @@
 declare namespace Model {
-   module LogsReport {
+   namespace LogsReport {
       type UserActivity = {
          objectId?: string | null
          uid?: string | null
          email?: string | null
          user_type?: string | null
          activity?: string | null
-         updated_at?: Model.LogsReport.UpdatedAt | null
+         updated_at?: Utility.LogsReport.UpdatedAt | null
          medical_facility_id?: number | null
          createdAt?: string | null
          updatedAt?: string | null
@@ -19,7 +19,7 @@ declare namespace Model {
          doctor_email?: string | null
          last_updated?: string | null
          status?: string | null
-         updated_at?: Model.LogsReport.UpdatedAt | null
+         updated_at?: Utility.LogsReport.UpdatedAt | null
          medical_facility_id?: number | null
          createdAt?: string | null
          updatedAt?: string | null
@@ -32,11 +32,6 @@ declare namespace Model {
          status?: string | null
          createdAt?: string | null
          updatedAt?: string | null
-      }
-
-      type UpdatedAt = {
-         __type?: string | null
-         iso?: string | null
       }
    }
 }

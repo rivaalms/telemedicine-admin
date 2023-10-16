@@ -5,7 +5,7 @@ declare namespace Model {
       finished_at?: string | null
       status?: string | null
    }
-   
+
    type ReservationConsultation = {
       code?: string | null
       reservation_date?: string | null

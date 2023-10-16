@@ -38,54 +38,52 @@ declare namespace Model {
       created_at?: string | null
    }
 
-   type DoctorEducation = {
-      id?: number | null
-      doctor_id?: number | null
-      education?: string | number | null
-      graduation_year?: string | number | null
-      created_at?: string | null
-      updated_at?: string | null
-   }
-
-   type MedicalFacility = {
-      id?: number | null
-      doctor_id?: string | number | null
-      medical_facility_id?: number | null
-      name?: string | null
-      province_id?: number | null
-      regency_id?: number | null
-      max_service_time?: string | number | null
-      max_quota?: string | number | null
-      created_at?: string | null
-      updated_at?: string | null
-      province_name?: string | null
-      regency_name?: string | null
-      province?: Utils.Province | null
-      regency?: Utils.Regency | null
-   }
-
-   type DoctorSpecialist = {
-      doctor_specialist_id?: number | null
-      doctor_id?: number | null
-      slug?: string | null
-      specialist_id?: number | null
-      specialist?: string | null
-      name?: string | null
-      rate?: number | string | null
-   }
-
-   type DoctorSchedule = {
-      id?: number | null
-      doctors_id?: number
-      day?: number | string | null
-      start_time?: string | null
-      end_time?: string | null
-      kuota?: string | number | null
-      updated_at?: string | null
-      created_at?: string | null
-   }
-
-   type PageDoctorSchedule = Pick <Model.Doctor, 'uuid' | 'full_name'> & {
-      schedules?: DoctorSchedule[]
+   namespace Doctor {
+      type Education = {
+         id?: number | null
+         doctor_id?: number | null
+         education?: string | number | null
+         graduation_year?: string | number | null
+         created_at?: string | null
+         updated_at?: string | null
+      }
+   
+      type MedicalFacility = {
+         id?: number | null
+         doctor_id?: string | number | null
+         medical_facility_id?: number | null
+         name?: string | null
+         province_id?: number | null
+         regency_id?: number | null
+         max_service_time?: string | number | null
+         max_quota?: string | number | null
+         created_at?: string | null
+         updated_at?: string | null
+         province_name?: string | null
+         regency_name?: string | null
+         province?: Utils.Province | null
+         regency?: Utils.Regency | null
+      }
+   
+      type Specialist = {
+         doctor_specialist_id?: number | null
+         doctor_id?: number | null
+         slug?: string | null
+         specialist_id?: number | null
+         specialist?: string | null
+         name?: string | null
+         rate?: number | string | null
+      }
+   
+      type Schedule = {
+         id?: number | null
+         doctors_id?: number
+         day?: number | string | null
+         start_time?: string | null
+         end_time?: string | null
+         kuota?: string | number | null
+         updated_at?: string | null
+         created_at?: string | null
+      }
    }
 }
