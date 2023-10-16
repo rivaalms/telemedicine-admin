@@ -1,4 +1,4 @@
-export const useEmergencyTableHeader = [
+export const useEmergencyTableHeader : Utility.TableHeader[] = [
    { key: 'request_by.full_name', label: 'Nama Pelapor' },
    { key: 'request_by.phone_number', label: 'No. Telpon Pelapor' },
    { key: 'patient.patient_name', label: 'Nama Pasien' },
@@ -9,7 +9,7 @@ export const useEmergencyTableHeader = [
    { key: 'actions', label: '' }
 ]
 
-export const useEmergencyReportTableHeader = [
+export const useEmergencyReportTableHeader : Utility.TableHeader[] = [
    { key: 'created_at', label: 'Tanggal' },
    { key: 'request_by.full_name', label: 'Nama Pelapor' },
    { key: 'patient.patient_name', label: 'Nama Pasien' },
@@ -17,7 +17,7 @@ export const useEmergencyReportTableHeader = [
    { key: 'pickup_location', label: 'Alamat' }
 ]
 
-export const useFilterStatusOptions = [
+export const useFilterStatusOptions : string[] = [
    'All',
    'Requested',
    'On Call',

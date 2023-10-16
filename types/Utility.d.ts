@@ -4,6 +4,11 @@ declare namespace Utility {
       end_date?: string | null
    }
 
+   type TableHeader = {
+      key: string
+      label?: string
+   }
+
    namespace LogsReport {
       type UpdatedAt = {
          __type?: string | null

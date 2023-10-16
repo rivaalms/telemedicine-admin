@@ -1,3 +1,11 @@
+type Router = {
+   label: string
+   to?: string
+   children?: Router[] | null
+   icon?: string
+   roles?: string | string[]
+}
+
 export const useRoutes : Router[] = [
    {
       label: 'Beranda',
@@ -160,11 +168,3 @@ export const useRoutes : Router[] = [
       ]
    }
 ]
-
-type Router = {
-   label: string
-   to?: string
-   children?: Router[] | null
-   icon?: string
-   roles?: string | string[]
-}

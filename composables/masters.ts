@@ -1,10 +1,10 @@
-export const useDoctorSpecialistTableHeader = [
+export const useDoctorSpecialistTableHeader : Utility.TableHeader[] = [
    { key: 'name', label: 'Nama' },
    { key: 'order_number', label: 'No. Urut' },
    { key: 'actions' },
 ]
 
-export const useAdvertTableHeader = [
+export const useAdvertTableHeader : Utility.TableHeader[] = [
    { key: 'title', label: 'Judul' },
    { key: 'description', label: 'Deskripsi' },
    { key: 'start_date', label: 'Tanggal Mulai' },
@@ -12,7 +12,7 @@ export const useAdvertTableHeader = [
    { key: 'actions' }
 ]
 
-export const useVoucherTableHeader = [
+export const useVoucherTableHeader : Utility.TableHeader[] = [
    { key: 'name', label: 'Nama' },
    { key: 'code', label: 'Kode' },
    { key: 'nominal', label: 'Nominal' },

@@ -2,7 +2,7 @@
 import * as XLSX from 'xlsx/xlsx.mjs'
 import moment from 'moment'
 
-export const useConsultationReportsTableHeader = [
+export const useConsultationReportsTableHeader : Utility.TableHeader[] = [
    { key: 'transaction_number', label: 'No. Transaksi' },
    { key: 'patient.name', label: 'Nama Pasien' },
    { key: 'doctor.name', label: 'Nama Dokter' },
@@ -12,7 +12,7 @@ export const useConsultationReportsTableHeader = [
    { key: 'total', label: 'Biaya' }
 ]
 
-export const useMedicinePurchasesTableHeader = [
+export const useMedicinePurchasesTableHeader : Utility.TableHeader[] = [
    { key: 'transaction.transaction_number', label: 'No. Transaksi' },
    { key: 'order_date', label: 'Tanggal' },
    { key: 'customer.full_name', label: 'Nama Pasien' },
@@ -27,7 +27,7 @@ export const useMedicinePurchasesTableHeader = [
    { key: 'total', label: 'Total' }
 ]
 
-export const useEmergencyReportsTableHeader = [
+export const useEmergencyReportsTableHeader : Utility.TableHeader[] = [
    { key: 'transaction.transaction_number', label: 'No. Transaksi' },
    { key: 'request_by.full_name', label: 'Pelapor' },
    { key: 'request_by.phone_number', label: 'No. Telp Pelapor' },
@@ -38,18 +38,18 @@ export const useEmergencyReportsTableHeader = [
    { key: 'status', label: 'Status' }
 ]
 
-export const useEmergencyOfficerReportsTableHeader = [
+export const useEmergencyOfficerReportsTableHeader : Utility.TableHeader[] = [
    { key: 'employee_no', label: 'No. Karyawan' },
    { key: 'name', label: 'Nama' },
    { key: 'trans_summary', label: 'Jumlah Transaksi' },
 ]
 
-export const useEmergencyDoctorReportsTableHeader = [
+export const useEmergencyDoctorReportsTableHeader : Utility.TableHeader[] = [
    { key: 'name', label: 'Nama' },
    { key: 'trans_summary', label: 'Jumlah Transaksi' },
 ]
 
-export function useExportExcel (title: string, filter: API.Payload.DateRangePayload) {
+export function useExportExcel (title: string, filter: Utility.DateRange) : void {
    const refTable = document.getElementById('dataTable')
    const workbook = XLSX.utils.table_to_book(refTable)
    const fileName = `${title}_${moment(filter.start_date).format('YYYY-MM-DD')}-${moment(filter.end_date).format('YYYY-MM-DD')}.xlsx`

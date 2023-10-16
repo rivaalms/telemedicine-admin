@@ -1,4 +1,4 @@
-export const useDoctorsTableHeader = [
+export const useDoctorsTableHeader : Utility.TableHeader[] = [
    { key: 'no_str', label: 'No Str' },
    { key: 'name', label: 'Nama' },
    { key: 'email', label: 'Email' },
@@ -8,7 +8,7 @@ export const useDoctorsTableHeader = [
 ]
 
 // NOTE: Used for doctor's schedule table on Doctor Profile page
-export const useDoctorSchedulesTableHeader = [
+export const useDoctorSchedulesTableHeader : Utility.TableHeader[] = [
    { key: 'day', label: 'Hari' },
    { key: 'start_time', label: 'Jam Mulai' },
    { key: 'end_time', label: 'Jam Berakhir' },
@@ -17,7 +17,7 @@ export const useDoctorSchedulesTableHeader = [
 ]
 
 // NOTE: Used for doctor's schedules on Doctor Schedules page
-export const usePageDoctorSchedulesTableHeader = [
+export const usePageDoctorSchedulesTableHeader : Utility.TableHeader[] = [
    { key: 'full_name', label: 'Nama' },
    { key: 'sun', label: 'Minggu' },
    { key: 'mon', label: 'Senin' },
@@ -28,31 +28,23 @@ export const usePageDoctorSchedulesTableHeader = [
    { key: 'sat', label: 'Sabtu' },
 ]
 
-export const useParseDay = (day: number | string) => {
+export const useParseDay = (day: number | string) : string => {
    switch (day) {
       case '0' || 0:
          return 'Minggu'
-         break
       case '1' || 1:
          return 'Senin'
-         break
       case '2' || 2:
          return 'Selasa'
-         break
       case '3' || 3:
          return 'Rabu'
-         break
       case '4' || 4:
          return 'Kamis'
-         break
       case '5' || 5:
          return 'Jumat'
-         break
       case '6' || 6:
          return 'Sabtu'
-         break
       default:
          return 'Invalid day'
-         break
    }
 }

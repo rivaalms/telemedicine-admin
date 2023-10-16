@@ -1,9 +1,14 @@
 // @ts-ignore
-import Parse from 'parse/dist/parse'
+import Parse from 'parse'
+
+type OTP = {
+   type: string
+   value: number
+}
 
 const config = useRuntimeConfig().public
-const parseKey = config.parseKey
-const parseUrl = config.parseUrl
+const parseKey : string = config.parseKey
+const parseUrl : string = config.parseUrl
 
 Parse.initialize('parse-dev-app', 'javascript_key', parseKey)
 Parse.serverURL = parseUrl
@@ -19,11 +24,11 @@ export const useFormatCurrency = (value: string | number) : string => {
    })
 }
 
-export const useValidateNumber = (event: KeyboardEvent) => {
+export const useValidateNumber = (event: KeyboardEvent) : void => {
    if (!/^[0-9]+$/.test(event.key) || event.key === '.') return event.preventDefault()
 }
 
-export const useOtpType = [
+export const useOtpType : OTP[] = [
    { type: 'phone', value: 1 },
    { type: 'password', value: 2 }
 ]

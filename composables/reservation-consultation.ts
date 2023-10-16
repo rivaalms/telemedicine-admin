@@ -1,4 +1,4 @@
-export const useReservationTableHeader = [
+export const useReservationTableHeader : Utility.TableHeader[] = [
    { key: 'reservation_date', label: 'Tanggal' },
    { key: 'reservation_time', label: 'Jam' },
    { key: 'patient.name', label: 'Nama Pasien' },
@@ -7,7 +7,7 @@ export const useReservationTableHeader = [
    { key: 'status', label: 'Status' },
 ]
 
-export const useReservationStatusOptions = [
+export const useReservationStatusOptions : string[] = [
    'All',
    'Unpaid',
    'Paid',
