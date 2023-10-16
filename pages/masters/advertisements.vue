@@ -67,11 +67,11 @@ const search : Ref <string | null> = ref(null)
 const page : Ref <number> = ref(1)
 const perPage : Ref <number> = ref(10)
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchAdvert()
 })
 
-const fetchAdvert = async () => {
+const fetchAdvert = async () : Promise <void> => {
    loading.value = true
    await getAdvertisement()
       .then((resp) => {
@@ -83,7 +83,7 @@ const fetchAdvert = async () => {
       })
 }
 
-const responseHandler = () => {
+const responseHandler = () : void => {
    let response = raw.value
 
    if (search.value && search.value.length > 0) {
@@ -98,7 +98,7 @@ const responseHandler = () => {
    data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
 }
 
-const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) => {
+const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) : void => {
    search.value = emitSearch
    page.value = emitPage
    perPage.value = emitPerPage

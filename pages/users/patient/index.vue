@@ -199,7 +199,7 @@ const loading : Ref <boolean> = ref(false)
 
 const isAccountActive : ComputedRef <boolean> = computed(() => (data.value?.status === 'banned' || data.value?.status === 'blocked') ? false : true)
 
-const fetchPatient = async () => {
+const fetchPatient = async () : Promise <void> => {
    loading.value = true
    await searchPatient(patientSearch.value!)
       .then((resp) => {

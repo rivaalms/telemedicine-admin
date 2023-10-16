@@ -34,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import { RouteLocationRaw, NavigationFailure } from 'vue-router'
 import { get as GetDoctorList } from '@/utils/api/doctors'
 const store = useAppStore()
 
@@ -48,11 +49,11 @@ const page : Ref <number> = ref(1)
 const perPage: Ref <number> = ref(10)
 const loading : Ref <boolean> = ref(false)
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchDoctorList()
 })
 
-const fetchDoctorList = async () => {
+const fetchDoctorList = async () : Promise <void> => {
    loading.value = true
    await GetDoctorList()
       .then((resp) => {
@@ -64,7 +65,7 @@ const fetchDoctorList = async () => {
       })
 }
 
-const responseHandler = () => {
+const responseHandler = () : void => {
    let response = raw.value
 
    if (search.value && search.value.length > 0) {
@@ -80,7 +81,7 @@ const responseHandler = () => {
    data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
 }
 
-const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) => {
+const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) : void => {
    search.value = emitSearch
    page.value = emitPage
    perPage.value = emitPerPage
@@ -88,5 +89,5 @@ const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) 
    responseHandler()
 }
 
-const doctorDetails = (item: any) => navigateTo(`/users/doctors/${item.no_str}`)
+const doctorDetails = (item: Model.Doctor) : false | void | RouteLocationRaw | Promise<false | void | NavigationFailure> => navigateTo(`/users/doctors/${item.no_str}`)
 </script>

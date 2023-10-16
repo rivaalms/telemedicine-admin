@@ -23,7 +23,7 @@
                   >
                      <template #label>
                         <span class="truncate">
-                           {{ filterOptions.find((item: any) => item.id === filterOptionsValue).label }}
+                           {{ filterOptions.find((item: any) => item.id === filterOptionsValue)!.label }}
                         </span>
                      </template>
                   </u-select-menu>
@@ -56,13 +56,13 @@ const loading : Ref <boolean> = ref(false)
 const page : Ref <number> = ref(1)
 const perPage : Ref <number> = ref(10)
 const filter : Ref <string> = ref('')
-const filterOptions : Ref <any> = ref([
+const filterOptions : Ref <{ id: string, label: string }[]> = ref([
    { id: "patient_email", label: "Email Pasien"},
    { id: "doctor_email", label: "Email Dokter"},
 ])
 const filterOptionsValue : Ref <string> = ref('patient_email')
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchConsultations()
 })
 
@@ -80,7 +80,7 @@ const fetchConsultations = async () => {
    query.withCount()
 
    await query.find()
-      .then((resp: API.ParseResponse <any>) => {
+      .then((resp: API.Response.Parse <any>) => {
          const { count, results } = resp
          const resultMap: Model.LogsReport.Consultation[] = results.map((item: any) => item.toJSON())
          resultMap.forEach(item => item.updatedAt = formatDate(item.updatedAt!))

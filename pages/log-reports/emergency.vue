@@ -23,7 +23,7 @@
                      >
                         <template #label>
                            <span class="truncate">
-                              {{ filterOptions.find((item: any) => item.id === filterOptionsValue).label }}
+                              {{ filterOptions.find((item: any) => item.id === filterOptionsValue)!.label }}
                            </span>
                         </template>
                      </u-select-menu>
@@ -57,7 +57,7 @@ const search : Ref <string | null> = ref(null)
 const page : Ref <number> = ref(1)
 const perPage : Ref <number> = ref(10)
 const filter : Ref <string> = ref('')
-const filterOptions : Ref <any> = ref([
+const filterOptions : Ref <{ id: string, label: string }[]> = ref([
    { id: "patient_email", label: "Email Pasien"},
    { id: "emergency_type", label: "Tipe Emergency"},
 ])
@@ -67,7 +67,7 @@ onBeforeMount(async () => {
    await fetchEmergency()
 })
 
-onUnmounted(async () => {
+onUnmounted(async () : Promise <void> => {
    await parseQuerySubs.value.unsubscribe()
 })
 
@@ -81,9 +81,9 @@ const fetchEmergency = async () => {
    query.withCount()
 
    await query.find()
-      .then((resp: API.ParseResponse <any>) => {
+      .then((resp: API.Response.Parse <API.Response.Parse.ObjectNotation[]>) => {
          const { count, results } = resp
-         const resultMap: Model.LogsReport.Emergency[] = results.map((item: any) => item.toJSON())
+         const resultMap: Model.LogsReport.Emergency[] = results.map((item) => item.toJSON())
          resultMap.forEach(item => item.updatedAt = formatDate(item.updatedAt!))
          data.value = resultMap
          dataLength.value = count!

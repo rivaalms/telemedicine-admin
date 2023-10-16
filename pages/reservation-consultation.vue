@@ -26,7 +26,7 @@
             <vue-date-picker
                v-model="filters.start_date"
                auto-apply
-               :max-date="new Date(filters.end_date)"
+               :max-date="new Date(filters.end_date!)"
                :enable-time-picker="false"
                @update:model-value="fetchReservation()"
             >
@@ -47,7 +47,7 @@
             <vue-date-picker
                v-model="filters.end_date"
                auto-apply
-               :min-date="new Date(filters.start_date)"
+               :min-date="new Date(filters.start_date!)"
                :enable-time-picker="false"
                @update:model-value="fetchReservation()"
             >
@@ -83,17 +83,17 @@ const search : Ref <string | null> = ref(null)
 const page : Ref <number> = ref(1)
 const perPage : Ref <number> = ref(10)
 
-const filters : Ref <any> = ref({
+const filters : Ref <Utility.DateRange & { status: string }> = ref({
    status: 'All',
    start_date: moment().startOf('month').format('YYYY-MM-DD'),
    end_date: moment().endOf('month').format('YYYY-MM-DD')
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchReservation()
 })
 
-const fetchReservation = async () => {
+const fetchReservation = async () : Promise <void> => {
    loading.value = true
 
    await GetReservation(filters.value)
@@ -106,7 +106,7 @@ const fetchReservation = async () => {
       })
 }
 
-const responseHandler = () => {
+const responseHandler = () : void => {
    let response = raw.value
 
    if (search.value && search.value.length > 0) {
@@ -123,7 +123,7 @@ const responseHandler = () => {
    data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
 }
 
-const emitHandler = async (emitSearch: string, emitPage: number, emitPerPage: number) => {
+const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) : void => {
    search.value = emitSearch
    page.value = emitPage
    perPage.value = emitPerPage

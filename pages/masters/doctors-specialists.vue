@@ -56,7 +56,7 @@
 import { getSpecialists } from '@/utils/api/masters'
 
 const store = useAppStore()
-store.dialog.callback = async () => await fetchSpecialists()
+store.dialog.callback = async () : Promise <void> => await fetchSpecialists()
 store.title = 'Spesialis Dokter'
 useHead({ title: store.getTitle })
 
@@ -69,11 +69,11 @@ const page : Ref <number> = ref(1)
 const perPage : Ref <number> = ref(10)
 const specialistOptions : Ref <Model.Master.DoctorsSpecialist[]> = ref([])
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchSpecialists()
 })
 
-const fetchSpecialists = async () => {
+const fetchSpecialists = async () : Promise <void> => {
    loading.value = true
    await getSpecialists()
       .then((resp) => {
@@ -86,7 +86,7 @@ const fetchSpecialists = async () => {
       })
 }
 
-const responseHandler = () => {
+const responseHandler = () : void => {
    let response = raw.value
 
    if (search.value && search.value.length > 0) {
@@ -100,7 +100,7 @@ const responseHandler = () => {
    data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
 }
 
-const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) => {
+const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) : void => {
    search.value = emitSearch
    page.value = emitPage
    perPage.value = emitPerPage

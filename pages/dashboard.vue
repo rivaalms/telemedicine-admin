@@ -34,6 +34,17 @@
 
 <script setup lang="ts">
 import '@vuepic/vue-datepicker/dist/main.css'
+import { WritableComputedRef } from 'nuxt/dist/app/compat/vue-demi';
+
+type Render = {
+   ambulances: boolean
+   patients: boolean
+   consultations: boolean
+}
+
+type Scroller = {
+   [key: string]: WritableComputedRef <number>
+}
 
 const store = useAppStore()
 store.title = 'Dashboard'
@@ -52,7 +63,7 @@ const render : Ref <Render> = ref({
    consultations: false
 })
 
-const { scrollY } : Utils.ScrollProvider = inject('scroll')!
+const { scrollY } : Scroller = inject('scroll')!
 
 const unwatch = watch(scrollY, () => {
    onScroll()
@@ -60,7 +71,7 @@ const unwatch = watch(scrollY, () => {
    if (Object.values(render.value).every((val) => val === true)) unwatch()
 })
 
-const onScroll = () => {
+const onScroll = () : void => {
    const topAmbulances = ambulances.value!.getBoundingClientRect().top
    const topPatients = patients.value!.getBoundingClientRect().top
    const topConsultations = consultations.value!.getBoundingClientRect().top
@@ -70,11 +81,5 @@ const onScroll = () => {
    if (topPatients - window.innerHeight < 0 && !render.value.patients) render.value.patients = true
 
    if (topConsultations - window.innerHeight < 0 && !render.value.consultations) render.value.consultations = true
-}
-
-type Render = {
-   ambulances: boolean
-   patients: boolean
-   consultations: boolean
 }
 </script>

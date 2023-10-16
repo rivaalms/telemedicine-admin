@@ -198,10 +198,10 @@ store.title = 'Broadcast'
 useHead({ title: store.getTitle })
 
 const loading : Ref <boolean> = ref(false)
-const imageFile : Ref <any> = ref(null)
+const imageFile : Ref <Blob | File | MediaSource | null> = ref(null)
 const imagePreview : Ref <any> = ref(null)
 
-const state : Ref <Model.Broadcast> = ref({
+const state : Ref <API.Request.Broadcast> = ref({
    to: null,
    app: null,
    title: null,
@@ -223,27 +223,28 @@ const validationSchema = yup.object({
    notification_type: yup.string().required('Tipe notifikasi harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    await broadcast(imageFile.value, state.value)
       .then((resp) => {
          store.notify('success', 'Broadcast berhasil')
+         resetData()
       })
-      .catch((error: any) => {
-         store.notify('error', error.response?._data?.messages || error)
+      .catch((error: API.Response.Error) => {
+         store.notify('error', error.response?._data?.messages || (error as string))
       })
       .finally(() => {
          loading.value = false
       })
 }
 
-const onFileChange = (e: any) => {
+const onFileChange = (e: any) : void => {
    imageFile.value = e.target.files[0]
-   imagePreview.value = URL.createObjectURL(imageFile.value)
+   imagePreview.value = URL.createObjectURL(imageFile.value!)
 }
 
-const resetData = () => {
+const resetData = () : void => {
    state.value = {
       to: null,
       app: null,

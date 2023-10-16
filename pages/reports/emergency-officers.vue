@@ -8,7 +8,7 @@
          <vue-date-picker
             v-model="filter.start_date"
             auto-apply
-            :max-date="new Date(filter.end_date)"
+            :max-date="new Date(filter.end_date!)"
             @update:model-value="fetchEmergencyOfficers()"
          >
             <template #trigger>
@@ -27,7 +27,7 @@
          <vue-date-picker
             v-model="filter.end_date"
             auto-apply
-            :min-date="new Date(filter.start_date)"
+            :min-date="new Date(filter.start_date!)"
             @update:model-value="fetchEmergencyOfficers()"
          >
             <template #trigger>
@@ -107,18 +107,18 @@ useHead({ title: store.getTitle })
 const data : Ref <Model.Report.Officer[]> = ref([])
 const dataLength : Ref <number> = ref(0)
 const loading : Ref <boolean> = ref(false)
-const filter : Ref <API.Payload.DateRangePayload> = ref({
+const filter : Ref <Utility.DateRange> = ref({
    start_date: moment().startOf('month').format('YYYY-MM-DD'),
    end_date: moment().endOf('month').format('YYYY-MM-DD')
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchEmergencyOfficers()
 })
 
-const fetchEmergencyOfficers = async () => {
+const fetchEmergencyOfficers = async () : Promise <void> => {
    loading.value = true
-   const payload: API.Payload.DateRangePayload = {
+   const payload: Utility.DateRange = {
       start_date: moment(filter.value.start_date).format('YYYY-MM-DD'),
       end_date: moment(filter.value.end_date).format('YYYY-MM-DD')
    }

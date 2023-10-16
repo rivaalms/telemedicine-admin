@@ -97,7 +97,7 @@ definePageMeta({
 store.title = 'Login'
 useHead({ title: store.getTitle })
 
-const state : Ref<API.Payload.Login> = ref({
+const state : Ref<API.Request.Auth.Login> = ref({
    email: '',
    password: ''
 })
@@ -109,15 +109,15 @@ const validationSchema = yup.object({
 
 const loading : Ref <boolean> = ref(false)
 
-const formGroupUI = computed(() => {
+const formGroupUI : ComputedRef <{[key: string]: { [key: string]: string }}> = computed(() => {
    return {
-      "label": {
-         "base": "block font-medium text-white"
+      label: {
+         base: "block font-medium text-white"
       }
    }
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    await authStore.login(state.value!)

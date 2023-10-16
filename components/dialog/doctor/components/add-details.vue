@@ -635,7 +635,8 @@ import {
    updateDoctorMedicalFacility,
    deleteDoctorMedicalFacility,
 } from '@/utils/api/doctors'
-import { getProvinces, getRegencies, getDoctorSpecialists } from '@/utils/api/utils'
+import { getProvinces, getRegencies } from '@/utils/api/utils'
+import { getSpecialists } from '@/utils/api/masters'
 import * as yup from 'yup'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -707,7 +708,7 @@ const onProvinceChange = async (provinceId: number) => {
 
 const fetchSpecialist = async () => {
    if (specialistOptions.value.find((item: any) => item.name === 'Loading...')) {
-      await getDoctorSpecialists()
+      await getSpecialists()
          .then((resp) => {
             specialistOptions.value = resp
          })

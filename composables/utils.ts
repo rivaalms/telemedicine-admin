@@ -1,5 +1,5 @@
 // @ts-ignore
-import Parse from 'parse'
+import Parse from 'parse/dist/parse'
 
 type OTP = {
    type: string

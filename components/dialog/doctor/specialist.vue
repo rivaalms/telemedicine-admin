@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { getDoctorSpecialists } from '@/utils/api/utils'
+import { getSpecialists } from '@/utils/api/masters'
 import { addDoctorSpecialist, updateDoctorSpecialist } from '@/utils/api/doctors'
 import * as yup from 'yup'
 
@@ -78,7 +78,7 @@ const validationSchema = yup.object({
 })
 
 onBeforeMount(async () => {
-   await getDoctorSpecialists()
+   await getSpecialists()
       .then((resp) => {
          specialistOptions.value = resp
       })

@@ -366,18 +366,18 @@ useHead({ title: 'Profil Dokter' })
 
 const store = useAppStore()
 const profile : Ref <Model.Doctor | null> = ref(null)
-const specialist : Ref <Model.DoctorSpecialist[] | null> = ref(null)
-const educations : Ref <Model.DoctorEducation[] | null> = ref(null)
-const medicalFacility : Ref <Model.MedicalFacility[] | null> = ref(null)
-const schedule : Ref <Model.DoctorSchedule[] | null> = ref(null)
+const specialist : Ref <Model.Doctor.Specialist[] | null> = ref(null)
+const educations : Ref <Model.Doctor.Education[] | null> = ref(null)
+const medicalFacility : Ref <Model.Doctor.MedicalFacility[] | null> = ref(null)
+const schedule : Ref <Model.Doctor.Schedule[] | null> = ref(null)
 
 const isAccountActive : ComputedRef <boolean> = computed(() => (profile.value?.status === 'banned' || profile.value?.status === 'blocked') ? false : true)
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchDoctor()
 })
 
-const fetchDoctor = async () => {
+const fetchDoctor = async () : Promise <void> => {
    await getByStr(useRoute().params.str!.toString())
       .then((resp) => {
          profile.value = resp

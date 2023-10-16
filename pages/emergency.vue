@@ -48,7 +48,7 @@ const raw : Ref <Model.Emergency[]> = ref([])
 const data : Ref<Model.Emergency[] | []> = ref([])
 const dataLength : Ref<number> = ref(0)
 
-const filter = ref({
+const filter : Ref <{ [key: string]: string }> = ref({
    status: 'All'
 })
 const page : Ref <number> = ref(1)
@@ -56,11 +56,11 @@ const search : Ref <string | null> = ref(null)
 const perPage : Ref <number> = ref(10)
 const loading : Ref <boolean> = ref(false)
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchEmergency()
 })
 
-const fetchEmergency = async () => {
+const fetchEmergency = async () : Promise <void> => {
    loading.value = true
    await GetEmergency()
       .then((resp) => {
@@ -72,7 +72,7 @@ const fetchEmergency = async () => {
       })
 }
 
-const responseHandler = () => {
+const responseHandler = () : void => {
    let response = raw.value.sort((a, b) => new Date(b.created_at!).getTime() - new Date(a.created_at!).getTime())
 
    if (filter.value.status !== 'All') response = response.filter((value) => value.status! === filter.value.status)
@@ -93,7 +93,7 @@ const responseHandler = () => {
    data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
 }
 
-const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) => {
+const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) : void => {
    search.value = emitSearch
    page.value = emitPage
    perPage.value = emitPerPage

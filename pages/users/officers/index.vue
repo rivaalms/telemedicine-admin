@@ -36,11 +36,11 @@ const search : Ref <string | null> = ref(null)
 const page : Ref <number> = ref(1)
 const perPage : Ref <number> = ref(10)
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchOfficers()
 })
 
-const fetchOfficers = async () => {
+const fetchOfficers = async () : Promise <void> => {
    loading.value = true
    await getOfficers()
       .then((resp) => {
@@ -52,7 +52,7 @@ const fetchOfficers = async () => {
       })
 }
 
-const responseHandler = () => {
+const responseHandler = () : void => {
    let response = raw.value
 
    if (search.value && search.value.length > 0) {
@@ -67,7 +67,7 @@ const responseHandler = () => {
    data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
 }
 
-const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) => {
+const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) : void => {
    search.value = emitSearch
    page.value = emitPage
    perPage.value = emitPerPage

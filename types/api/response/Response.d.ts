@@ -7,11 +7,6 @@ declare namespace API {
    }
 
    namespace Response {
-      type Parse <T> = {
-         results: T
-         count?: number
-      }
-   
       type LaravelPaginate <T> = {
          current_page: number
          data: T
@@ -23,6 +18,14 @@ declare namespace API {
          total: number
          page: number
          per_page: number
+      }
+
+      type Error = {
+         response?: {
+            _data?: {
+               messages?: string
+            }
+         }
       }
    }
 }

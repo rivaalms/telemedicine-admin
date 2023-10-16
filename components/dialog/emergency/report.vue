@@ -43,5 +43,5 @@ const emitHandler = async (eSearch: string, ePage: number, ePerPage: number) => 
    await fetchReports()
 }
 
-type TData = API.LaravelPaginationResponse<Model.Emergency[]>
+type TData = API.Response.LaravelPaginate <Model.Emergency[]>
 </script>

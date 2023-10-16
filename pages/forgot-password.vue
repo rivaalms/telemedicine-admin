@@ -219,7 +219,7 @@ const emailState : Ref <{ email: string }> = ref({
    email: ''
 })
 
-const phoneState : Ref <{ [key: string]: string }> = ref({
+const phoneState : Ref <API.Request.Auth.ForgotPasswordByPhone> = ref({
    phone_number: '',
    password: '',
    password_confirmation: ''
@@ -248,7 +248,7 @@ const validationSchema = yup.object({
    })
 })
 
-const emailSubmit = async () => {
+const emailSubmit = async () : Promise <void> => {
    loading.value = true
    await forgotPasswordByEmail(emailState.value.email)
       .then((resp) => {
@@ -263,7 +263,7 @@ const emailSubmit = async () => {
       })
 }
 
-const phoneSubmit = async () => {
+const phoneSubmit = async () : Promise <void> => {
    loading.value = true
    await forgotPasswordByPhoneNumber(phoneState.value)
       .then((resp) => {

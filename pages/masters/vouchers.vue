@@ -56,7 +56,6 @@
 import { getVouchers } from '@/utils/api/masters'
 
 const store = useAppStore()
-store.dialog.callback = async () => await fetchVouchers()
 store.title = 'Voucher'
 useHead({ title: store.getTitle })
 
@@ -68,11 +67,11 @@ const search : Ref <string | null> = ref(null)
 const page : Ref <number> = ref(1)
 const perPage : Ref <number> = ref(10)
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchVouchers()
 })
 
-const fetchVouchers = async () => {
+const fetchVouchers = async () : Promise <void> => {
    loading.value = true
    await getVouchers()
       .then((resp) => {
@@ -84,7 +83,7 @@ const fetchVouchers = async () => {
       })
 }
 
-const responseHandler = () => {
+const responseHandler = () : void => {
    let response = raw.value
 
    if (search.value && search.value.length > 0) {
@@ -99,7 +98,7 @@ const responseHandler = () => {
    data.value = response.slice((page.value - 1) * perPage.value, (page.value) * perPage.value)
 }
 
-const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) => {
+const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) : void => {
    search.value = emitSearch
    page.value = emitPage
    perPage.value = emitPerPage

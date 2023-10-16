@@ -8,7 +8,7 @@
          <vue-date-picker
             v-model="filter.start_date"
             auto-apply
-            :max-date="new Date(filter.end_date)"
+            :max-date="new Date(filter.end_date!)"
             @update:model-value="fetchConsultationReports()"
          >
             <template #trigger>
@@ -27,7 +27,7 @@
          <vue-date-picker
             v-model="filter.end_date"
             auto-apply
-            :min-date="new Date(filter.start_date)"
+            :min-date="new Date(filter.start_date!)"
             @update:model-value="fetchConsultationReports()"
          >
             <template #trigger>
@@ -93,7 +93,7 @@
                      Total
                   </td>
                   <td class="font-bold whitespace-nowrap px-3 py-4 text-gray-600 dark:text-gray-400 text-sm">
-                     {{ useFormatCurrency(total) }}
+                     {{ useFormatCurrency(total!) }}
                   </td>
                </tr>
             </template>
@@ -125,23 +125,23 @@ store.title = 'Laporan Konsultasi'
 useHead({ title: store.getTitle })
 
 const data : Ref <Model.Report.Consultation[]> = ref([])
-const total : ComputedRef<any> = computed(() => {
+const total : ComputedRef <number | null | undefined> = computed(() => {
    return data.value.length > 0 ? data.value.map(obj => obj.total).reduce((a, b) => a! + b!) : 0
 })
 const dataLength : Ref <number> = ref(0)
 const loading : Ref <boolean> = ref(false)
-const filter : Ref <API.Payload.DateRangePayload> = ref({
+const filter : Ref <Utility.DateRange> = ref({
    start_date: moment().startOf('month').format('YYYY-MM-DD'),
    end_date: moment().endOf('month').format('YYYY-MM-DD')
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchConsultationReports()
 })
 
-const fetchConsultationReports = async () => {
+const fetchConsultationReports = async () : Promise <void> => {
    loading.value = true
-   const payload: API.Payload.DateRangePayload = {
+   const payload: Utility.DateRange = {
       start_date: moment(filter.value.start_date).format('YYYY-MM-DD'),
       end_date: moment(filter.value.end_date).format('YYYY-MM-DD')
    }
