@@ -1,7 +1,7 @@
 <template>
 <main class="h-screen">
-   <div class="grid grid-cols-4 gap-4 h-full">
-      <div class="bg-froly-400 px-4 py-12 flex flex-col items-center">
+   <div class="grid lg:grid-cols-3 2xl:grid-cols-4 gap-4 h-full">
+      <div class="bg-gradient-to-br from-froly-300 to-froly-500 px-4 py-12 flex flex-col items-center">
          <img src="/img/telemedicine.png" alt="telemedicine" class="">
 
          <div class="text-white self-stretch px-6">
@@ -24,6 +24,7 @@
                   <u-input
                      v-model="state.email"
                      type="email"
+                     icon="i-heroicons-at-symbol"
                      :disabled="loading"
                   ></u-input>
                </u-form-group>
@@ -38,13 +39,14 @@
                   <u-input
                      v-model="state.password"
                      type="password"
+                     icon="i-heroicons-key"
                      :disabled="loading"
                   ></u-input>
                </u-form-group>
 
-               <div class="flex justify-between">
+               <div class="flex flex-col sm:flex-row items-center sm:items-start sm:justify-between gap-4">
                   <p>
-                     Lupa Password? <a href="javascript:void(0)" class="text-white underline hover:text-froly-100">Klik disini</a>
+                     Lupa kata sandi? <nuxt-link to="#" class="text-white underline hover:text-froly-100">Klik disini</nuxt-link>
                   </p>
 
                   <u-button
@@ -52,6 +54,9 @@
                      color="white"
                      type="submit"
                      size="lg"
+                     icon="i-heroicons-arrow-right-on-rectangle"
+                     class="order-first sm:order-last"
+                     :block="breakpoints.smaller(('sm')).value"
                      :loading="loading"
                   >
                      Masuk
@@ -60,7 +65,9 @@
             </u-form>
          </div>
       </div>
-      <div class="col-span-3 bg-[url('/img/login.svg')] bg-no-repeat bg-center bg-contain"></div>
+      <template v-if="breakpoints.greaterOrEqual('lg').value">
+         <div class="lg:col-span-2 2xl:col-span-3 bg-[url('/img/login.svg')] bg-no-repeat bg-center bg-contain"></div>
+      </template>
    </div>
 </main>
 
@@ -72,8 +79,10 @@
 </template>
 
 <script setup lang="ts">
+import { breakpointsTailwind } from '@vueuse/core'
 import * as yup from 'yup'
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
 const store = useAppStore()
 const authStore = useAuthStore()
 
@@ -114,7 +123,7 @@ const submit = async () => {
    await authStore.login(state.value!)
       .then(() => {
          store.notify('success', 'Log in berhasil!', 'login')
-         useRouter().push('/')
+         navigateTo('/')
       })
       .catch((error: any) => {
          store.notify('error', 'Akun tidak terdaftar', 'login')
