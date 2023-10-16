@@ -1,10 +1,16 @@
 import { defineStore } from 'pinia'
 import * as Auth from '@/utils/api/auth'
 
+namespace Store.State {
+   export type User = {
+      user: Model.Auth | null
+   }
+}
+
 export const useAuthStore = defineStore('auth', {
    persist: true,
 
-   state: () : AuthState => ({
+   state: () : Store.State.User => ({
       user: null,
    }),
 
@@ -18,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
    },
 
    actions: {
-      async login(payload: Request.Auth.Login) {
+      async login(payload: API.Request.Auth.Login) {
          if (this.isLoggedIn) return
 
          return await Auth.login(payload)
@@ -38,17 +44,5 @@ export const useAuthStore = defineStore('auth', {
          useAppStore().notify('info', 'Log out berhasil')
          return Promise.resolve(null)
       },
-
-      async forgotPasswordByPhone(payload: Request.Auth.ForgotPasswordByPhone) {
-         return Auth.forgotPasswordByPhoneNumber(payload)
-      },
-
-      async forgotPasswordByEmail(email: string) {
-         return Auth.forgotPasswordByEmail(email)
-      }
    },
 })
-
-interface AuthState {
-   user: Model.Auth | null
-}
