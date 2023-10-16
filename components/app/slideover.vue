@@ -99,14 +99,20 @@ const menu = computed(() => [
    [
       {
          label: 'Profil saya',
-         click: () => { navigateTo('/profile') }
+         click: () => {
+            navigateTo('/profile')
+            if (store.slideover) store.slideover = false
+         }
       }
    ],
    [
       {
          label: 'Keluar',
          slot: 'logout',
-         click: () => { store.showDialog('logout', 'Keluar', null) }
+         click: () => {
+            store.showDialog('logout', 'Keluar', null)
+            if (store.slideover) store.slideover = false
+         }
       }
    ]
 ])
