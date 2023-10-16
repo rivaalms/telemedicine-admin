@@ -1,10 +1,25 @@
 import { NotificationColor } from '@nuxt/ui/dist/runtime/types'
 import { defineStore } from 'pinia'
 
+namespace Store.State {
+   export type App = {
+      appName: string
+      title: string
+      dialog: {
+         show: boolean
+         title: string
+         type: string
+         data: any
+         callback: Function
+      }
+      slideover: boolean
+   }
+}
+
 export const useAppStore = defineStore('app', {
    persist: true,
 
-   state: () : AppState => ({
+   state: () : Store.State.App => ({
       appName: 'RSJP Paramarta',
       title: '',
       dialog: {
@@ -76,16 +91,3 @@ export const useAppStore = defineStore('app', {
       }
    }
 })
-
-type AppState = {
-   appName: string
-   title: string
-   dialog: {
-      show: boolean
-      title: string
-      type: string
-      data: any
-      callback: Function
-   }
-   slideover: boolean
-}
