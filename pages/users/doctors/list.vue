@@ -88,5 +88,5 @@ const emitHandler = (emitSearch: string, emitPage: number, emitPerPage: number) 
    responseHandler()
 }
 
-const doctorDetails = (item: any) => useRouter().push(`/users/doctors/${item.no_str}`)
+const doctorDetails = (item: any) => navigateTo(`/users/doctors/${item.no_str}`)
 </script>
