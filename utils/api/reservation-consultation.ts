@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-export async function get (filters: API.Payload.ReservationConsultationPayload) : Promise <Model.ReservationConsultation[]> {
+export async function get (filters: API.Request.Consultation.ReservationConsultation) : Promise <Model.ReservationConsultation[]> {
    const payload = { ...filters }
    payload.start_date = moment(payload.start_date).format('YYYY-MM-DD')
    payload.end_date = moment(payload.end_date).format('YYYY-MM-DD')

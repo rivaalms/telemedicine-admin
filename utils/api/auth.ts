@@ -1,7 +1,14 @@
 const ID_USER_PARSE = 'yuydgwcfe2783y8732djbhfcehj'
 const DEVICE_ID = 'yuydgwcfe2783y8732djbhfcehj'
 
-export async function login (payload: API.Payload.Login) : Promise <Model.Auth> {
+namespace Response.Auth {
+   export type UpdateEmail = Omit <Model.Auth, 'AUTH-TOKEN'>
+   export type OTP = Omit <Model.Auth, 'AUTH-TOKEN'> & {
+      token: string
+   }
+}
+
+export async function login (payload: API.Request.Auth.Login) : Promise <Model.Auth> {
    const response = await $fetch <API.Response<Model.Auth>> (`/auth/login`, {
       method: 'POST',
       body: payload,
@@ -13,14 +20,14 @@ export async function login (payload: API.Payload.Login) : Promise <Model.Auth> 
    return response.data!
 }
 
-export async function logout () : Promise <any> {
-   const response = await $fetch <any> (`/auth/logout`, {
+export async function logout () : Promise <boolean> {
+   await $fetch <API.Response <[]>> (`/auth/logout`, {
       method: 'POST'
    })
-   return response
+   return true
 }
 
-export async function forgotPasswordByPhoneNumber (payload: API.Payload.ForgotPasswordByPhoneNumber) : Promise <string> {
+export async function forgotPasswordByPhoneNumber (payload: API.Request.Auth.ForgotPasswordByPhone) : Promise <string> {
    const response = await $fetch <API.Response <string>> (`/forgot-password-by-phone`, {
       method: 'POST',
       body: payload
@@ -38,8 +45,8 @@ export async function forgotPasswordByEmail (email: string) : Promise <boolean> 
    return response.data!
 }
 
-export async function updateEmail (payload: API.Payload.Login) : Promise <UpdateEmailResponse> {
-   const response = await $fetch <API.Response <UpdateEmailResponse>> (`/profile/email`, {
+export async function updateEmail (payload: API.Request.Auth.UpdateEmail) : Promise <Response.Auth.UpdateEmail> {
+   const response = await $fetch <API.Response <Response.Auth.UpdateEmail>> (`/profile/email`, {
       method: 'PUT',
       body: payload
    })
@@ -54,7 +61,7 @@ export async function updatePhoneNumber (payload: { password: string, phone_numb
    return response.data!
 }
 
-export async function updatePassword (payload:  UpdatePassword) : Promise <string> {
+export async function updatePassword (payload: API.Request.Auth.UpdatePassword) : Promise <string> {
    const response = await $fetch <API.Response <string>> (`/profile/password`, {
       method: 'PUT',
       body: payload
@@ -62,15 +69,8 @@ export async function updatePassword (payload:  UpdatePassword) : Promise <strin
    return response.data!
 }
 
-type UpdatePassword = {
-   old_password: string
-   password: string
-   password_confirmation: string
-   phone_number: string
-}
-
-export async function verifyOTP (payload: API.Payload.VerifyOTPPayload) : Promise <VerifyOTPResponse> {
-   const response = await $fetch <API.Response <VerifyOTPResponse>> (`/verify-otp`, {
+export async function verifyOTP (payload: API.Request.Auth.OTP) : Promise <Response.Auth.OTP> {
+   const response = await $fetch <API.Response <Response.Auth.OTP>> (`/verify-otp`, {
       method: 'POST',
       body: payload
    })
@@ -86,6 +86,3 @@ export async function resendOTP (phoneNumber: string) : Promise <Model.User> {
    })
    return response.data!
 }
-
-type UpdateEmailResponse = Omit <Model.Auth, 'AUTH-TOKEN'>
-type VerifyOTPResponse = Omit <Model.Auth, 'AUTH-TOKEN'> & { token: string }

@@ -22,7 +22,7 @@ export async function updateAmbulance (ambulanceId: number, payload: Model.Ambul
 }
 
 export async function deleteAmbulance (ambulanceId: number) : Promise <boolean> {
-   const response = await $fetch <API.Response <void>> (`/ambulances/${ambulanceId}`, {
+   await $fetch <API.Response <void>> (`/ambulances/${ambulanceId}`, {
       method: 'DELETE'
    })
    return true

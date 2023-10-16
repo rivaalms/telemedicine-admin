@@ -5,8 +5,8 @@ export async function get () : Promise <Model.Emergency[]> {
    return response.data!
 }
 
-export async function getReports (payload: API.Payload.EmergencyReport) : Promise <API.LaravelPaginationResponse <Model.Emergency[]>> {
-   const response = await $fetch <API.Response <API.LaravelPaginationResponse <Model.Emergency[]>>> (`/emergency-reports`, {
+export async function getReports (payload: API.Request.Emergency.Report) : Promise <API.Response.LaravelPaginate <Model.Emergency[]>> {
+   const response = await $fetch <API.Response <API.Response.LaravelPaginate <Model.Emergency[]>>> (`/emergency-reports`, {
       method: 'GET',
       query: payload
    })

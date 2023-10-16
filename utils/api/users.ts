@@ -60,8 +60,8 @@ export async function unbanUser (uuid: string) : Promise <string> {
    return response.messages!
 }
 
-export async function topUpUser (payload: API.Payload.TopUpPayload) : Promise <Utils.TopUp> {
-   const response = await $fetch <API.Response <Utils.TopUp>> (`/top-up`, {
+export async function topUpUser (payload: API.Request.User.TopUp) : Promise <API.Response.User.TopUp> {
+   const response = await $fetch <API.Response <API.Response.User.TopUp>> (`/top-up`, {
       method: 'POST',
       body: payload
    })

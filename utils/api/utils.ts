@@ -1,38 +1,28 @@
 const config = useRuntimeConfig().public
 
-export async function getProvinces () : Promise <Utils.Province[]> {
-   const response = await $fetch <API.Response <Utils.Province[]>> (`/provinces`, {
+export async function getProvinces () : Promise <API.Response.Province[]> {
+   const response = await $fetch <API.Response <API.Response.Province[]>> (`/provinces`, {
       method: 'GET'
    })
    return response.data!
 }
 
-export async function getRegencies (provinceId: number) : Promise <Utils.Regency[]> {
-   const response = await $fetch <API.Response <Utils.Regency[]>> (`regencies-province/${provinceId}`, {
+export async function getRegencies (provinceId: number) : Promise <API.Response.Regency[]> {
+   const response = await $fetch <API.Response <API.Response.Regency[]>> (`regencies-province/${provinceId}`, {
       method: 'GET'
    })
    return response.data!
 }
 
-export async function getDoctorSpecialists () : Promise <Utils.Specialist[]> {
-   const response = await $fetch <API.Response <Utils.Specialist[]>> (`/specialists`, {
-      method: 'GET',
-      headers: {
-         'faskes-id': config.faskesId
-      }
-   })
-   return response.data!
-}
-
-export async function getMedicalFacilities () : Promise <Model.MedicalFacility[]> {
-   const response = await $fetch <API.Response <Model.MedicalFacility[]>> (`/medical-facilities`, {
+export async function getMedicalFacilities () : Promise <Model.Doctor.MedicalFacility[]> {
+   const response = await $fetch <API.Response <Model.Doctor.MedicalFacility[]>> (`/medical-facilities`, {
       method: 'GET'
    })
    return response.data!
 }
 
-export async function getRoles () : Promise <Utils.Role[]> {
-   const response = await $fetch <API.Response <Utils.Role[]>> (`/roles`, {
+export async function getRoles () : Promise <Utility.User.Role[]> {
+   const response = await $fetch <API.Response <Utility.User.Role[]>> (`/roles`, {
       method: 'GET'
    })
    return response.data!

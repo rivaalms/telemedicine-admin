@@ -8,7 +8,7 @@ export async function getTransactionIncome (year: string) : Promise <Dashboard.T
    return response.data!
 }
 
-export async function getSummaryEmergency (payload: API.Payload.DateRangePayload) : Promise <Dashboard.EmergencyStatus[]> {
+export async function getSummaryEmergency (payload: Utility.DateRange) : Promise <Dashboard.EmergencyStatus[]> {
    const response = await $fetch <API.Response <Dashboard.EmergencyStatus[]>> ('/summary-emergency-status/daily', {
       method: 'GET',
       query: payload
@@ -26,7 +26,7 @@ export async function getEmergencyTrends (year: string) : Promise <Dashboard.Eme
    return response.data!
 }
 
-export async function getSummaryPatients (payload: API.Payload.DateRangePayload) : Promise <Dashboard.PatientGender> {
+export async function getSummaryPatients (payload: Utility.DateRange) : Promise <Dashboard.PatientGender> {
    const response = await $fetch <API.Response <Dashboard.PatientGender>> (`/summary-patients/daily`, {
       method: 'GET',
       query: payload
@@ -51,7 +51,7 @@ export async function getDoctorOnlineStatus () : Promise <Dashboard.DoctorOnline
    return response.data!
 }
 
-export async function getSummaryConsultations (payload: API.Payload.DateRangePayload) : Promise <Dashboard.ConsultationSummary> {
+export async function getSummaryConsultations (payload: Utility.DateRange) : Promise <Dashboard.ConsultationSummary> {
    const response = await $fetch <API.Response <Dashboard.ConsultationSummary>> (`/summary-consultations/daily`, {
       method: 'GET',
       query: payload

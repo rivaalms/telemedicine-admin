@@ -77,7 +77,7 @@ export async function updateAdvertisementImage (slug: string, image: any) : Prom
 }
 
 export async function deleteAdvertisement (slug: string) : Promise <boolean> {
-   const response = await $fetch <API.Response <void>> (`/advertisements/${slug}`, {
+   await $fetch <API.Response <void>> (`/advertisements/${slug}`, {
       method: 'DELETE'
    })
    return true
@@ -116,8 +116,9 @@ export async function updateVoucherImage (slug: string, image: any) : Promise <M
    return response.data!
 }
 
-export async function deleteVoucher (slug: string) : Promise <void> {
+export async function deleteVoucher (slug: string) : Promise <boolean> {
    await $fetch <void> (`/vouchers/${slug}`, {
       method: 'DELETE',
    })
+   return true
 }

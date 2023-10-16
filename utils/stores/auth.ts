@@ -18,7 +18,7 @@ export const useAuthStore = defineStore('auth', {
    },
 
    actions: {
-      async login(payload: API.Payload.Login) {
+      async login(payload: Request.Auth.Login) {
          if (this.isLoggedIn) return
 
          return await Auth.login(payload)
@@ -39,7 +39,7 @@ export const useAuthStore = defineStore('auth', {
          return Promise.resolve(null)
       },
 
-      async forgotPasswordByPhone(payload: API.Payload.ForgotPasswordByPhoneNumber) {
+      async forgotPasswordByPhone(payload: Request.Auth.ForgotPasswordByPhone) {
          return Auth.forgotPasswordByPhoneNumber(payload)
       },
 
