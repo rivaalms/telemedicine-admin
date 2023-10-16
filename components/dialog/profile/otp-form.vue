@@ -53,6 +53,7 @@ const props = defineProps<{
    phoneNumber: string,
    hash?: string | null
 }>()
+const emit = defineEmits(['otp-success'])
 
 const loading : Ref <boolean> = ref(false)
 const otp : Ref <string> = ref('')
@@ -99,6 +100,7 @@ const submit = async () => {
          store.notify('success', `${notifyType} Anda berhasil diperbarui`)
          if (props.type === 'phone') authStore.user!.phone_number = props.phoneNumber
          store.clearDialog()
+         emit('otp-success')
       })
       .catch((error: any) => {
          store.notify('error', error.response?._data?.messages || error)

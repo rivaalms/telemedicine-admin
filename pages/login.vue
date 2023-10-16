@@ -46,7 +46,7 @@
 
                <div class="flex flex-col sm:flex-row items-center sm:items-start sm:justify-between gap-4">
                   <p>
-                     Lupa kata sandi? <nuxt-link to="#" class="text-white underline hover:text-froly-100">Klik disini</nuxt-link>
+                     Lupa kata sandi? <nuxt-link to="/forgot-password" class="text-white underline hover:text-froly-100">Klik disini</nuxt-link>
                   </p>
 
                   <u-button

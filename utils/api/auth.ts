@@ -20,21 +20,22 @@ export async function logout () : Promise <any> {
    return response
 }
 
-export async function forgotPasswordByPhoneNumber (payload: API.Payload.ForgotPasswordByPhoneNumber) : Promise <any> {
-   const response = await $fetch <any> (`/forgot-password-by-phone`, {
+export async function forgotPasswordByPhoneNumber (payload: API.Payload.ForgotPasswordByPhoneNumber) : Promise <string> {
+   const response = await $fetch <API.Response <string>> (`/forgot-password-by-phone`, {
       method: 'POST',
       body: payload
    })
-   return response
+   return response.data!
 }
 
-export async function forgotPasswordByEmail (email: string) : Promise <any> {
-   const response = await $fetch <any> (`/profile/reset-password-by-email`, {
+export async function forgotPasswordByEmail (email: string) : Promise <boolean> {
+   const response = await $fetch <API.Response <boolean>> (`/profile/reset-password-by-email`, {
       method: 'POST',
       body: {
          email
       }
    })
+   return response.data!
 }
 
 export async function updateEmail (payload: API.Payload.Login) : Promise <UpdateEmailResponse> {
