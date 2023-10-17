@@ -7,7 +7,7 @@
          <div class="flex justify-around gap-2">
             <div>
                <vue-date-picker
-                  v-model="filter.start_date"
+                  v-model="(filter.start_date as string)"
                   auto-apply
                   @update:model-value="fetchSummaryConsultations"
                >
@@ -24,7 +24,7 @@
    
             <div>
                <vue-date-picker
-                  v-model="filter.end_date"
+                  v-model="(filter.end_date as string)"
                   auto-apply
                   @update:model-value="fetchSummaryConsultations"
                >
@@ -77,15 +77,15 @@ import '@vuepic/vue-datepicker/dist/main.css'
 
 const props = defineProps<{ render?: boolean }>()
 
-const doctors : Ref <Dashboard.ConsultationSummaryByDoctor[]> = ref([])
-const specialist : Ref <Dashboard.ConsultationSummaryBySpecialist[]> = ref([])
+const doctors : Ref <Utility.Dashboard.ConsultationSummaryByDoctor[]> = ref([])
+const specialist : Ref <Utility.Dashboard.ConsultationSummaryBySpecialist[]> = ref([])
 const total : Ref <number> = ref(0)
-const filter : Ref <any> = ref({
+const filter : Ref <{ [key: string]: moment.Moment | string }> = ref({
    start_date: moment().startOf('month'),
    end_date: moment().endOf('month'),
 })
 
-const doctorChartOptions = computed(() => {
+const doctorChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(() => {
    return {
       chart: {
          id: 'consultaionDoctorChart',
@@ -105,9 +105,9 @@ const doctorChartOptions = computed(() => {
    }
 })
 
-const doctorChartData = computed(() => doctors.value.map(item => item.total))
+const doctorChartData : ComputedRef <number[]> = computed(() => doctors.value.map(item => item.total!))
 
-const specialistChartOptions = computed(() => {
+const specialistChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(() => {
    return {
       chart: {
          id: 'consultationSpecialistChart',
@@ -127,13 +127,13 @@ const specialistChartOptions = computed(() => {
    }
 })
 
-const specialistChartData = computed(() => specialist.value.map(item => item.total))
+const specialistChartData : ComputedRef <number[]> = computed(() => specialist.value.map(item => item.total!))
 
-watch(() => props.render, async () => {
+watch(() => props.render, async () : Promise <void> => {
    await fetchSummaryConsultations()
 })
 
-const fetchSummaryConsultations = async () => {
+const fetchSummaryConsultations = async () : Promise <void> => {
    const payload = {
       start_date: moment(filter.value.start_date).format('YYYY-MM-DD'),
       end_date: moment(filter.value.end_date).format('YYYY-MM-DD')

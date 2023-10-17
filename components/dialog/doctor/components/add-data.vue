@@ -12,7 +12,7 @@
          required
       >
          <u-input
-            v-model="state.full_name"
+            v-model="(state.full_name as string)"
             :disabled="props.disabled || loading"
          ></u-input>
       </u-form-group>
@@ -23,7 +23,7 @@
          required
       >
          <u-select-menu
-            v-model="state.gender"
+            v-model="(state.gender as string)"
             :options="genderOptions"
             value-attribute="value"
             option-attribute="label"
@@ -41,7 +41,7 @@
          required
       >
          <u-input
-            v-model="state.email"
+            v-model="(state.email as string)"
             :disabled="props.disabled || loading"
          ></u-input>
       </u-form-group>
@@ -52,7 +52,7 @@
          required
       >
          <u-input
-            v-model="state.phone_number"
+            v-model="(state.phone_number as string)"
             :disabled="props.disabled || loading"
             @keypress="useValidateNumber"
          ></u-input>
@@ -64,7 +64,7 @@
          required
       >
          <u-input
-            v-model="state.no_str"
+            v-model="(state.no_str as string)"
             :disabled="props.disabled || loading"
             @keypress="useValidateNumber"
          ></u-input>
@@ -76,7 +76,7 @@
          required
       >
          <vue-date-picker
-            v-model="state.str_date"
+            v-model="(state.str_date as string)"
             auto-apply
             :enable-time-picker="false"
             class="cursor-pointer"
@@ -84,7 +84,7 @@
          >
             <template #trigger>
                <u-input
-                  :model-value="state.str_date"
+                  :model-value="(state.str_date as string)"
                   icon="i-heroicons-calendar-solid"
                   readonly="readonly"
                   :disabled="props.disabled || loading"
@@ -99,14 +99,14 @@
          required
       >
          <vue-date-picker
-            v-model="state.sip_date"
+            v-model="(state.sip_date as string)"
             auto-apply
             :enable-time-picker="false"
             @update:model-value="(value: any) => { state.sip_date =  moment(value).format('YYYY-MM-DD') }"
          >
             <template #trigger>
                <u-input
-                  :model-value="state.sip_date"
+                  :model-value="(state.sip_date as string)"
                   icon="i-heroicons-calendar-solid"
                   readonly="readonly"
                   :disabled="props.disabled || loading"
@@ -121,14 +121,14 @@
          required
       >
          <vue-date-picker
-            v-model="state.start_experience"
+            v-model="(state.start_experience as string)"
             auto-apply
             :enable-time-picker="false"
             @update:model-value="(value: any) => { state.start_experience =  moment(value).format('YYYY-MM-DD') }"
          >
             <template #trigger>
                <u-input
-                  :model-value="state.start_experience"
+                  :model-value="(state.start_experience as string)"
                   icon="i-heroicons-calendar-solid"
                   readonly="readonly"
                   :disabled="props.disabled || loading"
@@ -143,7 +143,7 @@
          required
       >
          <u-select-menu
-            v-model="state.province_id"
+            v-model="(state.province_id as number)"
             :options="provinceOptions"
             value-attribute="id"
             option-attribute="province_name"
@@ -162,7 +162,7 @@
          required
       >
          <u-select-menu
-            v-model="state.regency_id"
+            v-model="(state.regency_id as number)"
             :options="regencyOptions"
             :disabled="props.disabled || loading"
             value-attribute="id"
@@ -212,6 +212,22 @@ import * as yup from 'yup'
 import moment from 'moment'
 import { useValidateNumber } from '~/composables/utils'
 
+type FormState = Pick <Model.Doctor, 'full_name' | 'gender' | 'email' | 'phone_number' | 'no_str' | 'str_date' | 'sip_date' | 'start_experience' | 'province_id' | 'regency_id' | 'tags'>
+
+type Schema = yup.ObjectSchema<{
+   full_name: string
+   gender: string
+   email: string
+   phone_number: string
+   no_str: string
+   str_date: string
+   sip_date: string
+   start_experience: string
+   province_id: string
+   regency_id: string
+   tags: any
+}>
+
 const store = useAppStore()
 const props = defineProps<{
    disabled?: boolean
@@ -223,10 +239,10 @@ const genderOptions : ComputedRef <any> = computed(() => [
    { label: 'Laki-laki', value: 'L' },
    { label: 'Perempuan', value: 'P' }
 ])
-const provinceOptions : Ref <Utils.Province[]> = ref([])
-const regencyOptions : Ref <Utils.Regency[]> = ref([])
+const provinceOptions : Ref <API.Response.Province[]> = ref([])
+const regencyOptions : Ref <API.Response.Regency[]> = ref([])
 
-const state : Ref <any> = ref({
+const state : Ref <FormState> = ref({
    full_name: '',
    gender: '',
    email: '',
@@ -240,7 +256,7 @@ const state : Ref <any> = ref({
    tags: []
 })
 
-const validationSchema = yup.object({
+const validationSchema : Schema = yup.object({
    full_name: yup.string().required('Nama harus diisi'),
    gender: yup.string().required('Jenis kelamin harus diisi'),
    email: yup.string().email('Email tidak valid').required('Email harus diisi'),
@@ -254,26 +270,26 @@ const validationSchema = yup.object({
    tags: yup.mixed().nullable()
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await getProvinces()
       .then(resp => {
          provinceOptions.value = resp
       })
 })
 
-const fetchRegencies = async (provinceId: number) => {
+const fetchRegencies = async (provinceId: number) : Promise <void> => {
    await getRegencies(provinceId)
       .then(resp => {
          regencyOptions.value = resp
       })
 }
 
-const onProvinceChange = async (provinceId: number) => {
+const onProvinceChange = async (provinceId: number) : Promise <void> => {
    state.value.regency_id = null
    await fetchRegencies(provinceId)
 }
 
-const submitData = async () => {
+const submitData = async () : Promise <void> => {
    loading.value = true
    await addDoctor(state.value)
       .then(resp => {

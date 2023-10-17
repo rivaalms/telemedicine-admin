@@ -87,7 +87,34 @@
 
 <script setup lang="ts">
 import { updateEmail, updatePhoneNumber } from '@/utils/api/auth'
+import { Form } from '@nuxt/ui/dist/runtime/types';
 import * as yup from 'yup'
+
+namespace Form {
+   export namespace Email {
+      export type State = {
+         email: string
+         password: string
+      }
+
+      export type Schema = yup.ObjectSchema <{
+         email: string
+         password: string
+      }>
+   }
+
+   export namespace Phone {
+      export type State = {
+         phone_number: string
+         password: string
+      }
+
+      export type Schema = yup.ObjectSchema <{
+         phone_number: string
+         password: string
+      }>
+   }
+}
 
 const store = useAppStore()
 const authStore = useAuthStore()
@@ -96,27 +123,27 @@ const loading : Ref <boolean> = ref(false)
 const isEmail : ComputedRef <boolean> = computed(() => store.dialog.type.split('-')[1] === 'email')
 const isOTP : Ref <boolean> = ref(false)
 
-const stateEmail : Ref <any> = ref({
+const stateEmail : Ref <Form.Email.State> = ref({
    email: '',
    password: ''
 })
 
-const statePhone : Ref <any> = ref({
+const statePhone : Ref <Form.Phone.State> = ref({
    phone_number: '',
    password: ''
 })
 
-const validationSchemaEmail = yup.object({
+const validationSchemaEmail : Form.Email.Schema = yup.object({
    email: yup.string().email('Email tidak valid').required('Email harus diisi'),
    password: yup.string().required('Kata sandi harus diisi')
 })
 
-const validationSchemaPhone = yup.object({
+const validationSchemaPhone : Form.Phone.Schema = yup.object({
    phone_number: yup.string().required('No. telepon harus diisi'),
    password: yup.string().required('Kata sandi harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    try {

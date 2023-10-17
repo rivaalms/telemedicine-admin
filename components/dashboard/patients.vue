@@ -7,7 +7,7 @@
          <div class="flex justify-around gap-2">
             <div>
                <vue-date-picker
-                  v-model="filter.start_date"
+                  v-model="(filter.start_date as string)"
                   auto-apply
                   @update:model-value="fetchPatients"
                >
@@ -24,7 +24,7 @@
       
             <div>
                <vue-date-picker
-                  v-model="filter.end_date"
+                  v-model="(filter.end_date as string)"
                   auto-apply
                   @update:model-value="fetchPatients"
                >
@@ -68,7 +68,7 @@ const data : Ref <Dashboard.PatientGender> = ref({
    }
 })
 
-const patientChartOptions = computed(() => {
+const patientChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(() => {
    return {
       chart: {
          id: 'patientChart',
@@ -102,18 +102,18 @@ const patientChartOptions = computed(() => {
    }
 })
 
-const patientChartData = computed(() => [data.value.gender.male!, data.value.gender.female!])
+const patientChartData : ComputedRef <number[]> = computed(() => [data.value.gender.male!, data.value.gender.female!])
 
-const filter : Ref <any> = ref({
+const filter : Ref <Utility.DateRange | { [key: string]: moment.Moment } > = ref({
    start_date: moment().startOf('month'),
    end_date: moment().endOf('month'),
 })
 
-watch(() => props.render, async () => {
+watch(() => props.render, async () : Promise <void> => {
    await fetchPatients()
 })
 
-const fetchPatients = async () => {
+const fetchPatients = async () : Promise <void> => {
    const payload = {
       start_date: moment(filter.value.start_date).format('YYYY-MM-DD'),
       end_date: moment(filter.value.end_date).format('YYYY-MM-DD')

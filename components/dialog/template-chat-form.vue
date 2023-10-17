@@ -53,19 +53,29 @@
 import { createTemplateChat, updateTemplateChat } from '@/utils/api/template-chats'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = {
+      text: string | null
+   }
+
+   export type Schema = yup.ObjectSchema<{
+      text: string
+   }>
+}
+
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
 const isEdit : ComputedRef <boolean> = computed(() => store.dialog.type.includes('edit'))
 
-const state : Ref <Model.TemplateChat> = ref({
+const state : Ref <Form.State> = ref({
    text: isEdit.value ? store.dialog.data.text : null,
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    text: yup.string().max(55, (max) => `Teks tidak boleh lebih dari ${max} karakter`).required('Teks harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    try {

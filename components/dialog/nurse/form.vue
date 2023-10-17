@@ -12,7 +12,7 @@
          required
       >
          <u-input
-            v-model="state.full_name"
+            v-model="(state.full_name as string)"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -88,7 +88,7 @@ import * as yup from 'yup'
 
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
-const genderOptions : ComputedRef <any> = computed(() => [
+const genderOptions : ComputedRef <{ label: string, value: string }[]> = computed(() => [
    { label: 'Laki-laki', value: 'L' },
    { label: 'Perempuan', value: 'P' }
 ])
@@ -107,7 +107,7 @@ const validationSchema = yup.object({
    phone_number: yup.number().typeError('No. telepon harus hanya berisi angka').required('No. telepon harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
    await addNurse(state.value)
       .then((resp) => {

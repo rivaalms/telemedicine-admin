@@ -42,8 +42,8 @@ declare namespace Model {
       type Education = {
          id?: number | null
          doctor_id?: number | null
-         education?: string | number | null
-         graduation_year?: string | number | null
+         education?: string | null
+         graduation_year?: string | null
          created_at?: string | null
          updated_at?: string | null
       }
@@ -72,7 +72,7 @@ declare namespace Model {
          specialist_id?: number | null
          specialist?: string | null
          name?: string | null
-         rate?: number | string | null
+         rate?: number | null
       }
    
       type Schedule = {

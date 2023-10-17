@@ -246,7 +246,7 @@ const loading : Ref <boolean> = ref(false)
 const isEdit : ComputedRef <boolean> = computed(() => store.dialog.type.includes('edit'))
 const dialogData : ComputedRef <Model.Master.Voucher> = computed(() => store.dialog.data)
 
-const imageFile : Ref <any> = ref(null)
+const imageFile : Ref <File | Blob | null> = ref(null)
 const imagePreview : Ref <any> = ref(null)
 
 const typeOptions : ComputedRef <{ value: number, label: string }[]> = computed(() => [
@@ -302,14 +302,14 @@ const validationSchema = yup.object({
    })
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    if (isEdit.value) {
       usersTag.value = await Promise.all(dialogData.value.rules!.users!.split(','))
       tagsInput.value.innerTags = usersTag.value
    }
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    try {
@@ -333,8 +333,8 @@ const submit = async () => {
    }
 }
 
-const onFileChange = (e: any) => {
+const onFileChange = (e: any) : void => {
    imageFile.value = e.target.files[0]
-   imagePreview.value = URL.createObjectURL(imageFile.value)
+   imagePreview.value = URL.createObjectURL(imageFile.value!)
 }
 </script>

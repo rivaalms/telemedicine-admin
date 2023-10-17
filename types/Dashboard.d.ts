@@ -41,7 +41,7 @@ declare namespace Dashboard {
    }
 
    type Ambulance = {
-      ambulance_type: 'Ambulance Standar' | 'Ambulance Transport' | 'Ambulance VIP'
+      ambulance_type: string
       total: number | null
    }
 }

@@ -74,17 +74,27 @@
 import { deactivateUser } from '@/utils/api/users'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = {
+      note: string
+   }
+
+   export type Schema = yup.ObjectSchema<{
+      note: string
+   }>
+}
+
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
-const state : Ref <any> = ref({
+const state : Ref <Form.State> = ref({
    note: ''
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    note: yup.string().required('Catatan harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
    await deactivateUser(store.dialog.data.uuid, state.value.note)
       .then((resp) => {

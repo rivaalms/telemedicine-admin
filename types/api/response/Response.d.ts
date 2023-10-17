@@ -19,13 +19,5 @@ declare namespace API {
          page: number
          per_page: number
       }
-
-      type Error = {
-         response?: {
-            _data?: {
-               messages?: string
-            }
-         }
-      }
    }
 }

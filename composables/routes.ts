@@ -1,12 +1,4 @@
-type Router = {
-   label: string
-   to?: string
-   children?: Router[] | null
-   icon?: string
-   roles?: string | string[]
-}
-
-export const useRoutes : Router[] = [
+export const useRoutes : Utility.Router[] = [
    {
       label: 'Beranda',
       to: '/',

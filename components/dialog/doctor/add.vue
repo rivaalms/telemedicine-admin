@@ -61,18 +61,24 @@
 </template>
 
 <script setup lang="ts">
+type Tab = {
+   slot: string
+   label: string
+   disabled?: boolean
+}
+
 const store = useAppStore()
 
 const isFormDisabled : ComputedRef <boolean> = computed(() => store.dialog.data ? true : false)
 const currentTab : Ref <number> = ref(0)
-const tabs : Ref <any> = ref([
+const tabs : Ref <Tab[]> = ref([
    { slot: 'data', label: 'Data Dokter' },
    { slot: 'details', label: 'Detail', disabled: true },
    { slot: 'image', label: 'Unggah Foto', disabled: true },
    { slot: 'finish', label: 'Selesai', disabled: true }
 ])
 
-const onFormSubmitted = async () => {
+const onFormSubmitted = async () : Promise <void> => {
    await Promise.all(
       tabs.value.map(async (item: any) => {
          if (item.disabled) item.disabled = false

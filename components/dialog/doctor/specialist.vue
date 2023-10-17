@@ -30,6 +30,7 @@
       >
          <u-input
             v-model="state.rate"
+            @keypress="useValidateNumber"
          ></u-input>
       </u-form-group>
    </div>
@@ -62,22 +63,34 @@ import { getSpecialists } from '@/utils/api/masters'
 import { addDoctorSpecialist, updateDoctorSpecialist } from '@/utils/api/doctors'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = {
+      slug: string
+      rate: number
+   }
+
+   export type Schema = yup.ObjectSchema <{
+      slug: string
+      rate: number
+   }>
+}
+
 const store = useAppStore()
 const isEdit : ComputedRef <boolean> = computed(() => store.dialog.type === 'edit-specialist-doctor')
 
-const specialistOptions : Ref <Utils.Specialist[]> = ref([])
+const specialistOptions : Ref <Model.Master.DoctorsSpecialist[]> = ref([])
 const loading : Ref <boolean> = ref(false)
-const state : Ref <any> = ref({
+const state : Ref <Form.State> = ref({
    slug: isEdit.value ? store.dialog.data.slug : '',
-   rate: isEdit.value ? store.dialog.data.rate : ''
+   rate: isEdit.value ? store.dialog.data.rate : 0
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    slug: yup.string().required('Spesialis harus diisi'),
    rate: yup.number().required('Rate harus diisi')
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await getSpecialists()
       .then((resp) => {
          specialistOptions.value = resp
@@ -85,14 +98,14 @@ onBeforeMount(async () => {
 })
 
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    try {
       if (isEdit.value) {
          await updateDoctorSpecialist(store.dialog.data.doctor_specialist_id, state.value)
       } else {
-         const payload : API.Payload.AddDoctorSpecialistPayload = {
+         const payload : API.Request.Doctor.Specialist = {
             uuid: store.dialog.data.uuid,
             doctor_specialists: [ state.value ]
          }

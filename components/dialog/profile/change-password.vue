@@ -13,7 +13,7 @@
          required
       >
          <u-input
-            v-model="state.old_password"
+            v-model="(state.old_password as string)"
             type="password"
             :disabled="loading"
          ></u-input>
@@ -25,7 +25,7 @@
          required
       >
          <u-input
-            v-model="state.password"
+            v-model="(state.password as string)"
             type="password"
             :disabled="loading"
          ></u-input>
@@ -37,7 +37,7 @@
          required
       >
          <u-input
-            v-model="state.password_confirmation"
+            v-model="(state.password_confirmation as string)"
             type="password"
             :disabled="loading"
          ></u-input>
@@ -78,20 +78,35 @@
 import { updatePassword } from '@/utils/api/auth'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = {
+      old_password: string | null
+      password: string | null
+      password_confirmation: string | null
+      phone_number?: string
+   }
+
+   export type Schema = yup.ObjectSchema <{
+      old_password: string
+      password: string
+      password_confirmation: string | undefined
+   }>
+}
+
 const store = useAppStore()
 const authStore = useAuthStore()
 const loading : Ref <boolean> = ref(false)
 const isOTP : Ref <boolean> = ref(false)
 const hash : Ref <string | null> = ref(null)
 
-const state : Ref <any> = ref({
+const state : Ref <Form.State> = ref({
    old_password: null,
    password: null,
    password_confirmation: null,
    phone_number: authStore.getUser?.phone_number
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    old_password: yup.string().required('Kata sandi lama harus diisi'),
    password: yup.string().min(8, 'Kata sandi harus berisi minimal {min} karakter').required('Kata sandi harus diisi'),
    password_confirmation: yup.string().test('password', 'Konfirmasi kata sandi tidak sama', (val, ctx) => val === state.value.password)
@@ -99,14 +114,14 @@ const validationSchema = yup.object({
 
 const submit = async () => {
    loading.value = true
-   await updatePassword(state.value)
+   await updatePassword(state.value as API.Request.Auth.UpdatePassword)
       .then((resp) => {
          hash.value = resp
          store.notify('success', `OTP telah dikirim. Silakan masukkan kode OTP untuk melakukan verifikasi perubahan`)
          isOTP.value = true
       })
       .catch((error: any) => {
-         store.notify('error', error.response?._data.messages || error)
+         store.notify('error', error.response?._data?.messages || error)
       })
       .finally(() => {
          loading.value = false

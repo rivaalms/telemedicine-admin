@@ -71,8 +71,8 @@ import moment from 'moment'
 
 const store = useAppStore()
 const data : Model.Emergency = store.dialog.data
-const gmapKey = computed(() => useRuntimeConfig().public.gmapKey)
-const center = computed(() => {
+const gmapKey : ComputedRef <string> = computed(() => useRuntimeConfig().public.gmapKey)
+const center : ComputedRef <{ lat: number, lng: number }> = computed(() => {
    return { lat: parseFloat(data.map_lat!), lng: parseFloat(data.map_lng!) }
 })
 </script>

@@ -99,7 +99,7 @@ const dialogData : ComputedRef <Model.Master.DoctorsSpecialist> = computed(() =>
 const loading : Ref <boolean> = ref(false)
 const isEdit : ComputedRef <boolean> = computed(() => store.dialog.type === 'edit-specialist')
 
-const imageFile : Ref <any> = ref(null)
+const imageFile : Ref <File | Blob | null> = ref(null)
 const imagePreview : Ref <string | null> = ref(null)
 
 const state : Ref <Model.Master.DoctorsSpecialist> = ref({
@@ -118,7 +118,7 @@ const validationSchema = yup.object({
    tags: yup.mixed().notRequired()
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    try {
@@ -144,6 +144,6 @@ const submit = async () => {
 
 const onFileChange = (e: any) => {
    imageFile.value = e.target.files[0]
-   imagePreview.value = URL.createObjectURL(imageFile.value)
+   imagePreview.value = URL.createObjectURL(imageFile.value!)
 }
 </script>

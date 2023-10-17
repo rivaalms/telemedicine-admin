@@ -1,8 +1,8 @@
 <template>
 <app-data-table
    :columns="useEmergencyReportTableHeader"
-   :rows="(data as TData).data"
-   :data-length="(data as TData).total"
+   :rows="(data as Data).data"
+   :data-length="(data as Data).total"
    :loading="loading"
    hide-search-input
    @data-emit="(search: string, page: number, perPage: number) => emitHandler(search, page, perPage)"
@@ -14,16 +14,16 @@ import { getReports } from '@/utils/api/emergency'
 
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
-const data : Ref <TData | []> = ref([])
+const data : Ref <Data | []> = ref([])
 const page : Ref <number> = ref(1)
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchReports()
 })
 
-const fetchReports = async () => {
+const fetchReports = async () : Promise <void> => {
    loading.value = true
-   const payload = {
+   const payload : API.Request.Emergency.Report = {
       ...store.dialog.data,
       page: page.value
    }
@@ -43,5 +43,5 @@ const emitHandler = async (eSearch: string, ePage: number, ePerPage: number) => 
    await fetchReports()
 }
 
-type TData = API.Response.LaravelPaginate <Model.Emergency[]>
+type Data = API.Response.LaravelPaginate <Model.Emergency[]>
 </script>

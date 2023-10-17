@@ -1,7 +1,7 @@
 declare namespace Model {
    type User = {
       uuid?: string
-      full_name?: string
+      full_name?: string | null
       gender?: string | null
       email?: string | null
       email_tmp?: string | null
@@ -12,7 +12,7 @@ declare namespace Model {
       mobile_id?: string | null
       nik?: string | null
       parse?: string | number | null
-      reset?: any
+      reset?: string | null
       registered_at?: string | null
       email_verified_at?: string | null
       activation_code?: string | number | null
@@ -36,7 +36,7 @@ declare namespace Model {
       role_id?: number | null
    }
 
-   type Officer = Pick <User, 'uuid' | 'full_name' | 'email' | 'phone_number' | 'created_at'> & {
+   type Officer = Pick <User, 'uuid' | 'full_name' | 'email' | 'phone_number' | 'created_at' | 'gender'> & {
       employee_no?: string | number | null
       position?: string | null
    }

@@ -22,186 +22,94 @@
 </template>
 
 <script setup lang="ts">
-import {
-   LazyDialogEmergencyDetails,
-   LazyDialogEmergencyReport,
-   LazyDialogUserBan,
-   LazyDialogUserActivate,
-   LazyDialogUserDeactivate,
-   LazyDialogUserTopUp,
-   LazyDialogDoctorEditPersonalData,
-   LazyDialogDoctorSpecialist,
-   LazyDialogDoctorEducation,
-   LazyDialogDoctorMedicalFacility,
-   LazyDialogDoctorSchedules,
-   LazyDialogDoctorAdd,
-   LazyDialogOfficerForm,
-   LazyDialogAdminForm,
-   LazyDialogNurseForm,
-   LazyDialogAmbulanceForm,
-   LazyDialogMastersSpecialistForm,
-   LazyDialogMastersUpdateImage,
-   LazyDialogMastersAdvertisementForm,
-   LazyDialogMastersVoucherForm,
-   LazyDialogTemplateChatForm,
-   LazyDialogDelete,
-   LazyDialogProfileForm,
-   LazyDialogProfileChangePassword,
-   LazyDialogLogout
-} from '#components'
-
 const store = useAppStore()
 
 const dialogComponent : Ref <any> = ref('div')
 const dialogWidth : Ref <string> = ref('sm:max-w-lg')
 
-watch(() => store.dialog.show, () => {
+const dialogComponentMap : { [key: string]: () => Promise <any> } = {
+   'details-emergency': () => import('@/components/dialog/emergency/details.vue'),
+   'report-emergency': () => import('@/components/dialog/emergency/report.vue'),
+   'ban-user': () => import('@/components/dialog/user/ban.vue'),
+   'unban-user': () => import('@/components/dialog/user/activate.vue'),
+   'activate-user': () => import('@/components/dialog/user/activate.vue'),
+   'deactivate-user': () => import('@/components/dialog/user/deactivate.vue'),
+   'top-up-user': () => import('@/components/dialog/user/top-up.vue'),
+   'add-doctor': () => import('@/components/dialog/doctor/add.vue'),
+   'edit-personal-data-doctor': () => import('@/components/dialog/doctor/edit-personal-data.vue'),
+   'add-specialist-doctor': () => import('@/components/dialog/doctor/specialist.vue'),
+   'add-education-doctor': () => import('@/components/dialog/doctor/education.vue'),
+   'add-medical-facility-doctor': () => import('@/components/dialog/doctor/medical-facility.vue'),
+   'add-schedule-doctor': () => import('@/components/dialog/doctor/schedules.vue'),
+
+   'add-officer': () => import('@/components/dialog/officer/form.vue'),
+   'add-admin': () => import('@/components/dialog/admin/form.vue'),
+   'add-nurse': () => import('@/components/dialog/nurse/form.vue'),
+
+   'add-ambulance': () => import('@/components/dialog/ambulance/form.vue'),
+   'edit-ambulance': () => import('@/components/dialog/ambulance/form.vue'),
+
+   'add-specialist': () => import('@/components/dialog/masters/specialist/form.vue'),
+   'edit-specialist': () => import('@/components/dialog/masters/specialist/form.vue'),
+
+   'add-advertisement': () => import('@/components/dialog/masters/advertisement/form.vue'),
+   'edit-advertisement': () => import('@/components/dialog/masters/advertisement/form.vue'),
+
+   'add-voucher': () => import('@/components/dialog/masters/voucher-form.vue'),
+   'edit-voucher': () => import('@/components/dialog/masters/voucher-form.vue'),
+
+   'edit-image-specialist': () => import('@/components/dialog/masters/update-image.vue'),
+   'edit-image-advertisement': () => import('@/components/dialog/masters/update-image.vue'),
+   'edit-image-voucher': () => import('@/components/dialog/masters/update-image.vue'),
+
+   'add-template-chat': () => import('@/components/dialog/template-chat-form.vue'),
+   'edit-template-chat': () => import('@/components/dialog/template-chat-form.vue'),
+
+   'edit-email-profile': () => import('@/components/dialog/profile/form.vue'),
+   'edit-phone-profile': () => import('@/components/dialog/profile/form.vue'),
+   'edit-password-profile': () => import('@/components/dialog/profile/change-password.vue'),
+
+   'delete-specialist-doctor': () => import('@/components/dialog/delete.vue'),
+   'delete-education-doctor': () => import('@/components/dialog/delete.vue'),
+   'delete-medical-facility-doctor': () => import('@/components/dialog/delete.vue'),
+   'delete-ambulance': () => import('@/components/dialog/delete.vue'),
+   'delete-specialist': () => import('@/components/dialog/delete.vue'),
+   'delete-advertisement': () => import('@/components/dialog/delete.vue'),
+   'delete-voucher': () => import('@/components/dialog/delete.vue'),
+
+   'logout': () => import('@/components/dialog/logout.vue')
+}
+
+const dialogWidthMap : { [key: string]: string } = {
+   'details-emergency': 'sm:max-w-5xl',
+   'report-emergency': 'sm:max-w-5xl',
+   'add-doctor': 'sm:max-w-xl md:max-w-3xl lg:max-w-5xl',
+   'edit-personal-data-doctor': 'sm:max-w-xl md:max-w-2xl lg:max-w-4xl',
+   'add-officer': 'sm:max-w-2xl',
+   'add-admin': 'sm:max-w-2xl',
+   'add-voucher': 'sm:max-w-3xl',
+   'edit-voucher': 'sm:max-w-3xl',
+}
+
+watch(() => store.dialog.show, async() => {
    if (!store.dialog.show) {
       store.clearDialog()
       setTimeout(() => {
          dialogWidth.value = 'sm:max-w-lg'
          dialogComponent.value = 'div'
       }, 600)
-   }
-   else {
-      switch (store.dialog.type) {
-         case 'details-emergency':
-            dialogComponent.value = LazyDialogEmergencyDetails
-            dialogWidth.value = 'sm:max-w-5xl'
-            break
+   } else {
+      const component = dialogComponentMap[store.dialog.type]
+      if (component) dialogComponent.value = (await component()).default
+      else dialogComponent.value = 'div'
 
-         case 'report-emergency':
-            dialogComponent.value = LazyDialogEmergencyReport
-            dialogWidth.value = 'sm:max-w-5xl'
-            break
-
-         case 'ban-user':
-            dialogComponent.value = LazyDialogUserBan
-            break
-
-         case 'activate-user':
-         case 'unban-user':
-            dialogComponent.value = LazyDialogUserActivate
-            break
-
-         case 'deactivate-user':
-            dialogComponent.value = LazyDialogUserDeactivate
-            break
-
-         case 'top-up-user':
-            dialogComponent.value = LazyDialogUserTopUp
-            break
-
-         case 'add-doctor':
-            dialogComponent.value = LazyDialogDoctorAdd
-            dialogWidth.value = 'sm:max-w-xl md:max-w-3xl lg:max-w-5xl'
-            break
-
-         case 'edit-personal-data-doctor':
-            dialogComponent.value = LazyDialogDoctorEditPersonalData
-            dialogWidth.value = 'sm:max-w-xl md:max-w-2xl lg:max-w-4xl'
-            break
-
-         case 'add-specialist-doctor':
-         case 'edit-specialist-doctor':
-            dialogComponent.value = LazyDialogDoctorSpecialist
-            break
-
-         case 'add-education-doctor':
-         case 'edit-education-doctor':
-            dialogComponent.value = LazyDialogDoctorEducation
-            break
-
-         case 'add-medical-facility-doctor':
-         case 'edit-medical-facility-doctor':
-            dialogComponent.value = LazyDialogDoctorMedicalFacility
-            break
-
-         case 'add-schedule-doctor':
-         case 'edit-schedule-doctor':
-            dialogComponent.value = LazyDialogDoctorSchedules
-            break
-
-         case 'add-officer':
-            dialogComponent.value = LazyDialogOfficerForm
-            dialogWidth.value = 'sm:max-w-2xl'
-            break
-
-         case 'add-admin':
-            dialogComponent.value = LazyDialogAdminForm
-            dialogWidth.value = 'sm:max-w-2xl'
-            break
-
-         case 'add-nurse':
-            dialogComponent.value = LazyDialogNurseForm
-            break
-
-         case 'add-ambulance':
-         case 'edit-ambulance':
-            dialogComponent.value = LazyDialogAmbulanceForm
-            break
-
-         case 'add-specialist':
-         case 'edit-specialist':
-            dialogComponent.value = LazyDialogMastersSpecialistForm
-            break
-
-         case 'add-advertisement':
-         case 'edit-advertisement':
-            dialogComponent.value = LazyDialogMastersAdvertisementForm
-            break
-
-         case 'add-voucher':
-         case 'edit-voucher':
-            dialogComponent.value = LazyDialogMastersVoucherForm
-            dialogWidth.value = 'sm:max-w-3xl'
-            break
-
-         case 'edit-image-specialist':
-         case 'edit-image-advertisement':
-         case 'edit-image-voucher':
-            dialogComponent.value = LazyDialogMastersUpdateImage
-            break
-
-         case 'add-template-chat':
-         case 'edit-template-chat':
-            dialogComponent.value = LazyDialogTemplateChatForm
-            break
-
-         case 'edit-email-profile':
-         case 'edit-phone-profile':
-            dialogComponent.value = LazyDialogProfileForm
-            break
-
-         case 'edit-password-profile':
-            dialogComponent.value = LazyDialogProfileChangePassword
-            break
-
-         case 'delete-specialist-doctor':
-         case 'delete-education-doctor':
-         case 'delete-medical-facility-doctor':
-         case 'delete-ambulance':
-         case 'delete-specialist':
-         case 'delete-advertisement':
-         case 'delete-voucher':
-            dialogComponent.value = LazyDialogDelete
-            break
-
-         case 'logout':
-            dialogComponent.value = LazyDialogLogout
-            break
-
-         default:
-            dialogComponent.value = 'div'
-            dialogWidth.value = 'sm:max-w-lg'
-            break
-      }
+      dialogWidth.value = dialogWidthMap[store.dialog.type] || 'sm:max-w-lg'
    }
 })
 
-const dialogUI : ComputedRef <any> = computed(() => {
+const dialogUI : ComputedRef <{ [key: string]: string }> = computed(() => {
    return {
-      base: "relative text-left rtl:text-right overflow-visible flex flex-col",
+      base: 'relative text-left rtl:text-right overflow-visible flex flex-col',
       width: dialogWidth.value
    }
 })

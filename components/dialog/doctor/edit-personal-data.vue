@@ -22,13 +22,13 @@
          required
       >
          <u-select-menu
-            v-model="state.gender"
+            v-model="(state.gender as string)"
             :options="genderOptions"
             value-attribute="value"
             option-attribute="label"
          >
             <template #label>
-               {{ genderOptions.find((item: any) => item.value === state.gender).label }}
+               {{ genderOptions.find((item) => item.value === state.gender)!.label }}
             </template>
          </u-select-menu>
       </u-form-group>
@@ -45,7 +45,7 @@
          >
             <template #trigger>
                <u-input
-                  :model-value="state.str_date"
+                  :model-value="(state.str_date as string)"
                   readonly="readonly"
                ></u-input>
             </template>
@@ -64,7 +64,7 @@
          >
             <template #trigger>
                <u-input
-                  :model-value="state.sip_date"
+                  :model-value="(state.sip_date as string)"
                   readonly="readonly"
                ></u-input>
             </template>
@@ -77,7 +77,7 @@
          required
       >
          <u-select-menu
-            v-model="state.province_id"
+            v-model="(state.province_id as number)"
             :options="provinceOptions"
             value-attribute="id"
             option-attribute="province_name"
@@ -95,7 +95,7 @@
          required
       >
          <u-select-menu
-            v-model="state.regency_id"
+            v-model="(state.regency_id as number)"
             :options="regencyOptions"
             value-attribute="id"
             option-attribute="regency_name"
@@ -138,9 +138,24 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import moment from 'moment'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = Pick <Model.Doctor, 'full_name' | 'gender' | 'str_date' | 'sip_date' | 'province_id' | 'regency_id' | 'uuid' | 'no_str' | 'tags'>
+
+   export type Schema = yup.ObjectSchema<{
+      full_name: string
+      gender: string
+      str_date: string
+      sip_date: string
+      province_id: number
+      regency_id: number
+      uuid: string
+      no_str: string
+   }>
+}
+
 const store = useAppStore()
 
-const state = ref({
+const state : Ref <Form.State> = ref({
    full_name: store.dialog.data.full_name,
    gender: store.dialog.data.gender,
    str_date: store.dialog.data.str_date,
@@ -152,7 +167,7 @@ const state = ref({
    tags: []
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    full_name: yup.string().required('Nama harus diisi'),
    gender: yup.string().required('Jenis kelamin harus diisi'),
    str_date: yup.string().required('Masa berlaku STR harus diisi'),
@@ -164,14 +179,14 @@ const validationSchema = yup.object({
 })
 
 const loading : Ref <boolean> = ref(false)
-const genderOptions : ComputedRef <any> = computed(() => [
+const genderOptions : ComputedRef <{ [key: string]: string }[]> = computed(() => [
    { label: 'Laki-laki', value: 'L' },
    { label: 'Perempuan', value: 'P' }
 ])
-const provinceOptions : Ref <Utils.Province[]> = ref([])
-const regencyOptions : Ref <Utils.Regency[]> = ref([])
+const provinceOptions : Ref <API.Response.Province[]> = ref([])
+const regencyOptions : Ref <API.Response.Regency[]> = ref([])
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await getProvinces()
       .then(resp => {
          provinceOptions.value = resp
@@ -180,19 +195,19 @@ onBeforeMount(async () => {
    await fetchRegencies()
 })
 
-const fetchRegencies = async () => {
-   await getRegencies(state.value.province_id)
+const fetchRegencies = async () : Promise <void> => {
+   await getRegencies(state.value.province_id!)
       .then(resp => {
          regencyOptions.value = resp
       })
 }
 
-const onProvinceChange = async () => {
+const onProvinceChange = async () : Promise <void> => {
    state.value.regency_id = null
    await fetchRegencies()
 }
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
    await updateDoctor(state.value)
       .then((resp) => {

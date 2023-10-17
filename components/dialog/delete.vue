@@ -31,7 +31,7 @@ import { deleteSpecialist, deleteAdvertisement, deleteVoucher } from '@/utils/ap
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
 
-const confirmDelete = async () => {
+const confirmDelete = async () : Promise <void> => {
    const data = store.dialog.data
    loading.value = true
    let messageType: string = ''

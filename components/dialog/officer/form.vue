@@ -12,7 +12,7 @@
          required
       >
          <u-input
-            v-model="state.employee_no"
+            v-model="(state.employee_no as string)"
             @keypress="useValidateNumber"
          ></u-input>
       </u-form-group>
@@ -23,7 +23,7 @@
          required
       >
          <u-input
-            v-model="state.name"
+            v-model="(state.full_name as string)"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -34,7 +34,7 @@
          required
       >
          <u-select-menu
-            v-model="state.gender"
+            v-model="(state.gender as string)"
             :options="genderOptions"
             value-attribute="value"
             option-attribute="label"
@@ -52,7 +52,7 @@
          required
       >
          <u-input
-            v-model="state.email"
+            v-model="(state.email as string)"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -63,7 +63,7 @@
          required
       >
          <u-input
-            v-model="state.phone_number"
+            v-model="(state.phone_number as string)"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -74,7 +74,7 @@
          required
       >
          <u-select-menu
-            v-model="state.position"
+            v-model="(state.position as string)"
             :options="positionOptions"
             :disabled="loading"
          >
@@ -112,6 +112,18 @@
 import { addOfficer } from '@/utils/api/users'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = Model.Officer
+   export type Schema = yup.ObjectSchema<{
+      full_name: string
+      gender: string
+      email: string
+      phone_number: number
+      employee_no: number
+      position: string
+   }>
+}
+
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
 const positionOptions : Ref <string[]> = ref([ 'DRIVER' ])
@@ -120,7 +132,7 @@ const genderOptions : ComputedRef <any> = computed(() => [
    { label: 'Perempuan', value: 'P' }
 ])
 
-const state : Ref <any> = ref({
+const state : Ref <Form.State> = ref({
    full_name: '',
    gender: '',
    email: '',
@@ -129,7 +141,7 @@ const state : Ref <any> = ref({
    position: ''
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    full_name: yup.string().required('Nama harus diisi'),
    gender: yup.string().required('Jenis kelamin harus diisi'),
    email: yup.string().email('Email tidak valid').required('Email harus diisi'),
@@ -138,7 +150,7 @@ const validationSchema = yup.object({
    position: yup.string().required('Posisi harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
    await addOfficer(state.value)
       .then((resp) => {

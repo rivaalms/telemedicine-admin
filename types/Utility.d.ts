@@ -9,6 +9,20 @@ declare namespace Utility {
       label?: string
    }
 
+   type Router = {
+      label: string
+      to?: string
+      children?: Router[] | null
+      icon?: string
+      roles?: string | string[]
+   }
+
+   type HeaderMenu = {
+      label: string
+      slot?: string
+      click?: () => void
+   }
+
    namespace LogsReport {
       type UpdatedAt = {
          __type?: string | null

@@ -134,7 +134,7 @@ const loading : Ref <boolean> = ref(false)
 const isEdit : ComputedRef <boolean> = computed(() => store.dialog.type === 'edit-advertisement')
 const dialogData : ComputedRef <Model.Master.Advertisement> = computed(() => store.dialog.data)
 
-const imageFile : Ref <any> = ref(null)
+const imageFile : Ref <File | Blob | null> = ref(null)
 const imagePreview : Ref <any> = ref(null)
 
 const state : Ref <Model.Master.Advertisement> = ref({
@@ -151,7 +151,7 @@ const validationSchema = yup.object({
    end_date: yup.string().required('Tanggal berakhir harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    try {
@@ -175,8 +175,8 @@ const submit = async () => {
    }
 }
 
-const onFileChange = (e: any) => {
+const onFileChange = (e: any) : void => {
    imageFile.value = e.target.files[0]
-   imagePreview.value = URL.createObjectURL(imageFile.value)
+   imagePreview.value = URL.createObjectURL(imageFile.value!)
 }
 </script>

@@ -70,7 +70,7 @@ const amountMonthly : Ref <any> = ref([])
 const summaryMonthly : Ref <any> = ref([])
 const year : Ref <any> = ref(moment().format('YYYY'))
 
-const amountChartData = computed(() => {
+const amountChartData : ComputedRef <{ [key: string]: any }[]> = computed(() => {
    const value: any = []
    
    amountMonthly.value.forEach((item: any, index: any) => {
@@ -89,7 +89,7 @@ const amountChartData = computed(() => {
    }]
 })
 
-const amountChartOptions = computed(() => {
+const amountChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(() => {
    return {
       chart: {
          id: 'amountChart',
@@ -129,7 +129,7 @@ const amountChartOptions = computed(() => {
    }
 })
 
-const summaryChartData = computed(() => {
+const summaryChartData : ComputedRef <{ [key: string]: any }[]> = computed(() => {
    const value: any = []
 
    summaryMonthly.value.forEach((item: any, index: any) => {
@@ -148,7 +148,7 @@ const summaryChartData = computed(() => {
    }]
 })
 
-const summaryChartOptions = computed(() => {
+const summaryChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(() => {
    return {
       chart: {
          id: 'summaryChart',
@@ -176,11 +176,11 @@ const summaryChartOptions = computed(() => {
    }
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchTransactionIncome()
 })
 
-const fetchTransactionIncome = async () => {
+const fetchTransactionIncome = async () : Promise <void> => {
    await getTransactionIncome(year.value)
       .then((resp) => {
          let number = 1

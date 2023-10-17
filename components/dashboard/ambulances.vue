@@ -22,7 +22,7 @@ const props = defineProps<{ render?: boolean }>()
 const data : Ref <Dashboard.Ambulance[]> = ref([])
 const total : Ref <number> = ref(0)
 
-const ambulanceChartOptions = computed(() => {
+const ambulanceChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(() => {
    return {
       chart: {
          id: 'ambulanceChart',
@@ -56,13 +56,13 @@ const ambulanceChartOptions = computed(() => {
    }
 })
 
-const ambulanceChartData = computed(() => data.value.map(item => item.total))
+const ambulanceChartData : ComputedRef <number[]> = computed(() => data.value.map(item => item.total!))
 
-watch(() => props.render, async () => {
+watch(() => props.render, async () : Promise <void> => {
    await fetchSummaryAmbulance()
 })
 
-const fetchSummaryAmbulance = async () => {
+const fetchSummaryAmbulance = async () : Promise <void> => {
    await getSummaryAmbulance()
       .then((resp) => {
          resp.forEach(item => {

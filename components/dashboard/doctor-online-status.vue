@@ -57,13 +57,20 @@
 <script setup lang="ts">
 import { getDoctorOnlineStatus } from '@/utils/api/dashboard'
 
+type DoctorAvailability = {
+   name: string
+   profile_picture: string
+   consultation: number
+   emergency: number
+}
+
 const data : Ref <DoctorAvailability[]> = ref([])
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchDoctorOnlineStatus()
 })
 
-const fetchDoctorOnlineStatus = async () => {
+const fetchDoctorOnlineStatus = async () : Promise <void> => {
    await getDoctorOnlineStatus()
       .then((resp) => {
          resp.forEach((item) => {
@@ -83,7 +90,7 @@ const fetchDoctorOnlineStatus = async () => {
       })
 }
 
-const onlineIndicatorColor = (status: number) => {
+const onlineIndicatorColor = (status: number) : string => {
    switch (status) {
       case 0:
          return 'text-red-500'
@@ -94,12 +101,5 @@ const onlineIndicatorColor = (status: number) => {
       default:
          return ''
    }
-}
-
-type DoctorAvailability = {
-   name: string
-   profile_picture: string
-   consultation: number
-   emergency: number
 }
 </script>

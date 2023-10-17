@@ -62,7 +62,7 @@ const otpInput : Ref <InstanceType <typeof VOtpInput> | null> = ref(null)
 const countdown : Ref <number> = ref(60)
 const { isActive, resume, pause } = useTimeoutPoll(() => handleCountdown(), 1000)
 
-onBeforeMount(() => {
+onBeforeMount(() : void => {
    resume()
 })
 
@@ -71,7 +71,7 @@ const handleCountdown = () : void => {
    else pause()
 }
 
-const onResendOtp = async () => {
+const onResendOtp = async () : Promise <void> => {
    await resendOTP(props.phoneNumber)
       .then((resp) => {
          store.notify('info', 'Kode OTP berhasil dikirim ulang')
@@ -79,14 +79,14 @@ const onResendOtp = async () => {
          resume()
       })
       .catch((error: any) => {
-         store.notify('error', error.response?._data.messages || error)
+         store.notify('error', error.response?._data?.messages || error)
       })
 }
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
-   const payload : API.Payload.VerifyOTPPayload = {
+   const payload : API.Request.Auth.OTP = {
       hash: props.hash || null,
       is_type: useOtpType.find((item: any) => item.type === props.type)?.value!,
       phone_number: props.phoneNumber,

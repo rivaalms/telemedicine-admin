@@ -54,7 +54,7 @@
                icon="i-heroicons-photo"
                @click.stop="() => {
                   cancelCrop()
-                  imageInput.click()
+                  imageInput!.click()
                }"
             >
                {{ !imageFile ? 'Pilih Foto' : 'Ubah Foto' }}
@@ -104,14 +104,14 @@ const emit = defineEmits(['nextTab', 'prevTab'])
 const loading : Ref <boolean> = ref(false)
 const image : Ref <any> = ref(null)
 const croppedImage : Ref <any> = ref(null)
-const imageFile : Ref <any> = ref(null)
-const imageInput : Ref <any> = ref()
+const imageFile : Ref <Blob | File | null> = ref(null)
+const imageInput : Ref <HTMLInputElement | undefined> = ref()
 const cropper : Ref <any> = ref()
 const isCropping : Ref <boolean> = ref(false)
 const isImageUploaded : Ref <boolean> = ref(false)
 
-   const setImage = (event: any) => {
-   const file = event.target!.files[0]
+const setImage = (event: any) : void => {
+   const file : Blob = event.target!.files[0]
    if (file.type.indexOf('image/') < 0) {
       store.notify('error', 'Data yang dipilih harus berupa gambar')
       return
@@ -134,7 +134,7 @@ const isImageUploaded : Ref <boolean> = ref(false)
    }
 }
 
-const cropImage = async () => {
+const cropImage = async () : Promise <void> => {
    croppedImage.value = cropper.value.getCroppedCanvas().toDataURL()
 
    cropper.value.getCroppedCanvas().toBlob(async (blob: any) => {
@@ -161,13 +161,13 @@ const cropImage = async () => {
    isCropping.value = false
 }
 
-const reduceFileRes = async (fileImg: any) => {
+const reduceFileRes = async (fileImg: any) : Promise <unknown> => {
    return new Promise((resolve, reject) => {
       const maxWidth = 600
       const maxHeight = 600
       const mimeType = 'image/png'
       const quality = 1
-      let result
+      let result : File
 
       const blobUrl = URL.createObjectURL(fileImg)
       const img = new Image()
@@ -196,16 +196,16 @@ const reduceFileRes = async (fileImg: any) => {
    })
 }
 
-const cancelCrop = () => {
+const cancelCrop = () : void => {
    image.value = null
    croppedImage.value = null
    imageFile.value = null
    isCropping.value = false
 }
 
-const uploadImage = async () => {
+const uploadImage = async () : Promise <void> => {
    loading.value = true
-   await addDoctorImage(store.dialog.data!.uuid!, imageFile.value)
+   await addDoctorImage(store.dialog.data!.uuid!, imageFile.value!)
       .then((resp) => {
          store.dialog.data = resp
          isImageUploaded.value = true

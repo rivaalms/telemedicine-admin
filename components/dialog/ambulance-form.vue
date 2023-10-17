@@ -78,26 +78,36 @@
 import { createAmbulance, updateAmbulance } from '@/utils/api/ambulance'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = Model.Ambulance
+   export type Schema = yup.ObjectSchema <{
+      plate_number: string
+      ambulance_type: string
+      vehicle_type: string
+      status: string
+   }>
+}
+
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
 const isEdit : ComputedRef <boolean> = computed(() => store.dialog.type === 'edit-ambulance')
 const dialogData : ComputedRef <Model.Ambulance> = computed(() => (store.dialog.data as Model.Ambulance))
 
-const state : Ref <Model.Ambulance> = ref({
+const state : Ref <Form.State> = ref({
    plate_number: isEdit.value ? dialogData.value.plate_number : null,
    ambulance_type: isEdit.value ? dialogData.value.ambulance_type : null,
    vehicle_type: isEdit.value ? dialogData.value.vehicle_type : null,
    status: isEdit.value ? dialogData.value.status : null
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    plate_number: yup.string().required('Plat nomor harus diisi'),
    ambulance_type: yup.string().required('Tipe ambulance harus diisi'),
    vehicle_type: yup.string().required('Tipe kendaraan harus diisi'),
    status: yup.string().required('Status harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
    try {
       if (isEdit.value) {

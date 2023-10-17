@@ -12,7 +12,7 @@
          required
       >
          <u-input
-            v-model="state.full_name"
+            v-model="(state.full_name as string)"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -23,7 +23,7 @@
          required
       >
          <u-select-menu
-            v-model="state.gender"
+            v-model="(state.gender as string)"
             :options="genderOptions"
             value-attribute="value"
             option-attribute="label"
@@ -40,7 +40,7 @@
          required
       >
          <u-input
-            v-model="state.phone_number"
+            v-model="(state.phone_number as string)"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -51,7 +51,7 @@
          required
       >
          <u-input
-            v-model="state.email"
+            v-model="state.email as string"
             :disabled="loading"
          ></u-input>
       </u-form-group>
@@ -62,7 +62,7 @@
          required
       >
          <u-input
-            v-model="state.password"
+            v-model="(state.password as string)"
             type="password"
             :disabled="loading"
          ></u-input>
@@ -74,7 +74,7 @@
          required
       >
          <u-select-menu
-            v-model="state.role_id"
+            v-model="(state.role_id as number)"
             :options="roleOptions"
             value-attribute="id"
             option-attribute="name"
@@ -93,7 +93,7 @@
          required
       >
          <u-select-menu
-            v-model="state.medical_facility_id"
+            v-model="(state.medical_facility_id as number)"
             :options="medicalFacilityOptions"
             value-attribute="id"
             option-attribute="name"
@@ -134,17 +134,32 @@ import { addAdmin } from '@/utils/api/users'
 import { getMedicalFacilities, getRoles } from '@/utils/api/utils'
 import * as yup from 'yup'
 
+type FormState = Pick <Model.User, 'full_name' | 'phone_number' | 'email' | 'role_id' | 'gender'> & {
+   medical_facility_id: number | null
+   password: string | null
+}
+
+type Schema = yup.ObjectSchema<{
+   full_name: string
+   phone_number: number
+   email: string
+   role_id: number
+   medical_facility_id: number
+   gender: string
+   password: string
+}>
+
 const store = useAppStore()
 const authStore = useAuthStore()
-const medicalFacilityOptions : Ref <Model.MedicalFacility[]> = ref([])
-const roleOptions : Ref <Utils.Role[]> = ref([])
+const medicalFacilityOptions : Ref <Model.Doctor.MedicalFacility[]> = ref([])
+const roleOptions : Ref <Utility.User.Role[]> = ref([])
 const genderOptions : ComputedRef <any> = computed(() => [
    { label: 'Laki-laki', value: 'L' },
    { label: 'Perempuan', value: 'P' }
 ])
 const loading : Ref <boolean> = ref(false)
 
-const state : Ref <any> = ref({
+const state : Ref <FormState> = ref({
    full_name: null,
    phone_number: null,
    email: null,
@@ -154,7 +169,7 @@ const state : Ref <any> = ref({
    password: null
 })
 
-const validationSchema = yup.object({
+const validationSchema : Schema = yup.object({
    full_name: yup.string().required('Nama harus diisi'),
    phone_number: yup.number().typeError('No. telepon harus hanya berisi angka').required('No. telepon harus diisi'),
    email: yup.string().email('Email tidak valid').required('Email harus diisi'),
@@ -164,7 +179,7 @@ const validationSchema = yup.object({
    password: yup.string().min(8, 'Kata sandi harus berisi minimal ${min} karakter').required('Kata sandi harus diisi')
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await getRoles()
       .then((resp) => {
          roleOptions.value = resp
@@ -180,7 +195,7 @@ onBeforeMount(async () => {
    }
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
    await addAdmin(state.value)
       .then((resp) => {

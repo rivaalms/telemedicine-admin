@@ -66,21 +66,29 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = Omit <API.Request.Doctor.Education, 'uuid'>
+   export type Schema = yup.ObjectSchema<{
+      education: string
+      graduation_year: string
+   }>
+}
+
 const store = useAppStore()
 const isEdit : ComputedRef <boolean> = computed(() => store.dialog.type === 'edit-education-doctor')
 
 const loading : Ref <boolean> = ref(false)
-const state : Ref <any> = ref({
+const state : Ref <Form.State> = ref({
    education: isEdit.value ? store.dialog.data.education : '',
    graduation_year: isEdit.value ? store.dialog.data.graduation_year : '',
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    education: yup.string().required('Nama universitas harus diisi'),
    graduation_year: yup.string().required('Tahun kelulusan harus diisi'),
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    try {

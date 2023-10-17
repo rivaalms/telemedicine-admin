@@ -51,7 +51,7 @@
 const store = useAppStore()
 const authStore = useAuthStore()
 
-const menu = computed(() => [
+const menu : ComputedRef <Utility.HeaderMenu[][]> = computed(() => [
    [
       {
          label: 'Profil saya',

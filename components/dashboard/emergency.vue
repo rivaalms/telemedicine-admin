@@ -77,7 +77,7 @@ const emergencyChartData : ComputedRef <any> = computed(() => {
    ]
 })
 
-const emergencyChartOptions : ComputedRef <any> = computed(() => {
+const emergencyChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(() => {
    return {
       chart: {
          id: 'emergencyChart',
@@ -106,11 +106,11 @@ const emergencyChartOptions : ComputedRef <any> = computed(() => {
    }
 })
 
-onBeforeMount(async () => {
+onBeforeMount(async () : Promise <void> => {
    await fetchEmergencyTrends()
 })
 
-const fetchEmergencyTrends = async () => {
+const fetchEmergencyTrends = async () : Promise <void> => {
    await getEmergencyTrends(year.value)
       .then((resp) => {
          const data = resp.summaryMonthly
@@ -130,13 +130,13 @@ const fetchEmergencyTrends = async () => {
       })
 }
 
-const onChartClicked = async (config: any) => {
+const onChartClicked = async (config: any) : Promise <void> => {
    const { dataPointIndex, seriesIndex } : { [key: string]: number } = config
 
    const data = trendData.value[dataPointIndex]
    const status = config.w.config.series[seriesIndex].name
 
-   const payload : API.Payload.EmergencyReport = {
+   const payload : API.Request.Emergency.Report = {
       start_date: moment(`${data.month} ${year.value}`, 'MMMM YYYY').startOf('month').format('YYYY-MM-DD'),
       end_date: moment(`${data.month} ${year.value}`, 'MMMM YYYY').endOf('month').format('YYYY-MM-DD'),
       status,

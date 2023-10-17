@@ -47,10 +47,10 @@ const loading : Ref <boolean> = ref(false)
 
 const type : ComputedRef <string> = computed(() => store.dialog.type.split('-').pop()!)
 
-const imageFile : Ref <any> = ref(null)
+const imageFile : Ref <File | Blob | null> = ref(null)
 const imagePreview : Ref <any> = ref(store.dialog.data.image)
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
 
    try {
@@ -94,8 +94,8 @@ const submit = async () => {
       })
 }
 
-const onFileChange = (e: any) => {
+const onFileChange = (e: any) : void => {
    imageFile.value = e.target.files[0]
-   imagePreview.value = URL.createObjectURL(imageFile.value)
+   imagePreview.value = URL.createObjectURL(imageFile.value!)
 }
 </script>

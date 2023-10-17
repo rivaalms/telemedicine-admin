@@ -30,7 +30,7 @@ const uuid : ComputedRef <string> = computed(() => store.dialog.data!.uuid)
 const loading : Ref <boolean> = ref(false)
 const isBanned : ComputedRef <boolean> = computed(() => store.dialog.type === 'unban-user')
 
-const activate = async () => {
+const activate = async () : Promise <void> => {
    loading.value = true
 
    try {

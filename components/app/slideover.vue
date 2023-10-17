@@ -95,7 +95,7 @@
 const store = useAppStore()
 const authStore = useAuthStore()
 
-const menu = computed(() => [
+const menu : ComputedRef <Utility.HeaderMenu[][]> = computed(() => [
    [
       {
          label: 'Profil saya',
@@ -117,7 +117,7 @@ const menu = computed(() => [
    ]
 ])
 
-const routes = computed(() => useRoutes)
+const routes : ComputedRef <Utility.Router[]> = computed(() => useRoutes)
 const role : ComputedRef <string> = computed(() => authStore.getRole)
 
 const includeRoles = (route: typeof routes.value[0]) : boolean => {

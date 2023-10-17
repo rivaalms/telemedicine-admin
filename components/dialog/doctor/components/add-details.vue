@@ -21,7 +21,7 @@
                               color="amber"
                               variant="ghost"
                               icon="i-heroicons-pencil"
-                              @click="() => { stateSpecialist = { slug: item.slug, rate: item.rate } }"
+                              @click="() => { stateSpecialist = { slug: item.slug!, rate: item.rate! } }"
                            ></u-button>
                         </u-tooltip>
 
@@ -123,7 +123,7 @@
                color="sky"
                variant="outline"
                icon="i-heroicons-plus"
-               @click="() => { stateSpecialist = { slug: '', rate: '' } }"
+               @click="() => { stateSpecialist = { slug: '', rate: 0 } }"
             >
                Tambah Spesialis
             </u-button>
@@ -210,7 +210,7 @@
                               color="amber"
                               variant="ghost"
                               icon="i-heroicons-pencil"
-                              @click="() => { stateEducation = { education: item.education, graduation_year: item.graduation_year } }"
+                              @click="() => { stateEducation = { education: item.education!, graduation_year: item.graduation_year! } }"
                            ></u-button>
                         </u-tooltip>
 
@@ -401,7 +401,7 @@
                               color="amber"
                               variant="ghost"
                               icon="i-heroicons-pencil"
-                              @click="() => { stateMedicalFacility = { name: item.name, province_id: item.province_id, regency_id: item.regency_id } }"
+                              @click="() => { stateMedicalFacility = { name: item.name!, province_id: item.province_id!, regency_id: item.regency_id! } }"
                            ></u-button>
                         </u-tooltip>
 
@@ -432,7 +432,7 @@
                                        required
                                     >
                                        <u-select-menu
-                                          v-model="stateMedicalFacility.province_id"
+                                          v-model="(stateMedicalFacility.province_id as number)"
                                           :options="provinceOptions"
                                           value-attribute="id"
                                           option-attribute="province_name"
@@ -451,7 +451,7 @@
                                        required
                                     >
                                        <u-select-menu
-                                          v-model="stateMedicalFacility.regency_id"
+                                          v-model="(stateMedicalFacility.regency_id as number)"
                                           :options="regencyOptions"
                                           value-attribute="id"
                                           option-attribute="regency_name"
@@ -552,7 +552,7 @@
                            required
                         >
                            <u-select-menu
-                              v-model="stateMedicalFacility.province_id"
+                              v-model="(stateMedicalFacility.province_id as number)"
                               :options="provinceOptions"
                               value-attribute="id"
                               option-attribute="province_name"
@@ -571,7 +571,7 @@
                            required
                         >
                            <u-select-menu
-                              v-model="stateMedicalFacility.regency_id"
+                              v-model="(stateMedicalFacility.regency_id as number)"
                               :options="regencyOptions"
                               value-attribute="id"
                               option-attribute="regency_name"
@@ -641,31 +641,49 @@ import * as yup from 'yup'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
+namespace State {
+   export type Specialist = {
+      slug: string
+      rate: number
+   }
+
+   export type Education = {
+      education: string
+      graduation_year: string
+   }
+
+   export type MedicalFacility = {
+      name: string
+      province_id: number | null
+      regency_id: number | null
+   }
+}
+
 const store = useAppStore()
 const emit = defineEmits(['nextTab', 'prevTab'])
 
-const specialist : Ref <Model.DoctorSpecialist[]> = ref([])
-const education : Ref <Model.DoctorEducation[]> = ref([])
-const medicalFacility : Ref <Model.MedicalFacility[]> = ref([])
+const specialist : Ref <Model.Doctor.Specialist[]> = ref([])
+const education : Ref <Model.Doctor.Education[]> = ref([])
+const medicalFacility : Ref <Model.Doctor.MedicalFacility[]> = ref([])
 
 const loading : Ref <boolean> = ref(false)
-const provinceOptions : Ref <Utils.Province[]> = ref([])
-const regencyOptions : Ref <Utils.Regency[]> = ref([])
+const provinceOptions : Ref <API.Response.Province[]> = ref([])
+const regencyOptions : Ref <API.Response.Regency[]> = ref([])
 const specialistOptions : Ref <any> = ref([
    { name: 'Loading...' }
 ])
 
-const stateSpecialist : Ref <any> = ref({
+const stateSpecialist : Ref <State.Specialist> = ref({
    slug: '',
-   rate: ''
+   rate: 0
 })
 
-const stateEducation : Ref <any> = ref({
+const stateEducation : Ref <State.Education> = ref({
    education: '',
    graduation_year: ''
 })
 
-const stateMedicalFacility : Ref <any> = ref({
+const stateMedicalFacility : Ref <State.MedicalFacility> = ref({
    name: '',
    province_id: null,
    regency_id: null
@@ -728,7 +746,7 @@ const submitSpecialist = async (isEdit: boolean, data?: any) => {
                })
             })
       } else {
-         const payload : API.Payload.AddDoctorSpecialistPayload = {
+         const payload : API.Request.Doctor.Specialist = {
             uuid: store.dialog.data!.uuid!,
             doctor_specialists: [ stateSpecialist.value ]
          }
@@ -742,7 +760,7 @@ const submitSpecialist = async (isEdit: boolean, data?: any) => {
 
       stateSpecialist.value = {
          slug: '',
-         rate: ''
+         rate: 0
       }
 
       const messageSuffix = isEdit ? 'diperbarui' : 'ditambahkan'
@@ -754,7 +772,7 @@ const submitSpecialist = async (isEdit: boolean, data?: any) => {
    }
 }
 
-const deleteSpecialist = async (data: Model.DoctorSpecialist) => {
+const deleteSpecialist = async (data: Model.Doctor.Specialist) => {
    await deleteDoctorSpecialist(data.specialist_id!)
       .then((resp) => {
          specialist.value = specialist.value.filter((item) => item.specialist_id !== data.specialist_id)
@@ -762,7 +780,7 @@ const deleteSpecialist = async (data: Model.DoctorSpecialist) => {
       })
 }
 
-const submitEducation = async (isEdit: boolean, data?: Model.DoctorEducation) => {
+const submitEducation = async (isEdit: boolean, data?: Model.Doctor.Education) => {
    loading.value = true
 
    try {
@@ -774,7 +792,7 @@ const submitEducation = async (isEdit: boolean, data?: Model.DoctorEducation) =>
                })
             })
       } else {
-         const payload : API.Payload.AddDoctorEducationPayload = {
+         const payload : API.Request.Doctor.Education = {
             uuid: store.dialog.data!.uuid!,
             ...stateEducation.value,
          }
@@ -798,7 +816,7 @@ const submitEducation = async (isEdit: boolean, data?: Model.DoctorEducation) =>
    }
 }
 
-const deleteEducation = async (data: Model.DoctorEducation) => {
+const deleteEducation = async (data: Model.Doctor.Education) => {
    await deleteDoctorEducation(data.id!)
       .then((resp) => {
          education.value = education.value.filter((item) => item.id !== data.id)
@@ -806,21 +824,21 @@ const deleteEducation = async (data: Model.DoctorEducation) => {
       })
 }
 
-const submitMedicalFacility = async (isEdit: boolean, data?: Model.MedicalFacility) => {
+const submitMedicalFacility = async (isEdit: boolean, data?: Model.Doctor.MedicalFacility) => {
    loading.value = true
 
    try {
       if (isEdit) {
-         await updateDoctorMedicalFacility(data!.id!, stateMedicalFacility.value)
+         await updateDoctorMedicalFacility(data!.id!, (stateMedicalFacility.value as Omit <API.Request.Doctor.MedicalFacility, 'uuid'>))
             .then((resp) => {
                medicalFacility.value.forEach((item, index: number) => {
                   if (item.id == resp.id) medicalFacility.value[index] = resp
                })
             })
       } else {
-         const payload : API.Payload.AddDoctorMedicalFacilityPayload = {
+         const payload : API.Request.Doctor.MedicalFacility = {
             uuid: store.dialog.data!.uuid!,
-            ...stateMedicalFacility.value
+            ...(stateMedicalFacility.value as Omit <API.Request.Doctor.MedicalFacility, 'uuid'>)
          }
          await addDoctorMedicalFacility(payload)
             .then((resp) => {
@@ -843,7 +861,7 @@ const submitMedicalFacility = async (isEdit: boolean, data?: Model.MedicalFacili
    }
 }
 
-const deleteMedicalFacility = async (data: Model.MedicalFacility) => {
+const deleteMedicalFacility = async (data: Model.Doctor.MedicalFacility) => {
    await deleteDoctorMedicalFacility(data.id!)
       .then((resp) => {
          medicalFacility.value = medicalFacility.value.filter((item) => item.id !== data.id)

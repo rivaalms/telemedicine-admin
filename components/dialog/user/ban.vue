@@ -72,18 +72,28 @@
 import { banUser } from '@/utils/api/users'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = {
+      reason: string
+   }
+
+   export type Schema = yup.ObjectSchema<{
+      reason?: string | null
+   }>
+}
+
 const store = useAppStore()
 
-const state : Ref <any> = ref({
+const state : Ref <Form.State> = ref({
    reason: ''
 })
 const uuid : ComputedRef <string> = computed(() => store.dialog.data!.uuid)
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    reason: yup.string().nullable()
 })
 const loading : Ref <boolean> = ref(false)
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
    await banUser(state.value.reason, uuid.value)
       .then((resp) => {

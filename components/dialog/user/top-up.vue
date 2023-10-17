@@ -12,6 +12,7 @@
    >
       <u-input
          v-model="state.nominal"
+         @keypress="useValidateNumber"
       ></u-input>
    </u-form-group>
 
@@ -42,19 +43,29 @@
 import { topUpUser } from '@/utils/api/users'
 import * as yup from 'yup'
 
+namespace Form {
+   export type State = {
+      nominal: number
+   }
+
+   export type Schema = yup.ObjectSchema<{
+      nominal: number
+   }>
+}
+
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
-const state : Ref <any> = ref({
+const state : Ref <Form.State> = ref({
    nominal: 1000
 })
 
-const validationSchema = yup.object({
+const validationSchema : Form.Schema = yup.object({
    nominal: yup.number().required('Nominal harus diisi')
 })
 
-const submit = async () => {
+const submit = async () : Promise <void> => {
    loading.value = true
-   const payload : API.Payload.TopUpPayload = {
+   const payload : API.Request.User.TopUp = {
       uuid: store.dialog.data.uuid,
       nominal: state.value.nominal,
       channel: 'manual'

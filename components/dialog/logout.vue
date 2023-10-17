@@ -29,7 +29,7 @@ const authStore = useAuthStore()
 
 const loading : Ref <boolean> = ref(false)
 
-const logout = async () => {
+const logout = async () : Promise <void> => {
    await authStore.logout()
       .then(() => {
          store.clearDialog()
