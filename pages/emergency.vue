@@ -3,7 +3,6 @@
       <app-data-table
          :columns="useEmergencyTableHeader"
          :rows="data"
-         :filter="filter"
          :data-length="dataLength"
          :loading="loading"
          @data-emit="(search: string, page: number, perPage: number) => emitHandler(search, page, perPage)"
