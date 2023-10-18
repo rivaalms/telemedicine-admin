@@ -20,5 +20,6 @@ export const useNurseTableHeader : Utility.TableHeader[] = [
    { key: 'email', label: 'Email' },
    { key: 'phone_number', label: 'No. Telepon' },
    { key: 'status', label: 'Status' },
-   { key: 'actions', label: 'Aksi' }
+      { key: 'actions', label: 'Aksi', class: 'flex justify-end items-center' }
+
 ]

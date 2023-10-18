@@ -1,7 +1,8 @@
 export const useDoctorSpecialistTableHeader : Utility.TableHeader[] = [
    { key: 'name', label: 'Nama' },
    { key: 'order_number', label: 'No. Urut' },
-   { key: 'actions', label: 'Aksi' },
+      { key: 'actions', label: 'Aksi', class: 'flex justify-end items-center' }
+,
 ]
 
 export const useAdvertTableHeader : Utility.TableHeader[] = [
@@ -9,7 +10,8 @@ export const useAdvertTableHeader : Utility.TableHeader[] = [
    { key: 'description', label: 'Deskripsi' },
    { key: 'start_date', label: 'Tanggal Mulai' },
    { key: 'end_date', label: 'Tanggal Selesai' },
-   { key: 'actions', label: 'Aksi' }
+      { key: 'actions', label: 'Aksi', class: 'flex justify-end items-center' }
+
 ]
 
 export const useVoucherTableHeader : Utility.TableHeader[] = [
@@ -19,5 +21,6 @@ export const useVoucherTableHeader : Utility.TableHeader[] = [
    { key: 'quota', label: 'Kuota' },
    { key: 'start_date', label: 'Tanggal Mulai' },
    { key: 'end_date', label: 'Tanggal Selesai' },
-   { key: 'actions', label: 'Aksi' }
+      { key: 'actions', label: 'Aksi', class: 'flex justify-end items-center' }
+
 ]

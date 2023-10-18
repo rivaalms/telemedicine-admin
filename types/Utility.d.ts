@@ -7,6 +7,7 @@ declare namespace Utility {
    type TableHeader = {
       key: string
       label?: string
+      class?: string
    }
 
    type Router = {

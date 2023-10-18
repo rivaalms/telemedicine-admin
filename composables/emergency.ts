@@ -6,7 +6,7 @@ export const useEmergencyTableHeader : Utility.TableHeader[] = [
    { key: 'patient.patient_gender', label: 'Jenis Kelamin Pasien' },
    { key: 'created_at', label: 'Tanggal' },
    { key: 'status', label: 'Status' },
-   { key: 'actions', label: '' }
+   { key: 'actions', label: 'Aksi' }
 ]
 
 export const useEmergencyReportTableHeader : Utility.TableHeader[] = [
