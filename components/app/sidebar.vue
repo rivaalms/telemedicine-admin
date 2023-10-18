@@ -46,11 +46,13 @@ const routes : ComputedRef <Utility.Router[]> = computed(() => useRoutes)
 const role : ComputedRef <string> = computed(() => authStore.getRole)
 
 const includeRoles = (route: Utility.Router) : boolean => {
-   if (
-      route.roles?.includes(role.value)
-      || role.value === 'superAdmin'
-      || role.value === 'Admin Faskes'
-      || route.roles === '*'
+   if (route.roles !== 'none'
+      && (
+         route.roles?.includes(role.value)
+         || role.value === 'superAdmin'
+         || role.value === 'Admin Faskes'
+         || route.roles === '*'
+      )
    ) return true
    else return false
 }

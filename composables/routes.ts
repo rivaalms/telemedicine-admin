@@ -93,7 +93,7 @@ export const useRoutes : Utility.Router[] = [
       label: 'Jadwal Dokter',
       to: '/doctors-schedules',
       icon: 'i-heroicons-calendar-days',
-      roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+      roles: 'none'
    },
    {
       label: 'Settings',
