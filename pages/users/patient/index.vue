@@ -25,9 +25,9 @@
    
    <div
       v-if="data"
-      class="grid grid-cols-1 xl:grid-cols-3 gap-2"
+      class="grid grid-cols-1 xl:grid-cols-3 xl:items-start gap-2"
    >
-      <u-card class="xl:h-[537px] overflow-y-auto">
+      <u-card class="overflow-y-auto">
          <div class="flex flex-col items-center border-b-[1px]">
             <img :src="data?.profile_picture || ''" class="rounded-full h-60" alt="Patient">
             <p class="p-4 font-semibold text-lg">
@@ -44,7 +44,7 @@
             <p class="col-span-3">{{ data?.status! }}</p>
 
             <template v-if="data?.status === 'banned'">
-               <p class="font-semibold">Banned at</p>
+               <p class="font-semibold">Tgl Nonaktif</p>
                <p class="col-span-3">{{ data?.banned_at! }}</p>
                <p class="font-semibold">Alasan</p>
                <p class="col-span-3">{{ data?.banned_reason! }}</p>
@@ -70,19 +70,11 @@
             <template v-if="isAccountActive">
                <u-button
                   class="col-span-4 self-center mt-4"
-                  variant="outline"
                   icon="i-heroicons-no-symbol"
                   block
-                  @click.stop="store.showDialog('ban-user', `Ban ${data?.full_name}`, data, async () => await fetchPatient())"
+                  @click.stop="store.showDialog('ban-user', `Nonaktifkan ${data?.full_name}`, data, async () => await fetchPatient())"
                >
-                  Ban
-               </u-button>
-               <u-button
-                  class="col-span-4 self-center"
-                  icon="i-heroicons-no-symbol"
-                  block
-               >
-                  Block
+                  Nonaktifkan
                </u-button>
             </template>
 
@@ -100,7 +92,7 @@
          </div>
       </u-card>
 
-      <u-card class="lg:col-span-2 xl:h-[537px] overflow-y-auto">
+      <u-card class="lg:col-span-2 overflow-y-auto">
          <p class="font-semibold flex items-center gap-2 border-b-[1px] pb-2">
             <u-icon name="i-heroicons-user"></u-icon>
             Data Pasien
