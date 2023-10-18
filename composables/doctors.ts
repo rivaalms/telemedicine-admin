@@ -4,7 +4,7 @@ export const useDoctorsTableHeader : Utility.TableHeader[] = [
    { key: 'email', label: 'Email' },
    { key: 'phone_number', label: 'No Telepon' },
    { key: 'specialist', label: 'Spesialis' },
-   { key: 'actions' }
+   { key: 'actions', label: 'Aksi' }
 ]
 
 // NOTE: Used for doctor's schedule table on Doctor Profile page
@@ -13,7 +13,7 @@ export const useDoctorSchedulesTableHeader : Utility.TableHeader[] = [
    { key: 'start_time', label: 'Jam Mulai' },
    { key: 'end_time', label: 'Jam Berakhir' },
    { key: 'kuota', label: 'Kuota' },
-   { key: 'actions' }
+   { key: 'actions', label: 'Aksi' }
 ]
 
 // NOTE: Used for doctor's schedules on Doctor Schedules page
