@@ -17,6 +17,8 @@
       </template>
 
       <component :is="dialogComponent"></component>
+
+      <dialog-skeleton-loader v-if="dialogComponent === 'div'"></dialog-skeleton-loader>
    </u-card>
 </u-modal>
 </template>
