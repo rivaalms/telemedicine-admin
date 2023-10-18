@@ -42,7 +42,7 @@
                Nonaktifkan Dokter
             </u-button>
 
-            <p class="col-span-4 pt-4 text-sm text-gray-500 text-center">
+            <p class="col-span-4 pt-4 text-xs text-gray-500 text-center">
                Tombol 'Nonaktifkan Dokter' digunakan untuk menonaktifkan akun dokter yang sudah tidak bekerja lagi.
             </p>
          </template>
@@ -70,15 +70,20 @@
             Data Pribadi
          </p>
 
-         <u-tooltip text="Sunting data pribadi">
-            <u-button
-               variant="ghost"
-               color="amber"
-               icon="i-heroicons-pencil-square"
-               size="xs"
-               @click.stop="store.showDialog('edit-personal-data-doctor', 'Sunting Data Pribadi', profile, async () => await fetchDoctor())"
-            ></u-button>
-         </u-tooltip>
+         <div class="flex justify-end items-center gap-4">
+            <p class="text-xs text-gray-500">
+               Klik tombol
+            </p>
+            <u-tooltip text="Sunting data pribadi">
+               <u-button
+                  variant="ghost"
+                  color="amber"
+                  icon="i-heroicons-pencil-square"
+                  size="xs"
+                  @click.stop="store.showDialog('edit-personal-data-doctor', 'Sunting Data Pribadi', profile, async () => await fetchDoctor())"
+               ></u-button>
+            </u-tooltip>
+         </div>
       </div>
       <div class="py-2 grid md:grid-cols-2 gap-4 text-sm mb-0 lg:mb-4">
          <div class="">
@@ -150,15 +155,20 @@
                   Spesialis
                </p>
 
-               <u-tooltip text="Tambah spesialis">
-                  <u-button
-                     variant="ghost"
-                     color="sky"
-                     icon="i-heroicons-plus"
-                     size="xs"
-                     @click.stop="store.showDialog('add-specialist-doctor', 'Tambah Spesialis Dokter', profile, async () => await fetchDoctor())"
-                  ></u-button>
-               </u-tooltip>
+               <div class="flex justify-end items-center gap-4">
+                  <p class="text-xs text-gray-500">
+                     Klik tombol
+                  </p>
+                  <u-tooltip text="Tambah spesialis">
+                     <u-button
+                        variant="ghost"
+                        color="sky"
+                        icon="i-heroicons-plus"
+                        size="xs"
+                        @click.stop="store.showDialog('add-specialist-doctor', 'Tambah Spesialis Dokter', profile, async () => await fetchDoctor())"
+                     ></u-button>
+                  </u-tooltip>
+               </div>
             </div>
             <div
                v-for="item in specialist"
@@ -203,15 +213,20 @@
                   Riwayat Pendidikan
                </p>
 
-               <u-tooltip text="Tambah spesialis">
-                  <u-button
-                     variant="ghost"
-                     color="sky"
-                     icon="i-heroicons-plus"
-                     size="xs"
-                     @click.stop="store.showDialog('add-education-doctor', 'Tambah Riwayat Pendidikan Dokter', profile, async () => await fetchDoctor())"
-                  ></u-button>
-               </u-tooltip>
+               <div class="flex justify-end items-center gap-4">
+                  <p class="text-xs text-gray-500">
+                     Klik tombol
+                  </p>
+                  <u-tooltip text="Tambah spesialis">
+                     <u-button
+                        variant="ghost"
+                        color="sky"
+                        icon="i-heroicons-plus"
+                        size="xs"
+                        @click.stop="store.showDialog('add-education-doctor', 'Tambah Riwayat Pendidikan Dokter', profile, async () => await fetchDoctor())"
+                     ></u-button>
+                  </u-tooltip>
+               </div>
             </div>
             <div
                v-for="item in educations"
@@ -258,15 +273,20 @@
                   Tempat Praktek
                </p>
 
-               <u-tooltip text="Sunting tempat praktek">
-                  <u-button
-                     variant="ghost"
-                     color="sky"
-                     icon="i-heroicons-plus"
-                     size="xs"
-                     @click.stop="store.showDialog('add-medical-facility-doctor', 'Tambah Tempat Praktek Dokter', profile, async () => await fetchDoctor())"
-                  ></u-button>
-               </u-tooltip>
+               <div class="flex justify-end items-center gap-4">
+                  <p class="text-xs text-gray-500">
+                     Klik tombol
+                  </p>
+                  <u-tooltip text="Sunting tempat praktek">
+                     <u-button
+                        variant="ghost"
+                        color="sky"
+                        icon="i-heroicons-plus"
+                        size="xs"
+                        @click.stop="store.showDialog('add-medical-facility-doctor', 'Tambah Tempat Praktek Dokter', profile, async () => await fetchDoctor())"
+                     ></u-button>
+                  </u-tooltip>
+               </div>
             </div>
             <div
                v-for="item in medicalFacility"
@@ -313,16 +333,21 @@
                   Jadwal Praktek
                </p>
 
-               <u-tooltip text="Sunting tempat praktek">
-                  <u-button
-                     variant="ghost"
-                     color="sky"
-                     icon="i-heroicons-plus"
-                     size="xs"
-                     :disabled="schedule?.length! > 6"
-                     @click.stop="store.showDialog('add-schedule-doctor', 'Tambah Jadwal Praktek Dokter', { doctor: profile, schedule }, async () => await fetchDoctor())"
-                  ></u-button>
-               </u-tooltip>
+               <div class="flex justify-end items-center gap-4">
+                  <p class="text-xs text-gray-500">
+                     Klik tombol
+                  </p>
+                  <u-tooltip text="Sunting tempat praktek">
+                     <u-button
+                        variant="ghost"
+                        color="sky"
+                        icon="i-heroicons-plus"
+                        size="xs"
+                        :disabled="schedule?.length! > 6"
+                        @click.stop="store.showDialog('add-schedule-doctor', 'Tambah Jadwal Praktek Dokter', { doctor: profile, schedule }, async () => await fetchDoctor())"
+                     ></u-button>
+                  </u-tooltip>
+               </div>
             </div>
 
             <u-table
