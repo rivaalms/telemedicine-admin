@@ -8,6 +8,7 @@
    <u-form-group
       label="Alasan"
       name="reason"
+      required
    >
       <u-textarea
          v-model="state.reason"
@@ -33,12 +34,12 @@
             icon="i-heroicons-no-symbol"
             :loading="loading"
          >
-            Ban User
+            Nonaktifkan User
          </u-button>
 
          <template #panel>
             <u-card>
-               <p class="text-sm">Anda yakin ingin melakukan ban kepada akun ini?</p>
+               <p class="text-sm">Anda yakin ingin menonaktifkan akun ini?</p>
                <div class="grid grid-cols-2 gap-2 mt-4">
                   <u-button
                      block
@@ -58,7 +59,7 @@
                      icon="i-heroicons-no-symbol"
                      :loading="loading"
                   >
-                     Ya, ban akun
+                     Ya, nonaktifkan akun
                   </u-button>
                </div>
             </u-card>
@@ -89,7 +90,7 @@ const state : Ref <Form.State> = ref({
 })
 const uuid : ComputedRef <string> = computed(() => store.dialog.data!.uuid)
 const validationSchema : Form.Schema = yup.object({
-   reason: yup.string().nullable()
+   reason: yup.string().required('Alasan harus diisi')
 })
 const loading : Ref <boolean> = ref(false)
 
@@ -97,7 +98,7 @@ const submit = async () : Promise <void> => {
    loading.value = true
    await banUser(state.value.reason, uuid.value)
       .then((resp) => {
-         store.notify('info', `Pengguna ${resp.full_name} berhasil di-ban`)
+         store.notify('info', `Pengguna ${resp.full_name} berhasil dinonaktifkan`)
          store.dialog.callback()
          store.clearDialog()
       })

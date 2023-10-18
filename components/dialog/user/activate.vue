@@ -34,14 +34,10 @@ const activate = async () : Promise <void> => {
    loading.value = true
 
    try {
-      if (isBanned.value) {
-         await unbanUser(uuid.value)
-         store.notify('info', `Pengguna ${store.dialog.data!.full_name} berhasil di-unban`)
-      }
-      else {
-         await activateUser(uuid.value)
-         store.notify('info', `Pengguna ${store.dialog.data!.full_name} berhasil diaktifkan`)
-      }
+      if (isBanned.value) await unbanUser(uuid.value)
+      else await activateUser(uuid.value)
+
+      store.notify('info', `Akun ${store.dialog.data!.full_name} berhasil diaktifkan`)
 
       store.dialog.callback()
       store.clearDialog()

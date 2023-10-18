@@ -18,7 +18,7 @@
          <p class="col-span-3">{{ profile?.status! }}</p>
 
          <template v-if="profile?.status === 'banned'">
-            <p class="font-semibold">Banned at</p>
+            <p class="font-semibold">Tgl Nonaktif</p>
             <p class="col-span-3">{{ profile?.banned_at! }}</p>
             <p class="font-semibold">Alasan</p>
             <p class="col-span-3">{{ profile?.banned_reason! }}</p>
@@ -34,22 +34,17 @@
          <template v-if="isAccountActive">
             <u-button
                class="col-span-4 self-center mt-4"
-               variant="outline"
                icon="i-heroicons-no-symbol"
                color="red"
                block
-               @click.stop="store.showDialog('ban-user', `Ban ${profile?.full_name}`, profile, async () => await fetchDoctor())"
+               @click.stop="store.showDialog('ban-user', `Nonaktifkan ${profile?.full_name}`, profile, async () => await fetchDoctor())"
             >
-               Ban
+               Nonaktifkan Dokter
             </u-button>
-            <u-button
-               class="col-span-4 self-center"
-               icon="i-heroicons-no-symbol"
-               color="red"
-               block
-            >
-               Block
-            </u-button>
+
+            <p class="col-span-4 pt-4 text-sm text-gray-500 text-center">
+               Tombol 'Nonaktifkan Dokter' digunakan untuk menonaktifkan akun dokter yang sudah tidak bekerja lagi.
+            </p>
          </template>
 
          <template v-else>
