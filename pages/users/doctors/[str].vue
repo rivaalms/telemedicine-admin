@@ -1,7 +1,7 @@
 <template>
-<div class="grid grid-cols-1 xl:grid-cols-3 gap-2">
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-2 xl:items-start">
    <u-card
-      class="xl:h-[calc(537px)] overflow-y-auto"
+      class="overflow-y-auto"
    >
       <div class="flex flex-col items-center border-b-[1px]">
          <img :src="profile?.profile_picture! || ''" class="rounded-full h-60" alt="Doctor">
@@ -67,7 +67,7 @@
    </u-card>
 
    <u-card
-      class="xl:col-span-2 xl:h-[calc(537px)] overflow-y-auto"
+      class="xl:col-span-2 overflow-y-auto"
    >
       <div class="flex justify-between items-center border-b-[1px] pb-2">
          <p class="font-semibold flex items-center gap-2">
