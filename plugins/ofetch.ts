@@ -11,7 +11,7 @@ export default defineNuxtPlugin((nuxtApp) => {
          if (authStore.isLoggedIn) {
             const headers = {
                ...options.headers,
-               'Authorization': `Bearer ${authStore.getUser['AUTH-TOKEN']}`,
+               'Authorization': `Bearer ${authStore.getUser!['AUTH-TOKEN']}`,
                'Accept': 'application/json'
             }
             options.headers = headers
