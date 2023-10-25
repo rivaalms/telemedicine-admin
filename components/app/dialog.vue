@@ -52,8 +52,8 @@ const dialogComponentMap : { [key: string]: () => Promise <any> } = {
    'add-admin': () => import('@/components/dialog/admin/form.vue'),
    'add-nurse': () => import('@/components/dialog/nurse/form.vue'),
 
-   'add-ambulance': () => import('@/components/dialog/ambulance/form.vue'),
-   'edit-ambulance': () => import('@/components/dialog/ambulance/form.vue'),
+   'add-ambulance': () => import('@/components/dialog/ambulance-form.vue'),
+   'edit-ambulance': () => import('@/components/dialog/ambulance-form.vue'),
 
    'add-specialist': () => import('@/components/dialog/masters/specialist/form.vue'),
    'edit-specialist': () => import('@/components/dialog/masters/specialist/form.vue'),
