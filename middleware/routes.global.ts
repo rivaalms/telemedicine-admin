@@ -1,7 +1,13 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-   const excludedRoutes = [ '/login', '/forgot-password', '/error/404', '/error/403', '/profile' ]
+   const excludedRoutes = [
+      'login',
+      'forgot-password',
+      'error-code',
+      'profile',
+      'users-doctors-str'
+   ]
 
-   if (!excludedRoutes.includes(to.path)) {
+   if (!excludedRoutes.includes(to.name as string)) {
       let route = useRoutes.find((route) => route.to === to.path || route.children?.find(child => child.to === to.path))
       if (route?.children) route = route.children.find((child) => child.to === to.path)
 
