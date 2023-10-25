@@ -5,8 +5,8 @@
          <template v-if="item.children">
             <u-accordion
                :items="[item]"
-               :variant="useRoute().path === item.to ? 'soft' : 'ghost'"
-               :color="useRoute().path === item.to ? 'primary' : 'gray'"
+               :variant="item.children.find(child => child.to === useRoute().path) ? 'soft' : 'ghost'"
+               :color="item.children.find(child => child.to === useRoute().path) ? 'primary' : 'gray'"
                :icon="item.icon"
             >
                <template #item="{ item }">
