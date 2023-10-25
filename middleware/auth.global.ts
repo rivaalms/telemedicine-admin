@@ -6,5 +6,5 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
    ]
 
    if (!excludedRoutes.includes(to.path) && !authStore.isLoggedIn) return navigateTo('/login')
-   else if (excludedRoutes.includes(to.path) && authStore.isLoggedIn) return navigateTo('/')
+   else if (excludedRoutes.includes(to.path) && authStore.isLoggedIn) return navigateTo('/', { replace: true })
 })
