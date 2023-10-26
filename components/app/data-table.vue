@@ -21,7 +21,7 @@
       :loading="prop.loading"
    >
       <template #created_at-data="{ row }">
-         {{ formatDate(row.created_at) }}
+         {{ useFormatDate(row.created_at) }}
       </template>
 
       <template #actions-data="{ row }">
@@ -93,8 +93,6 @@ const perPage = ref(perPageOptions.value[0].value)
 const search : Ref <string | undefined> = ref('')
 
 const data = computed(() => prop.rows)
-
-const formatDate = (date: string) => moment(date).format('DD/MM/YYYY HH:mm')
 
 const emitData = () => emit('data-emit', search.value, page.value, perPage.value)
 </script>

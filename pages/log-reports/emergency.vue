@@ -47,8 +47,9 @@ const store = useAppStore()
 store.title = 'Logs Report: Emergency'
 useHead({ title: store.getTitle })
 
-const emergency = useParse.Object.extend('Emergency_logs')
-const parseQuerySubs : Ref <any> = ref(await (new useParse.Query(emergency)).subscribe())
+const Parse : any = useParse()
+const emergency = Parse.Object.extend('Emergency_logs')
+const parseQuerySubs : Ref <any> = ref(await (new Parse.Query(emergency)).subscribe())
 
 const data : Ref <Model.LogsReport.Emergency[]> = ref([])
 const dataLength : Ref <number> = ref(0)
@@ -73,7 +74,7 @@ onUnmounted(async () : Promise <void> => {
 
 const fetchEmergency = async () => {
    loading.value = true
-   const query = new useParse.Query(emergency)
+   const query = new Parse.Query(emergency)
    query.descending("updatedAt")
    query.contains(filterOptionsValue.value, filter.value)
    query.limit(perPage.value)
@@ -84,7 +85,7 @@ const fetchEmergency = async () => {
       .then((resp: API.Response.Parse <API.Response.Parse.ObjectNotation[]>) => {
          const { count, results } = resp
          const resultMap: Model.LogsReport.Emergency[] = results.map((item) => item.toJSON())
-         resultMap.forEach(item => item.updatedAt = formatDate(item.updatedAt!))
+         resultMap.forEach(item => item.updatedAt = useFormatDate(item.updatedAt!))
          data.value = resultMap
          dataLength.value = count!
       })
@@ -99,6 +100,4 @@ const emitHandler =  async (emitSearch: string, emitPage: number, emitPerPage: n
 
    await fetchEmergency()
 }
-
-const formatDate = (date: string) => moment(date).format('DD/MM/YYYY HH:mm')
 </script>

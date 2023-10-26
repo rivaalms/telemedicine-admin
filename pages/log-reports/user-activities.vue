@@ -47,8 +47,9 @@ const store = useAppStore()
 store.title = 'Logs Report: Aktivitas User'
 useHead({ title: store.getTitle })
 
-const userActivity = useParse.Object.extend('User_activity_logs')
-const parseQuerySubs : Ref <any> = ref(await (new useParse.Query(userActivity)).subscribe())
+const Parse : any = useParse()
+const userActivity = Parse.Object.extend('User_activity_logs')
+const parseQuerySubs : Ref <any> = ref(await (new Parse.Query(userActivity)).subscribe())
 
 const data : Ref <Model.LogsReport.UserActivity[]> = ref([])
 const dataLength : Ref <number> = ref(0)
@@ -72,7 +73,7 @@ onUnmounted(async () => {
 
 const fetchUserActivity = async () => {
    loading.value = true
-   const query = new useParse.Query(userActivity)
+   const query = new Parse.Query(userActivity)
    query.equalTo('user_type', "App\\Model\\Doctor")
    query.descending("updatedAt")
    query.contains(filterOptionsValue.value, filter.value.toString())
@@ -85,7 +86,7 @@ const fetchUserActivity = async () => {
          const { count, results } = resp
          const resultMap: Model.LogsReport.UserActivity[] = results.map((item: any) => item.toJSON())
          resultMap.forEach(item => {
-            item.createdAt = formatDate(item.createdAt!)
+            item.createdAt = useFormatDate(item.createdAt!)
          })
          data.value = resultMap
          dataLength.value = count!
@@ -101,6 +102,4 @@ const emitHandler =  async (emitSearch: string, emitPage: number, emitPerPage: n
 
    await fetchUserActivity()
 }
-
-const formatDate = (date: string) => moment(date).format('DD/MM/YYYY HH:mm')
 </script>
