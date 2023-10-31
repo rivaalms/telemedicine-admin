@@ -87,7 +87,7 @@ const emergencyChartOptions : ComputedRef <{ [key: string]: unknown }> = compute
       xaxis: {
          categories: months.value
       },
-      colors: [/* '#251a28',  */'#7ea05e', '#fb9126'],
+      colors: ['#00e396', '#feb019'],
       dataLabels: {
          enabled: true,
          style: {

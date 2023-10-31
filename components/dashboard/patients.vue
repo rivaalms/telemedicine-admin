@@ -74,6 +74,7 @@ const patientChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(
          id: 'patientChart',
          type: 'donut'
       },
+      colors: ['#008FFB', '#F86285'],
       labels: ['Laki-laki', 'Perempuan'],
       dataLabels: {
          formatter: (val: any, opts: any) => {
