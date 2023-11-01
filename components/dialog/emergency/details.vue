@@ -1,17 +1,15 @@
 <template>
 <div class="grid lg:grid-cols-2 gap-5">
-   <GoogleMap
-      :api-key="gmapKey"
+   <g-map-map
       :center="center"
       :zoom="15"
-      disable-default-ui
-      zoom-control
+      :options="mapOptions"
       class="h-[500px]"
    >
-      <Marker
-         :options="{ position: center }"
-      ></Marker>
-   </GoogleMap>
+      <g-map-marker
+         :position="center"
+      ></g-map-marker>
+   </g-map-map>
 
    <div class="grid content-start gap-6">
       <div class="grid lg:grid-cols-2 gap-4 place-content-start">
@@ -66,13 +64,19 @@
 </template>
 
 <script setup lang="ts">
-import { GoogleMap, Marker } from 'vue3-google-map'
 import moment from 'moment'
 
 const store = useAppStore()
 const data : Model.Emergency = store.dialog.data
-const gmapKey : ComputedRef <string> = computed(() => useRuntimeConfig().public.gmapKey)
 const center : ComputedRef <{ lat: number, lng: number }> = computed(() => {
    return { lat: parseFloat(data.map_lat!), lng: parseFloat(data.map_lng!) }
 })
+const mapOptions : ComputedRef <{[key: string]: boolean }> = computed(() => ({
+   zoomControl: true,
+   mapTypeControl: false,
+   streetViewControl: false,
+   scaleControl: false,
+   rotateControl: false,
+   fullscreenControl: true,
+}))
 </script>
