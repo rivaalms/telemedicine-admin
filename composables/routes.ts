@@ -57,6 +57,12 @@ export const useRoutes : Utility.Router[] = [
       ]
    },
    {
+      label: 'Fasilitas Kesehatan',
+      to: '/medical-facilities',
+      icon: 'i-heroicons-building-office-2',
+      roles: [ 'superAdmin' ]
+   },
+   {
       label: 'Ambulance',
       to: '/ambulance',
       icon: 'i-heroicons-truck',

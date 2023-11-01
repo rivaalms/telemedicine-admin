@@ -12,9 +12,14 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             roledRoutes = roledRoutes.children.find(child => child.to === route.path)
          }
 
-         // Get the user's role, then check if the role exist in route's roles. If the role doen't exist, return 403
+         // Get the user's role
          const userRole = useAuthStore().getRole
-         if (roledRoutes?.roles !== '*' && !roledRoutes?.roles?.includes(userRole)) return navigateTo('/error/403')
+
+         // If the role is superAdmin, do not validate the route rules
+         if (userRole !== 'superAdmin') {
+            // Check if the role exist in route's roles. If the role doesn't exist, return 403
+            if (roledRoutes?.roles !== '*' && !roledRoutes?.roles?.includes(userRole)) return navigateTo('/error/403')
+         }
       }
    } else return navigateTo('/error/404', { replace: true })
 })

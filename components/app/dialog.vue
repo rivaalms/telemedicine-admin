@@ -75,6 +75,8 @@ const dialogComponentMap : { [key: string]: () => Promise <any> } = {
    'edit-phone-profile': () => import('@/components/dialog/profile/form.vue'),
    'edit-password-profile': () => import('@/components/dialog/profile/change-password.vue'),
 
+   'add-medical-facility': () => import('@/components/dialog/medical-facility/add.vue'),
+
    'delete-specialist-doctor': () => import('@/components/dialog/delete.vue'),
    'delete-education-doctor': () => import('@/components/dialog/delete.vue'),
    'delete-medical-facility-doctor': () => import('@/components/dialog/delete.vue'),
@@ -82,6 +84,7 @@ const dialogComponentMap : { [key: string]: () => Promise <any> } = {
    'delete-specialist': () => import('@/components/dialog/delete.vue'),
    'delete-advertisement': () => import('@/components/dialog/delete.vue'),
    'delete-voucher': () => import('@/components/dialog/delete.vue'),
+   'delete-medical-facility': () => import('@/components/dialog/delete.vue'),
 
    'logout': () => import('@/components/dialog/logout.vue')
 }
@@ -90,6 +93,7 @@ const dialogWidthMap : { [key: string]: string } = {
    'details-emergency': 'sm:max-w-5xl',
    'report-emergency': 'sm:max-w-5xl',
    'add-doctor': 'sm:max-w-xl md:max-w-3xl lg:max-w-5xl',
+   'add-medical-facility': 'sm:max-w-xl md:max-w-3xl lg:max-w-5xl',
    'edit-personal-data-doctor': 'sm:max-w-xl md:max-w-2xl lg:max-w-4xl',
    'add-officer': 'sm:max-w-2xl',
    'add-admin': 'sm:max-w-2xl',
