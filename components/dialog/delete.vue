@@ -27,6 +27,7 @@
 import { deleteDoctorSpecialist, deleteDoctorEducation, deleteDoctorMedicalFacility } from '@/utils/api/doctors'
 import { deleteAmbulance } from '@/utils/api/ambulance'
 import { deleteSpecialist, deleteAdvertisement, deleteVoucher } from '@/utils/api/masters'
+import { deleteMedicalFacility } from '@/utils/api/medical-facilities'
 
 const store = useAppStore()
 const loading : Ref <boolean> = ref(false)
@@ -65,6 +66,10 @@ const confirmDelete = async () : Promise <void> => {
          case 'delete-voucher':
             await deleteVoucher(data.slug!)
             messageType = 'master voucher'
+            break
+         case 'delete-medical-facility':
+            await deleteMedicalFacility(data.id!)
+            messageType = 'fasilitas kesehatan'
             break
          default:
             break

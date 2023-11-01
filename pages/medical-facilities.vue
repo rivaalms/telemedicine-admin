@@ -18,6 +18,37 @@
                   </u-button>
                </div>
             </template>
+
+            <template #actions="{ row }">
+               <div class="flex justify-end items-center gap-2">
+            <u-tooltip text="Sunting">
+               <u-button
+                  variant="ghost"
+                  color="amber"
+                  icon="i-heroicons-pencil"
+                  @click.stop="store.showDialog('edit-medical-facility', 'Sunting Fasilitas Kesehatan', row, async () => await fetchMedicalFacilities())"
+               ></u-button>
+            </u-tooltip>
+
+            <u-tooltip text="Sunting gambar">
+               <u-button
+                  variant="ghost"
+                  color="sky"
+                  icon="i-heroicons-photo"
+                  @click.stop="store.showDialog('edit-image-medical-facility', 'Sunting Gambar Fasilitas Kesehatan', row, async () => await fetchMedicalFacilities())"
+               ></u-button>
+            </u-tooltip>
+
+            <u-tooltip text="Hapus">
+               <u-button
+                  variant="ghost"
+                  color="red"
+                  icon="i-heroicons-trash"
+                  @click.stop="store.showDialog('delete-medical-facility', 'Hapus Fasilitas Kesehatan', row, async () => await fetchMedicalFacilities())"
+               ></u-button>
+            </u-tooltip>
+         </div>
+            </template>
          </app-data-table>
       </u-card>
    </div>
