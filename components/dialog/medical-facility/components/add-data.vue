@@ -79,42 +79,48 @@
             ></u-input>
          </u-form-group>
       </div>
-      <div class="grid grid-cols-2 gap-4">
-         <GoogleMap
-            :api-key="config.gmapKey"
+      <div class="flex flex-col gap-4">
+         <g-map-autocomplete 
+            placeholder="Cari lokasi..."
+            class="self-stretch"
+            :options="mapAutocompleteOptions"
+            @place_changed="getPlaceData"
+         ></g-map-autocomplete>
+
+         <g-map-map
             :center="mapMarker"
             :zoom="15"
-            disable-default-ui
-            zoom-control
+            :options="mapOptions"
             class="col-span-2"
             @click="updateMarkerLocation"
          >
-            <Marker
-               :options="{ position: mapMarker }"
-               draggable
-            ></Marker>
-         </GoogleMap>
+            <g-map-marker
+               :position="mapMarker"
+            ></g-map-marker>
+         </g-map-map>
 
-         <u-form-group
-            label="Latitude"
-            name="map_lat"
-         >
-            <u-input
-               :model-value="(state.map_lat as number)"
-               readonly
-               :disabled="props.disabled || loading"
-            ></u-input>
-         </u-form-group>
-         <u-form-group
-            label="Longitude"
-            name="map_lng"
-         >
-            <u-input
-               :model-value="(state.map_lng as number)"
-               readonly
-               :disabled="props.disabled || loading"
-            ></u-input>
-         </u-form-group>
+         <div class="col-span-2 place-content-end grid grid-cols-2 gap-2">
+            <u-form-group
+               label="Latitude"
+               name="map_lat"
+            >
+               <u-input
+                  :model-value="(state.map_lat as number)"
+                  readonly
+                  :disabled="props.disabled || loading"
+               ></u-input>
+            </u-form-group>
+            <u-form-group
+               label="Longitude"
+               name="map_lng"
+            >
+               <u-input
+                  :model-value="(state.map_lng as number)"
+                  readonly
+                  :disabled="props.disabled || loading"
+               ></u-input>
+            </u-form-group>
+         </div>
       </div>
    </div>
 
@@ -134,15 +140,14 @@
 <script setup lang="ts">
 import { getProvinces, getRegencies } from '@/utils/api/utils'
 import { create as createMedicalFacility, CreatePayload } from '@/utils/api/medical-facilities' 
-import { GoogleMap, Marker } from 'vue3-google-map'
 import * as yup from 'yup'
 
 type FormState = {
    name: string | null
    province_id: number | null
    regency_id: number | null
-   map_lat: number | null
-   map_lng: number | null
+   map_lat: number | string | null
+   map_lng: number | string | null
    address: string | null
    base_color: string | null
 }
@@ -157,7 +162,6 @@ type Schema = yup.ObjectSchema<{
    base_color?: string | null
 }>
 
-const config = useRuntimeConfig().public
 const store = useAppStore()
 const props = defineProps<{
    disabled?: boolean
@@ -171,6 +175,24 @@ const mapMarker : Ref <{ [key: string]: number | null }> = ref({
    lat: null,
    lng: null
 })
+const mapOptions : ComputedRef <{[key: string]: boolean }> = computed(() => ({
+   zoomControl: true,
+   mapTypeControl: false,
+   streetViewControl: false,
+   scaleControl: false,
+   rotateControl: false,
+   fullscreenControl: true,
+}))
+const mapAutocompleteOptions : ComputedRef <{ [key: string]: any }> = computed(() => ({
+   bounds: {
+      north: 0.1,
+      south: 0.1,
+      west: 0.1,
+      east: 0.1
+   },
+   strictBounds: false,
+   componentRestrictions: { country: "id" }
+}))
 
 const state : Ref <FormState> = ref({
    name: '',
@@ -225,6 +247,9 @@ const onProvinceChange = async (provinceId: number) : Promise <void> => {
 
 const submitData = async () : Promise <void> => {
    loading.value = true
+   state.value.map_lat = state.value.map_lat!.toString()
+   state.value.map_lng = state.value.map_lng!.toString()
+
    await createMedicalFacility(state.value as CreatePayload)
       .then(resp => {
          store.dialog.data = resp
@@ -243,6 +268,13 @@ const updateMarkerLocation = (event: any) => {
    mapMarker.value = {
       lat: event.latLng.lat(),
       lng: event.latLng.lng()
+   }
+}
+
+const getPlaceData = (event: any) => {
+   mapMarker.value = {
+      lat: event.geometry.location.lat(),
+      lng: event.geometry.location.lng()
    }
 }
 </script>

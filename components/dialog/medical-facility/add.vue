@@ -10,7 +10,12 @@
       ></lazy-dialog-medical-facility-components-add-data>
    </template>
 
-   <template #image></template>
+   <template #image>
+      <lazy-dialog-medical-facility-components-add-image
+         @next-tab="currentTab++"
+         @prev-tab="currentTab--"
+      ></lazy-dialog-medical-facility-components-add-image>
+   </template>
 
    <template #finish>
       <div class="grid gap-2">
@@ -38,7 +43,7 @@
             <u-button
                color="emerald"
                trailing-icon="i-heroicons-check"
-               @click="store.clearDialog()"
+               @click="closeDialog"
             >
                Selesai
             </u-button>
@@ -61,8 +66,8 @@ const isFormDisabled : ComputedRef <boolean> = computed(() => store.dialog.data 
 const currentTab : Ref <number> = ref(0)
 const tabs : Ref <Tab[]> = ref([
    { slot: 'data', label: 'Data Fasilitas Kesehatan' },
-   { slot: 'image', label: 'Unggah Foto', disabled: false },
-   { slot: 'finish', label: 'Selesai', disabled: false }
+   { slot: 'image', label: 'Unggah Foto', disabled: true },
+   { slot: 'finish', label: 'Selesai', disabled: true }
 ])
 
 const onFormSubmitted = async () : Promise <void> => {
@@ -72,5 +77,10 @@ const onFormSubmitted = async () : Promise <void> => {
       })
    )
    currentTab.value++
+}
+
+const closeDialog = () => {
+   store.dialog.callback()
+   store.clearDialog()
 }
 </script>

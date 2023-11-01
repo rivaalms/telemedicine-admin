@@ -14,3 +14,14 @@ export async function create (payload: CreatePayload) : Promise <Model.MedicalFa
    })
    return response.data!
 }
+
+export async function addImage (id: number, image: Blob) : Promise <Model.MedicalFacility> {
+   const payload = new FormData()
+   payload.append('image', image)
+
+   const response = await $fetch <API.Response <Model.MedicalFacility>> (`/medical-facilities/${id}/image`, {
+      method: 'POST',
+      body: payload
+   })
+   return response.data!
+}
