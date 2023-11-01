@@ -15,6 +15,14 @@ export async function create (payload: CreatePayload) : Promise <Model.MedicalFa
    return response.data!
 }
 
+export async function update (id: number, payload: CreatePayload) : Promise <Model.MedicalFacility> {
+   const response = await $fetch <API.Response <Model.MedicalFacility>> (`/medical-facilities/${id}`, {
+      method: 'PUT',
+      body: payload
+   })
+   return response.data!
+}
+
 export async function deleteMedicalFacility (id: number) : Promise <boolean> {
    await $fetch <void> (`/medical-facilities/${id}`, {
       method: 'DELETE'
@@ -22,7 +30,7 @@ export async function deleteMedicalFacility (id: number) : Promise <boolean> {
    return true
 }
 
-export async function addImage (id: number, image: Blob) : Promise <Model.MedicalFacility> {
+export async function updateImage (id: number, image: Blob) : Promise <Model.MedicalFacility> {
    const payload = new FormData()
    payload.append('image', image)
 

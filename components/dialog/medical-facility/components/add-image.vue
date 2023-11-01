@@ -92,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-import { addImage } from '@/utils/api/medical-facilities'
+import { updateImage } from '@/utils/api/medical-facilities'
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css'
 
@@ -202,7 +202,7 @@ const cancelCrop = () : void => {
 
 const uploadImage = async () : Promise <void> => {
    loading.value = true
-   await addImage (store.dialog.data!.id!, imageFile.value!)
+   await updateImage (store.dialog.data!.id!, imageFile.value!)
       .then((resp) => {
          store.dialog.data = resp
          isImageUploaded.value = true

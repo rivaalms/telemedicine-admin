@@ -76,6 +76,8 @@ const dialogComponentMap : { [key: string]: () => Promise <any> } = {
    'edit-password-profile': () => import('@/components/dialog/profile/change-password.vue'),
 
    'add-medical-facility': () => import('@/components/dialog/medical-facility/add.vue'),
+   'edit-medical-facility': () => import('@/components/dialog/medical-facility/edit.vue'),
+   'edit-image-medical-facility': () => import('@/components/dialog/medical-facility/update-image.vue'),
 
    'delete-specialist-doctor': () => import('@/components/dialog/delete.vue'),
    'delete-education-doctor': () => import('@/components/dialog/delete.vue'),
@@ -94,6 +96,7 @@ const dialogWidthMap : { [key: string]: string } = {
    'report-emergency': 'sm:max-w-5xl',
    'add-doctor': 'sm:max-w-xl md:max-w-3xl lg:max-w-5xl',
    'add-medical-facility': 'sm:max-w-xl md:max-w-3xl lg:max-w-5xl',
+   'edit-medical-facility': 'sm:max-w-xl md:max-w-3xl lg:max-w-5xl',
    'edit-personal-data-doctor': 'sm:max-w-xl md:max-w-2xl lg:max-w-4xl',
    'add-officer': 'sm:max-w-2xl',
    'add-admin': 'sm:max-w-2xl',
