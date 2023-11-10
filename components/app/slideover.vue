@@ -44,50 +44,9 @@
       </div>
    </template>
 
-   <div class="grid gap-1">
-      <template v-for="item in routes" :key="item.to">
-         <template v-if="includeRoles(item)">
-            <template v-if="item.children">
-               <u-accordion
-                  :items="[item]"
-                  :variant="item.children.find(child => child.to === useRoute().path) ? 'soft' : 'ghost'"
-                  :color="item.children.find(child => child.to === useRoute().path) ? 'primary' : 'gray'"
-                  :icon="item.icon"
-                  size="md"
-               >
-                  <template #item="{ item }">
-                     <div class="ms-6 grid gap-1">
-                        <u-button
-                           v-for="child in item.children"
-                           :key="child.to"
-                           :variant="useRoute().path === child.to ? 'soft' : 'ghost'"
-                           :color="useRoute().path === child.to ? 'primary' : 'gray'"
-                           :to="child.to"
-                           size="md"
-                           @click="store.slideover = !store.slideover"
-                        >
-                           {{ child.label }}
-                        </u-button>
-                     </div>
-                  </template>
-               </u-accordion>
-            </template>
-      
-            <template v-else>
-               <u-button
-                  :variant="useRoute().path === item.to ? 'soft' : 'ghost'"
-                  :color="useRoute().path === item.to ? 'primary' : 'gray'"
-                  :to="item.to"
-                  :icon="item.icon"
-                  size="md"
-                  @click="store.slideover = !store.slideover"
-               >
-                  {{ item.label }}
-               </u-button>
-            </template>
-         </template>
-      </template>
-   </div>
+   <lazy-app-sidebar
+      @toggle-slideover="toggleSlideover"
+   ></lazy-app-sidebar>
 </u-card>
 </template>
 
@@ -117,18 +76,7 @@ const menu : ComputedRef <Utility.HeaderMenu[][]> = computed(() => [
    ]
 ])
 
-const routes : ComputedRef <Utility.Router[]> = computed(() => useRoutes)
-const role : ComputedRef <string> = computed(() => authStore.getRole)
-
-const includeRoles = (route: Utility.Router) : boolean => {
-   if (route.roles !== 'none'
-      && (
-         route.roles?.includes(role.value)
-         || role.value === 'superAdmin'
-         || role.value === 'Admin Faskes'
-         || route.roles === '*'
-      )
-   ) return true
-   else return false
+const toggleSlideover = () => {
+   if (store.slideover) store.slideover = false
 }
 </script>

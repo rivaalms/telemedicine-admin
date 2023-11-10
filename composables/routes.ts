@@ -1,3 +1,11 @@
+export const ROLES = {
+   SUPERADMIN: 'superAdmin',
+   FACILITY: 'Admin Faskes',
+   FINANCE: 'Admin Keuangan',
+   TOPUP: 'Admin Top Up',
+   EMERGENCY: 'Admin Emergency'
+}
+
 export const useRoutes : Utility.Router[] = [
    {
       label: 'Beranda',
@@ -10,49 +18,50 @@ export const useRoutes : Utility.Router[] = [
       label: 'Dashboard',
       to: '/dashboard',
       icon: 'i-heroicons-rectangle-group',
-      roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+      roles: [ ROLES.FACILITY, ROLES.FINANCE ]
    },
    {
       label: 'Emergency',
       to: '/emergency',
       children: null,
       icon: 'i-heroicons-exclamation-triangle',
-      roles: [ 'Admin Faskes', 'Admin Emergency' ]
+      roles: [ ROLES.FACILITY, ROLES.EMERGENCY ]
    },
    {
       label: 'Reservasi Konsultasi',
       to: '/reservation-consultation',
       icon: 'i-heroicons-calendar',
-      roles: [ 'Admin Faskes' ]
+      roles: [ ROLES.FACILITY ]
    },
    {
       label: 'Users',
       icon: 'i-heroicons-users',
+      roles: [ ROLES.FACILITY, ROLES.FINANCE, ROLES.TOPUP ],
       children: [
          {
             label: 'Dokter',
             to: '/users/doctors/list',
-            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
          },
          {
             label: 'Pasien',
             to: '/users/patient',
-            roles: [ 'Admin Faskes', 'Admin Top Up' ]
+            roles: [ ROLES.FACILITY, ROLES.TOPUP ]
          },
          {
             label: 'Perawat',
             to: '/users/nurse',
-            roles: [ 'Admin Faskes' ]
+            roles: [ ROLES.FACILITY ]
          },
          {
             label: 'Officer',
             to: '/users/officers',
-            roles: [ 'Admin Faskes' ]
+            roles: [ ROLES.FACILITY ]
          },
          {
             label: 'Admin',
             to: '/users/admin',
-            roles: [ 'Admin Faskes' ]
+            roles: [ ROLES.FACILITY ]
          }
       ]
    },
@@ -60,32 +69,33 @@ export const useRoutes : Utility.Router[] = [
       label: 'Fasilitas Kesehatan',
       to: '/medical-facilities',
       icon: 'i-heroicons-building-office-2',
-      roles: [ 'superAdmin' ]
+      roles: [ ROLES.SUPERADMIN ]
    },
    {
       label: 'Ambulance',
       to: '/ambulance',
       icon: 'i-heroicons-truck',
-      roles: [ 'Admin Faskes' ]
+      roles: [ ROLES.FACILITY ]
    },
    {
       label: 'Data Master',
       icon: 'i-heroicons-adjustments-horizontal',
+      roles: [ ROLES.FACILITY, ROLES.FINANCE ],
       children: [
          {
             label: 'Spesialis Dokter',
             to: '/masters/doctors-specialists',
-            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
          },
          {
             label: 'Data Iklan',
             to: '/masters/advertisements',
-            roles: [ 'Admin Faskes' ]
+            roles: [ ROLES.FACILITY ]
          },
          {
             label: 'Voucher',
             to: '/masters/vouchers',
-            roles: [ 'Admin Faskes' ]
+            roles: [ ROLES.FACILITY ]
          }
       ]
    },
@@ -93,7 +103,7 @@ export const useRoutes : Utility.Router[] = [
       label: 'Broadcast',
       to: '/broadcast',
       icon: 'i-heroicons-rss',
-      roles: [ 'Admin Faskes' ]
+      roles: [ ROLES.FACILITY ]
    },
    {
       label: 'Jadwal Dokter',
@@ -105,63 +115,65 @@ export const useRoutes : Utility.Router[] = [
       label: 'Settings',
       to: '/settings',
       icon: 'i-heroicons-cog-6-tooth',
-      roles: [ 'Admin Faskes' ]
+      roles: [ ROLES.FACILITY ]
    },
    {
       label: 'Template Chat',
       to: '/template-chats',
       icon: 'i-heroicons-chat-bubble-left-ellipsis',
-      roles: [ 'Admin Faskes' ]
+      roles: [ ROLES.FACILITY ]
    },
    {
       label: 'Logs Report',
       icon: 'i-heroicons-clipboard-document-list',
+      roles: [ ROLES.FACILITY ],
       children: [
          {
             label: 'Aktivitas User',
             to: '/log-reports/user-activities',
-            roles: [ 'Admin Faskes' ]
+            roles: [ ROLES.FACILITY ]
          },
          {
             label: 'Konsultasi',
             to: '/log-reports/consultations',
-            roles: [ 'Admin Faskes' ]
+            roles: [ ROLES.FACILITY ]
          },
          {
             label: 'Emergency',
             to: '/log-reports/emergency',
-            roles: [ 'Admin Faskes' ]
+            roles: [ ROLES.FACILITY ]
          }
       ]
    },
    {
       label: 'Laporan',
       icon: 'i-heroicons-clipboard',
+      roles: [ ROLES.FACILITY, ROLES.FINANCE ],
       children: [
          {
             label: 'Laporan Konsultasi',
             to: '/reports/consultations',
-            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
          },
          {
             label: 'Laporan Pembelian Obat',
             to: '/reports/medicines',
-            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
          },
          {
             label: 'Laporan Emergency',
             to: '/reports/emergency',
-            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
          },
          {
             label: 'Laporan Driver Emergency',
             to: '/reports/emergency-officers',
-            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
          },
          {
             label: 'Laporan Dokter Emergency',
             to: '/reports/emergency-doctors',
-            roles: [ 'Admin Faskes', 'Admin Keuangan' ]
+            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
          }
       ]
    }

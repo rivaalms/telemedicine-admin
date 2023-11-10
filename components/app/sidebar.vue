@@ -10,17 +10,21 @@
                :icon="item.icon"
             >
                <template #item="{ item }">
-                  <div class="ms-6 grid gap-1">
-                     <u-button
-                        v-for="child in item.children"
-                        :key="child.to"
-                        :variant="useRoute().path === child.to ? 'soft' : 'ghost'"
-                        :color="useRoute().path === child.to ? 'primary' : 'gray'"
-                        :to="child.to"
-                     >
-                        {{ child.label }}
-                     </u-button>
-                  </div>
+                  <template v-for="child in item.children">
+                     <template v-if="includeRoles(child)">
+                        <div class="ms-6 grid gap-1">
+                           <u-button
+                              :key="child.to"
+                              :variant="useRoute().path === child.to ? 'soft' : 'ghost'"
+                              :color="useRoute().path === child.to ? 'primary' : 'gray'"
+                              :to="child.to"
+                              @click="emit('toggle-slideover')"
+                           >
+                              {{ child.label }}
+                           </u-button>
+                        </div>
+                     </template>
+                  </template>
                </template>
             </u-accordion>
          </template>
@@ -31,6 +35,7 @@
                :color="useRoute().path === item.to ? 'primary' : 'gray'"
                :to="item.to"
                :icon="item.icon"
+               @click="emit('toggle-slideover')"
             >
                {{ item.label }}
             </u-button>
@@ -45,12 +50,13 @@ const authStore = useAuthStore()
 const routes : ComputedRef <Utility.Router[]> = computed(() => useRoutes)
 const role : ComputedRef <string> = computed(() => authStore.getRole)
 
+const emit = defineEmits(['toggle-slideover'])
+
 const includeRoles = (route: Utility.Router) : boolean => {
    if (route.roles !== 'none'
       && (
          route.roles?.includes(role.value)
          || role.value === 'superAdmin'
-         || role.value === 'Admin Faskes'
          || route.roles === '*'
       )
    ) return true
