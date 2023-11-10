@@ -36,7 +36,7 @@
                         Role
                      </p>
                      <p class="tracking-wide">
-                        {{ user.role?.name }}
+                        {{ user.role?.name || 'superAdmin' }}
                      </p>
                   </div>
                </div>
