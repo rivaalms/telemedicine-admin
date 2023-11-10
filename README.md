@@ -53,6 +53,10 @@ yarn preview
 
 Packages yang digunakan untuk menunjang aplikasi:
 
+- [@fawmi/vue-google-maps](https://vue-map.netlify.app/) `v0.9.72`
+
+- [@nuxt/image](https://image.nuxt.com) `v1.0.0`
+
 - [@nuxt/ui](https://ui.nuxt.com) `v2.9.0`
 
 - [@pinia-plugin-persistedstate/nuxt](https://prazdevs.github.io/pinia-plugin-persistedstate/guide/) `v1.1.2`
@@ -86,8 +90,6 @@ Packages yang digunakan untuk menunjang aplikasi:
 - [vue-cropperjs](https://github.com/Agontuk/vue-cropperjs) `v5.0.0`
 
 - [vue3-apexcharts](https://apexcharts.com/docs/vue-charts/) `v1.4.4`
-
-- [vue3-google-map](https://www.npmjs.com/package/vue3-google-map) `v0.18.0`
 
 - [vue3-otp-input](https://github.com/ejirocodes/vue3-otp-input) `v0.4.1`
 
