@@ -10,6 +10,7 @@ declare namespace Model {
       profile_picture?: string | null
       ref_type?: string | null
       pin?: boolean
+      faskes_id?: string | null 
       medical_facility?: any
       role?: Utils.Role | null
    }

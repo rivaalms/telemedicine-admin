@@ -146,12 +146,12 @@
             v-model="(state.province_id as number)"
             :options="provinceOptions"
             value-attribute="id"
-            option-attribute="province_name"
+            option-attribute="name"
             :disabled="props.disabled || loading"
             @update:model-value="onProvinceChange"
          >
             <template #label>
-               {{ provinceOptions.find(item => item.id === state.province_id)?.province_name || 'Pilih Provinsi...' }}
+               {{ provinceOptions.find(item => item.id === state.province_id)?.name || 'Pilih Provinsi...' }}
             </template>
          </u-select-menu>
       </u-form-group>
@@ -166,10 +166,10 @@
             :options="regencyOptions"
             :disabled="props.disabled || loading"
             value-attribute="id"
-            option-attribute="regency_name"
+            option-attribute="name"
          >
             <template #label>
-               {{ regencyOptions.find(item => item.id === state.regency_id)?.regency_name || 'Pilih Kab/Kota...' }}
+               {{ regencyOptions.find(item => item.id === state.regency_id)?.name || 'Pilih Kab/Kota...' }}
             </template>
          </u-select-menu>
       </u-form-group>

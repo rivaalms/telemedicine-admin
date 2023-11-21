@@ -12,7 +12,8 @@ export default defineNuxtPlugin((nuxtApp) => {
             const headers = {
                ...options.headers,
                'Authorization': `Bearer ${authStore.getUser!['AUTH-TOKEN']}`,
-               'Accept': 'application/json'
+               'Accept': 'application/json',
+               'faskes-id': authStore.getFaskesId || ''
             }
             options.headers = headers
          }
@@ -30,7 +31,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
 
       async onResponseError({ response }: any) {
-         if (response.status == 401) {
+         console.log(response)
+         if (response.status == 401 && response._data.messages === 'Unauthenticated.') {
             authStore.$reset()
             if (localStorage.getItem('user')) localStorage.removeItem('user')
             navigateTo('/login')

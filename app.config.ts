@@ -1,6 +1,7 @@
 export default defineAppConfig({
    ui: {
-		primary: 'froly',
+		primary: 'cobalt',
+      secondary: 'persian-green',
       gray: 'zinc',
 
       notifications: {

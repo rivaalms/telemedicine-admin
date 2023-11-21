@@ -47,6 +47,7 @@ const dialogComponentMap : { [key: string]: () => Promise <any> } = {
    'edit-medical-facility-doctor': () => import('@/components/dialog/doctor/medical-facility.vue'),
    'add-schedule-doctor': () => import('@/components/dialog/doctor/schedules.vue'),
    'edit-schedule-doctor': () => import('@/components/dialog/doctor/schedules.vue'),
+   'delete-schedule-doctor': () => import('@/components/dialog/delete.vue'),
 
    'add-officer': () => import('@/components/dialog/officer/form.vue'),
    'add-admin': () => import('@/components/dialog/admin/form.vue'),

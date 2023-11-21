@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { deleteDoctorSpecialist, deleteDoctorEducation, deleteDoctorMedicalFacility } from '@/utils/api/doctors'
+import { deleteDoctorSpecialist, deleteDoctorEducation, deleteDoctorMedicalFacility, deleteDoctorSchedule } from '@/utils/api/doctors'
 import { deleteAmbulance } from '@/utils/api/ambulance'
 import { deleteSpecialist, deleteAdvertisement, deleteVoucher } from '@/utils/api/masters'
 import { deleteMedicalFacility } from '@/utils/api/medical-facilities'
@@ -70,6 +70,10 @@ const confirmDelete = async () : Promise <void> => {
          case 'delete-medical-facility':
             await deleteMedicalFacility(data.id!)
             messageType = 'fasilitas kesehatan'
+            break
+         case 'delete-schedule-doctor':
+            await deleteDoctorSchedule(data.id!)
+            messageType = 'jadwal praktek dokter'
             break
          default:
             break

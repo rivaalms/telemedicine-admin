@@ -95,7 +95,7 @@ const amountChartOptions : ComputedRef <{ [key: string]: unknown }> = computed((
          id: 'amountChart',
          type: 'area',
       },
-      colors: ['#f08080'],
+      colors: ['#00a79d'],
       dataLabels: {
          enabled: true,
          offsetY: -8,
@@ -154,7 +154,7 @@ const summaryChartOptions : ComputedRef <{ [key: string]: unknown }> = computed(
          id: 'summaryChart',
          type: 'area',
       },
-      colors: ['#f08080'],
+      colors: ['#00a79d'],
       dataLabels: {
          enabled: true,
          offsetY: -8,

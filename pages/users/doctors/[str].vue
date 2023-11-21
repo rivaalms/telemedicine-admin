@@ -70,7 +70,7 @@
             Data Pribadi
          </p>
 
-         <div class="flex justify-end items-center gap-4">
+         <!-- <div class="flex justify-end items-center gap-4">
             <p class="text-xs text-gray-500">
                Klik tombol
             </p>
@@ -83,7 +83,7 @@
                   @click.stop="store.showDialog('edit-personal-data-doctor', 'Sunting Data Pribadi', profile, async () => await fetchDoctor())"
                ></u-button>
             </u-tooltip>
-         </div>
+         </div> -->
       </div>
       <div class="py-2 grid md:grid-cols-2 gap-4 text-sm mb-0 lg:mb-4">
          <div class="">
@@ -155,7 +155,7 @@
                   Spesialis
                </p>
 
-               <div class="flex justify-end items-center gap-4">
+               <!-- <div class="flex justify-end items-center gap-4">
                   <p class="text-xs text-gray-500">
                      Klik tombol
                   </p>
@@ -168,7 +168,7 @@
                         @click.stop="store.showDialog('add-specialist-doctor', 'Tambah Spesialis Dokter', profile, async () => await fetchDoctor())"
                      ></u-button>
                   </u-tooltip>
-               </div>
+               </div> -->
             </div>
             <div
                v-for="item in specialist"
@@ -180,7 +180,7 @@
                      {{ item.specialist }}
                   </p>
 
-                  <div class="flex gap-y-4">
+                  <!-- <div class="flex gap-y-4">
                      <u-tooltip text="Sunting spesialis">
                         <u-button
                            variant="ghost"
@@ -200,7 +200,7 @@
                            @click.stop="store.showDialog('delete-specialist-doctor', 'Hapus Spesialis Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
-                  </div>
+                  </div> -->
                </div>
                <p class="text-gray-500">Rate: {{ useFormatCurrency(item.rate!) }}</p>
             </div>
@@ -213,7 +213,7 @@
                   Riwayat Pendidikan
                </p>
 
-               <div class="flex justify-end items-center gap-4">
+               <!-- <div class="flex justify-end items-center gap-4">
                   <p class="text-xs text-gray-500">
                      Klik tombol
                   </p>
@@ -226,7 +226,7 @@
                         @click.stop="store.showDialog('add-education-doctor', 'Tambah Riwayat Pendidikan Dokter', profile, async () => await fetchDoctor())"
                      ></u-button>
                   </u-tooltip>
-               </div>
+               </div> -->
             </div>
             <div
                v-for="item in educations"
@@ -238,7 +238,7 @@
                      {{ item.education }}
                   </p>
 
-                  <div class="flex gap-y-4">
+                  <!-- <div class="flex gap-y-4">
                      <u-tooltip text="Sunting riwayat pendidikan">
                         <u-button
                            variant="ghost"
@@ -258,7 +258,7 @@
                            @click.stop="store.showDialog('delete-education-doctor', 'Hapus Riwayat Pendidikan Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
-                  </div>
+                  </div> -->
                </div>
                <p class="text-gray-500">
                   Tahun Kelulusan: {{ item.graduation_year }}
@@ -273,7 +273,7 @@
                   Tempat Praktek
                </p>
 
-               <div class="flex justify-end items-center gap-4">
+               <!-- <div class="flex justify-end items-center gap-4">
                   <p class="text-xs text-gray-500">
                      Klik tombol
                   </p>
@@ -286,7 +286,7 @@
                         @click.stop="store.showDialog('add-medical-facility-doctor', 'Tambah Tempat Praktek Dokter', profile, async () => await fetchDoctor())"
                      ></u-button>
                   </u-tooltip>
-               </div>
+               </div> -->
             </div>
             <div
                v-for="item in medicalFacility"
@@ -298,7 +298,7 @@
                      {{ item.name }}
                   </p>
 
-                  <div class="flex gap-y-4">
+                  <!-- <div class="flex gap-y-4">
                      <u-tooltip text="Sunting tempat praktek">
                         <u-button
                            variant="ghost"
@@ -318,7 +318,7 @@
                            @click.stop="store.showDialog('delete-medical-facility-doctor', 'Hapus Tempat Praktek Dokter', item, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
-                  </div>
+                  </div> -->
                </div>
                <p class="text-gray-500">
                   {{ item.province_name }}, {{ item.regency_name }}
@@ -343,7 +343,6 @@
                         color="sky"
                         icon="i-heroicons-plus"
                         size="xs"
-                        :disabled="schedule?.length! > 6"
                         @click.stop="store.showDialog('add-schedule-doctor', 'Tambah Jadwal Praktek Dokter', { doctor: profile, schedule }, async () => await fetchDoctor())"
                      ></u-button>
                   </u-tooltip>
@@ -360,7 +359,7 @@
                </template>
 
                <template #actions-data="{ row }">
-                  <div class="flex gap-4">
+                  <div class="flex justify-end gap-4">
                      <u-tooltip text="Sunting jadwal praktek">
                         <u-button
                            variant="ghost"
@@ -368,6 +367,16 @@
                            icon="i-heroicons-pencil-square"
                            size="xs"
                            @click.stop="store.showDialog('edit-schedule-doctor', 'Sunting Jadwal Praktek Dokter', { doctor: profile, schedule: row }, async () => await fetchDoctor())"
+                        ></u-button>
+                     </u-tooltip>
+
+                     <u-tooltip text="Hapus jadwal praktek">
+                        <u-button
+                           variant="ghost"
+                           color="red"
+                           icon="i-heroicons-trash"
+                           size="xs"
+                           @click.stop="store.showDialog('delete-schedule-doctor', 'Hapus Jadwal Praktek Dokter', row, async () => await fetchDoctor())"
                         ></u-button>
                      </u-tooltip>
                   </div>

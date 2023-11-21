@@ -3,7 +3,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
    // Define routes that doesn't need authentication validation
    const excludedRoutes = [
       '/login',
-      '/forgot-password'
+      '/forgot-password',
+      '/email/verify',
    ]
 
    // If the user visits any route except excluded ones AND the user hasn't logged in, redirects user to login page

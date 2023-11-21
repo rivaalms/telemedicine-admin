@@ -17,6 +17,7 @@ export const useAuthStore = defineStore('auth', {
    getters: {
       getUser: (state) : Model.Auth | null => state.user,
       isLoggedIn: (state) : boolean => !!state.user,
+      getFaskesId: (state) : string | null => state.user?.faskes_id || null,
       getRole: (state) : string => {
          if (state.user?.ref_type === "App\\Model\\MedicalFacility" && state.user?.role) return state.user.role.name!
          return 'superAdmin'

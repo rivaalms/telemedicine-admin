@@ -1,8 +1,8 @@
 <template>
 <main class="h-screen">
    <div class="grid lg:grid-cols-3 2xl:grid-cols-4 gap-4 h-full">
-      <div class="bg-gradient-to-br from-primary-300 to-primary-500 px-4 py-12 flex flex-col items-center">
-         <img src="/img/telemedicine.png" alt="telemedicine" class="">
+      <div class="bg-gradient-to-br from-primary-600 to-primary-800 px-4 py-12 flex flex-col items-center">
+         <img src="/img/HealthID-inline-white.png" alt="telemedicine" class="p-8">
 
          <div class="text-white self-stretch px-6">
             <p class="text-center text-sm mb-4">

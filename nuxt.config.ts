@@ -4,7 +4,7 @@ export default defineNuxtConfig({
 
   app: {
 		head: {
-			titleTemplate: "%s | Telemedicine Admin",
+			titleTemplate: "%s | DHI Admin",
 			htmlAttrs: {
 				lang: "id",
 			},
@@ -52,7 +52,8 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxt/ui',
     '@vueuse/nuxt',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@nuxtjs/robots'
   ],
 
   imports: {
@@ -87,6 +88,13 @@ export default defineNuxtConfig({
 
   colorMode: {
     preference: 'light'
+  },
+
+  robots: {
+    rules: {
+      UserAgent: '*',
+      Disallow: '/root'
+    }
   },
 
   vite: {

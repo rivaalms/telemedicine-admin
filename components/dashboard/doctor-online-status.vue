@@ -6,7 +6,7 @@
       </div>
    </template>
 
-   <div class="overflow-y-auto h-[381px] divide-y">
+   <div class="overflow-y-auto h-[400.7px] divide-y">
       <div
          v-for="item in data"
          class="flex justify-between items-center gap-4 p-4"
@@ -36,7 +36,7 @@
                </svg>
             </u-tooltip>
 
-            <u-tooltip text="Emergency">
+            <!-- <u-tooltip text="Emergency">
                <svg
                   :class="onlineIndicatorColor(item.emergency)"
                   width="16"
@@ -47,7 +47,7 @@
                >
                   <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"></path>
                </svg>
-            </u-tooltip>
+            </u-tooltip> -->
          </div>
       </div>
    </div>
@@ -61,7 +61,7 @@ type DoctorAvailability = {
    name: string
    profile_picture: string
    consultation: number
-   emergency: number
+   // emergency: number
 }
 
 const data : Ref <DoctorAvailability[]> = ref([])
@@ -80,13 +80,14 @@ const fetchDoctorOnlineStatus = async () : Promise <void> => {
                consultation: item.status_available === 'Busy' ? 2
                   : item.status_available === 'Online' ? 1
                   : 0,
-               emergency: item.status_emergency_available === 'Busy' ? 2
-                  : item.status_emergency_available === 'Online' ? 1
-                  : 0
+               // emergency: item.status_emergency_available === 'Busy' ? 2
+               //    : item.status_emergency_available === 'Online' ? 1
+               //    : 0
             })
          })
 
-         data.value.sort((a, b) => (b.consultation + b.emergency) - (a.consultation - a.emergency))
+         // data.value.sort((a, b) => (b.consultation + b.emergency) - (a.consultation - a.emergency))
+         data.value.sort((a, b) => b.consultation - a.consultation)
       })
 }
 

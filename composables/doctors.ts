@@ -13,8 +13,7 @@ export const useDoctorSchedulesTableHeader : Utility.TableHeader[] = [
    { key: 'day', label: 'Hari' },
    { key: 'start_time', label: 'Jam Mulai' },
    { key: 'end_time', label: 'Jam Berakhir' },
-   { key: 'kuota', label: 'Kuota' },
-      { key: 'actions', label: 'Aksi', class: 'flex justify-end items-center' }
+   { key: 'actions', label: 'Aksi', class: 'flex justify-end items-center' }
 
 ]
 

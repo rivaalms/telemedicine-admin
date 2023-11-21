@@ -20,7 +20,7 @@ export const useAppStore = defineStore('app', {
    persist: true,
 
    state: () : Store.State.App => ({
-      appName: 'RSJP Paramarta',
+      appName: 'Health ID',
       title: '',
       dialog: {
          show: false,

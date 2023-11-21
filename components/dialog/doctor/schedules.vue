@@ -67,7 +67,7 @@
          </vue-date-picker>
       </u-form-group>
 
-      <u-form-group
+      <!-- <u-form-group
          label="Kuota"
          name="kuota"
          required
@@ -76,7 +76,7 @@
          <u-input
             v-model="(state.kuota as string)"
          ></u-input>
-      </u-form-group>
+      </u-form-group> -->
    </div>
 
    <div class="flex justify-end gap-2 mt-6">
@@ -113,14 +113,14 @@ namespace Form {
       day: string | null
       start_time: string | null
       end_time: string | null
-      kuota: string | null
+      // kuota: string | null
    }
 
    export type Schema = yup.ObjectSchema <{
       day: string
       start_time: string
       end_time: string
-      kuota: string
+      // kuota: string
    }>
 }
 
@@ -132,14 +132,14 @@ const state : Ref <Form.State> = ref({
    day: isEdit.value ? store.dialog.data.schedule.day : null,
    start_time: isEdit.value ? store.dialog.data.schedule.start_time : null,
    end_time: isEdit.value ? store.dialog.data.schedule.end_time : null,
-   kuota: isEdit.value ? store.dialog.data.schedule.kuota : null
+   // kuota: isEdit.value ? store.dialog.data.schedule.kuota : null
 })
 
 const validationSchema : Form.Schema = yup.object({
    day: yup.string().required('Hari harus diisi'),
    start_time: yup.string().required('Jam mulai harus diisi'),
    end_time: yup.string().required('Jam berakhir harus diisi'),
-   kuota: yup.string().required('Kuota harus diisi')
+   // kuota: yup.string().required('Kuota harus diisi')
 })
 
 const dayOptions : Ref <{ value: string, label: string }[]> = ref([
@@ -152,12 +152,12 @@ const dayOptions : Ref <{ value: string, label: string }[]> = ref([
       { value: '6', label: 'Sabtu' },
    ])
 
-onBeforeMount(() : void => {
-   if (!isEdit.value) {
-      const mapSchedule = store.dialog.data.schedule?.map((item: any) => item.day)
-      dayOptions.value = dayOptions.value.filter((item: any) => !mapSchedule.includes(item.value))
-   }
-})
+// onBeforeMount(() : void => {
+//    if (!isEdit.value) {
+//       const mapSchedule = store.dialog.data.schedule?.map((item: any) => item.day)
+//       dayOptions.value = dayOptions.value.filter((item: any) => !mapSchedule.includes(item.value))
+//    }
+// })
 
 const submit = async () : Promise <void> => {
    loading.value = true

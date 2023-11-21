@@ -86,3 +86,20 @@ export async function resendOTP (phoneNumber: string) : Promise <Model.User> {
    })
    return response.data!
 }
+
+export async function activateAccount (uuid: string, password: string) {
+   const response = await $fetch <API.Response<unknown>> (`/auth/activation/${uuid}`, {
+      method: 'POST',
+      body: {
+         password
+      }
+   })
+   return response
+}
+
+export async function checkAccountActivation (endpoint: string) {
+   const response = await $fetch <API.Response<unknown>> (`/auth/verification/${endpoint}`, {
+      method: 'GET'
+   })
+   return response
+}

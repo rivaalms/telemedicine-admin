@@ -1,8 +1,9 @@
 <template>
    <header class="border-b-[1px]">
       <div class="mx-4 py-2 flex justify-between items-center">
-         <nuxt-link to="/" class="py-2">
-            {{ store.getAppName }}
+         <nuxt-link to="/" class="">
+            <!-- {{ store.getAppName }} -->
+            <img src="/img/HealthID-inline.png" alt="" class="h-8">
          </nuxt-link>
 
          <div class="flex items-center gap-4">

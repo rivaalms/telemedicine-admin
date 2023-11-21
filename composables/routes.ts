@@ -25,13 +25,13 @@ export const useRoutes : Utility.Router[] = [
       to: '/emergency',
       children: null,
       icon: 'i-heroicons-exclamation-triangle',
-      roles: [ ROLES.FACILITY, ROLES.EMERGENCY ]
+      roles: 'none'
    },
    {
       label: 'Reservasi Konsultasi',
       to: '/reservation-consultation',
       icon: 'i-heroicons-calendar',
-      roles: [ ROLES.FACILITY ]
+      roles: 'none'
    },
    {
       label: 'Users',
@@ -46,17 +46,17 @@ export const useRoutes : Utility.Router[] = [
          {
             label: 'Pasien',
             to: '/users/patient',
-            roles: [ ROLES.FACILITY, ROLES.TOPUP ]
+            roles: 'none'
          },
          {
             label: 'Perawat',
             to: '/users/nurse',
-            roles: [ ROLES.FACILITY ]
+            roles: 'none'
          },
          {
             label: 'Officer',
             to: '/users/officers',
-            roles: [ ROLES.FACILITY ]
+            roles: 'none'
          },
          {
             label: 'Admin',
@@ -69,18 +69,18 @@ export const useRoutes : Utility.Router[] = [
       label: 'Fasilitas Kesehatan',
       to: '/medical-facilities',
       icon: 'i-heroicons-building-office-2',
-      roles: [ ROLES.SUPERADMIN ]
+      roles: 'none'
    },
    {
       label: 'Ambulance',
       to: '/ambulance',
       icon: 'i-heroicons-truck',
-      roles: [ ROLES.FACILITY ]
+      roles: 'none'
    },
    {
       label: 'Data Master',
       icon: 'i-heroicons-adjustments-horizontal',
-      roles: [ ROLES.FACILITY, ROLES.FINANCE ],
+      roles: 'none',
       children: [
          {
             label: 'Spesialis Dokter',
@@ -103,7 +103,7 @@ export const useRoutes : Utility.Router[] = [
       label: 'Broadcast',
       to: '/broadcast',
       icon: 'i-heroicons-rss',
-      roles: [ ROLES.FACILITY ]
+      roles: 'none'
    },
    {
       label: 'Jadwal Dokter',
@@ -115,7 +115,7 @@ export const useRoutes : Utility.Router[] = [
       label: 'Settings',
       to: '/settings',
       icon: 'i-heroicons-cog-6-tooth',
-      roles: [ ROLES.FACILITY ]
+      roles: 'none'
    },
    {
       label: 'Template Chat',
@@ -141,7 +141,7 @@ export const useRoutes : Utility.Router[] = [
          {
             label: 'Emergency',
             to: '/log-reports/emergency',
-            roles: [ ROLES.FACILITY ]
+            roles: 'none'
          }
       ]
    },
@@ -158,22 +158,22 @@ export const useRoutes : Utility.Router[] = [
          {
             label: 'Laporan Pembelian Obat',
             to: '/reports/medicines',
-            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
+            roles: 'none'
          },
          {
             label: 'Laporan Emergency',
             to: '/reports/emergency',
-            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
+            roles: 'none'
          },
          {
             label: 'Laporan Driver Emergency',
             to: '/reports/emergency-officers',
-            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
+            roles: 'none'
          },
          {
             label: 'Laporan Dokter Emergency',
             to: '/reports/emergency-doctors',
-            roles: [ ROLES.FACILITY, ROLES.FINANCE ]
+            roles: 'none'
          }
       ]
    }

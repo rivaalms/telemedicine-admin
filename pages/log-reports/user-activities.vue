@@ -42,7 +42,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from 'moment'
 const store = useAppStore()
 store.title = 'Logs Report: Aktivitas User'
 useHead({ title: store.getTitle })
@@ -73,9 +72,12 @@ onUnmounted(async () => {
 
 const fetchUserActivity = async () => {
    loading.value = true
+   const faskesId = parseInt(atob(useAuthStore().getFaskesId as string))
+
    const query = new Parse.Query(userActivity)
    query.equalTo('user_type', "App\\Model\\Doctor")
    query.descending("updatedAt")
+   query.equalTo('medical_facility_id', faskesId)
    query.contains(filterOptionsValue.value, filter.value.toString())
    query.limit(perPage.value)
    query.skip((page.value - 1) * perPage.value)

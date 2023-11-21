@@ -7,17 +7,17 @@
       <lazy-dashboard-transaction-income></lazy-dashboard-transaction-income>
    </div>
 
-   <div ref="emergency" class="col-span-2 xl:col-span-1">
+   <!-- <div ref="emergency" class="col-span-2 xl:col-span-1">
       <lazy-dashboard-emergency></lazy-dashboard-emergency>
-   </div>
+   </div> -->
 
    <div ref="doctorOnlineStatus" class="col-span-2 xl:col-span-1">
       <lazy-dashboard-doctor-online-status></lazy-dashboard-doctor-online-status>
    </div>
 
-   <div ref="ambulances" class="col-span-2 xl:col-span-1">
+   <!-- <div ref="ambulances" class="col-span-2 xl:col-span-1">
       <lazy-dashboard-ambulances :render="render.ambulances"></lazy-dashboard-ambulances>
-   </div>
+   </div> -->
 
    <div ref="patients" class="col-span-2 xl:col-span-1">
       <lazy-dashboard-patients :render="render.patients"></lazy-dashboard-patients>
@@ -51,9 +51,9 @@ store.title = 'Dashboard'
 useHead({ title: store.getTitle })
 
 const transactionIncome : Ref <HTMLElement | undefined> = ref()
-const emergency : Ref <HTMLElement | undefined> = ref()
+// const emergency : Ref <HTMLElement | undefined> = ref()
 const doctorOnlineStatus : Ref <HTMLElement | undefined> = ref()
-const ambulances : Ref <HTMLElement | undefined> = ref()
+// const ambulances : Ref <HTMLElement | undefined> = ref()
 const patients : Ref <HTMLElement | undefined> = ref()
 const consultations : Ref <HTMLElement | undefined> = ref()
 
@@ -72,11 +72,11 @@ const unwatch = watch(scrollY, () => {
 })
 
 const onScroll = () : void => {
-   const topAmbulances = ambulances.value!.getBoundingClientRect().top
+   // const topAmbulances = ambulances.value!.getBoundingClientRect().top
    const topPatients = patients.value!.getBoundingClientRect().top
    const topConsultations = consultations.value!.getBoundingClientRect().top
 
-   if (topAmbulances - window.innerHeight < 0 && !render.value.ambulances) render.value.ambulances = true
+   // if (topAmbulances - window.innerHeight < 0 && !render.value.ambulances) render.value.ambulances = true
 
    if (topPatients - window.innerHeight < 0 && !render.value.patients) render.value.patients = true
 

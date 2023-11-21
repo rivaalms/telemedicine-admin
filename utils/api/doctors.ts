@@ -120,6 +120,13 @@ export async function updateDoctorSchedule (scheduleId: number, payload: API.Req
    return response.data!
 }
 
+export async function deleteDoctorSchedule (scheduleId: number) : Promise <boolean> {
+   await $fetch <API.Response <null>> (`/doctor-schedules/${scheduleId}`, {
+      method: 'DELETE'
+   })
+   return true
+}
+
 export async function addDoctorImage (uuid: string, image: Blob) : Promise <Model.Doctor> {
    const payload = new FormData()
    payload.append('image', image)
